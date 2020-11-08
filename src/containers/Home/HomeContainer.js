@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, View } from 'react-native';
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
+import ButtonAdd from '../../components/ButtonAdd';
 import Calender from '../../screens/Home/Customs/Calender';
 import HomeScreen from '../../screens/Home/HomeScreen';
 
@@ -11,6 +12,7 @@ function HomeContainer(props) {
             <Header />
             <Calender />
             <HomeScreen {...props} />
+            <ButtonAdd />
         </SafeAreaView>
     );
 }

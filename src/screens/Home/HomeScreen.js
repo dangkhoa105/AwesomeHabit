@@ -2,11 +2,10 @@ import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import { Sizes } from '@dungdang/react-native-basic/index'
 import ItemPlan from './Customs/ItemPlan'
-import ButtonAdd from '../../components/ButtonAdd'
 
 const DataRatio = {
     content: "You're almost done, go ahead!",
-    ratio: '80%'
+    ratio: '80'
 }
 
 const DataPlan = [
@@ -60,12 +59,12 @@ export default function HomeScreen() {
                 {/* TITLE HEADER */}
                 <View style={styles.titleHeader}>
                     <Text style={styles.txtTitleHeader}>{DataRatio.content}</Text>
-                    <Text style={styles.txtTitleHeader}>{DataRatio.ratio}</Text>
+                    <Text style={styles.txtTitleHeader}>{DataRatio.ratio}%</Text>
                 </View>
 
                 {/* RATIO */}
                 <View style={styles.ratioHeader}>
-                    <View style={[styles.ratioInfo, { width: DataRatio.ratio }]} />
+                    <View style={[styles.ratioInfo, { width: `${DataRatio.ratio}%` }]} />
                 </View>
             </View>
 
@@ -80,8 +79,6 @@ export default function HomeScreen() {
                     }}
                 />
             </View>
-
-            <ButtonAdd />
         </View>
     )
 }
@@ -92,7 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F8FBFB',
         borderTopLeftRadius: Sizes.s60,
         borderTopRightRadius: Sizes.s60,
-        paddingHorizontal: Sizes.s45
+        paddingHorizontal: Sizes.s45,
     },
     header: {
         flex: 1,
