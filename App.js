@@ -23,11 +23,15 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { Box } from './src/components/box/Box';
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
+      <Box bg="">
+
+      </Box>
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"

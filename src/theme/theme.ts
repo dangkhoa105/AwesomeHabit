@@ -1,5 +1,5 @@
-import {createTheme} from '@shopify/restyle';
-import {colors, lightColors} from './color';
+import { createTheme } from '@shopify/restyle';
+import { colors, lightColors } from './color';
 
 const spacing = {
   0: 0,
@@ -98,3 +98,5 @@ const theme = createTheme({
 });
 
 export default theme;
+export type Theme = typeof theme
+
