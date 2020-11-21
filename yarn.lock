@@ -735,11 +735,6 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@dungdang/react-native-basic@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@dungdang/react-native-basic/-/react-native-basic-1.0.8.tgz#47ebeb2cd6016829582ed9af4ac25c9fde421158"
-  integrity sha512-hW+T9EINUxrkX05wMs77/IbItUxqQyxKPdB9k6PbMuu/DhscAE6kmyVjGgKWAdvCA58GP0bFKgDGXC5+B8yXCQ==
-
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
