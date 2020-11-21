@@ -1,2 +1,1 @@
-export * from './text/Text';
-export * from './box/Box';
+export * from './box/Box'

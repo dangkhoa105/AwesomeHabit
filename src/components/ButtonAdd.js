@@ -1,21 +1,16 @@
-import React from 'react';
-import {TouchableOpacity, StyleSheet} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { TouchableOpacity, StyleSheet } from 'react-native'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function ButtonAdd() {
   const add = () => {
-    alert('Thêm plan');
-  };
+    alert('Thêm plan')
+  }
   return (
     <TouchableOpacity style={styles.container} onPress={add}>
-      <MaterialIcons
-        name="add"
-        size={25}
-        color="#fff"
-        style={{padding: Sizes.h20}}
-      />
+      <MaterialIcons name="add" size={25} color="#fff" style={{ padding: 10 }} />
     </TouchableOpacity>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -26,4 +21,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E1B72',
     borderRadius: 30,
   },
-});
+})

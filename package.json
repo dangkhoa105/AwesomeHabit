@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@dungdang/react-native-basic": "^1.0.8",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.10.1",
     "@react-navigation/material-bottom-tabs": "^5.3.1",

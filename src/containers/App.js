@@ -1,6 +1,5 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
-import { Sizes } from '@dungdang/react-native-basic/index'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -34,8 +33,8 @@ function TAB() {
         showLabel: false,
         style: {
           backgroundColor: '#fff',
-          borderTopLeftRadius: Sizes.h40,
-          borderTopRightRadius: Sizes.h40,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
         },
         keyboardHidesTabBar: true,
       }}
@@ -51,15 +50,17 @@ const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator headerMode="none" initialRouteName="LoginContainer">
-        <Stack.Screen name="LoginContainer" component={LoginContainer} />
-        <Stack.Screen
-          options={{ cardStyle: { backgroundColor: '#F8FBFB' } }}
-          name="Tab"
-          component={TAB}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator headerMode="none" initialRouteName="LoginContainer">
+          <Stack.Screen name="LoginContainer" component={LoginContainer} />
+          <Stack.Screen
+            options={{ cardStyle: { backgroundColor: '#F8FBFB' } }}
+            name="Tab"
+            component={TAB}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AppThemeProvider>
   )
 }

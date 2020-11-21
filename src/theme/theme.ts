@@ -36,7 +36,7 @@ export const fonts = {
 const BASE_TEXT = {
   fontSize: 14,
   fontFamily: fonts.regular,
-  color: 'text-gray',
+  color: 'text-basic',
 };
 
 const theme = createTheme({
