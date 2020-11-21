@@ -1,5 +1,5 @@
-import {createTheme} from '@shopify/restyle';
-import {colors, lightColors} from './color';
+import { createTheme } from '@shopify/restyle';
+import { colors, lightColors } from './color';
 
 const spacing = {
   0: 0,
@@ -36,7 +36,7 @@ export const fonts = {
 const BASE_TEXT = {
   fontSize: 14,
   fontFamily: fonts.regular,
-  color: 'text-gray',
+  color: 'text-basic',
 };
 
 const theme = createTheme({
@@ -98,3 +98,5 @@ const theme = createTheme({
 });
 
 export default theme;
+export type Theme = typeof theme
+

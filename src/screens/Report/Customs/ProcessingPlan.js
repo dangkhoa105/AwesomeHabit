@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import ProgressCircle from 'react-native-progress-circle';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
+import ProgressCircle from 'react-native-progress-circle'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-export default function ProcessingPlan({data}) {
+export default function ProcessingPlan({ data }) {
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -14,7 +14,7 @@ export default function ProcessingPlan({data}) {
         data={data}
         contentContainerStyle={styles.contentContainer}
         keyExtractor={(item, index) => 'key' + index}
-        renderItem={({item, index}) => {
+        renderItem={({ item, index }) => {
           return (
             <View
               style={[
@@ -25,8 +25,9 @@ export default function ProcessingPlan({data}) {
                   marginHorizontal: 25,
                   borderBottomColor: '#91A7AD',
                 },
-              ]}>
-              <View style={[styles.wrapItem, {margin: 0}]}>
+              ]}
+            >
+              <View style={[styles.wrapItem, { margin: 0 }]}>
                 {/* CIRCLE BAR */}
                 <ProgressCircle
                   percent={parseInt(item.ratio)}
@@ -41,23 +42,19 @@ export default function ProcessingPlan({data}) {
                 <Text style={styles.name}>{item.name}</Text>
               </View>
 
-              <View style={[styles.wrapItem, {margin: 0}]}>
+              <View style={[styles.wrapItem, { margin: 0 }]}>
                 {/* RATIO */}
                 <Text style={styles.ratio}>{item.ratio}%</Text>
 
                 {/* ARROW */}
-                <MaterialIcons
-                  name="keyboard-arrow-right"
-                  size={16}
-                  color="#859EA4"
-                />
+                <MaterialIcons name="keyboard-arrow-right" size={16} color="#859EA4" />
               </View>
             </View>
-          );
+          )
         }}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -92,4 +89,4 @@ const styles = StyleSheet.create({
     color: '#859EA4',
     paddingRight: 16,
   },
-});
+})

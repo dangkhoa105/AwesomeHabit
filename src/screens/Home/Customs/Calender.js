@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import moment from 'moment';
+import React from 'react'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
+import moment from 'moment'
 
 // get calendar
-var calendar = [];
+var calendar = []
 for (let i = 1; i < 8; i++) {
   calendar = [
     ...calendar,
@@ -11,10 +11,10 @@ for (let i = 1; i < 8; i++) {
       date: moment().isoWeekday(i).format('DD'),
       day: moment().isoWeekday(i).format('ddd'),
     },
-  ];
+  ]
 }
 
-const curDate = moment().utc().format('DD');
+const curDate = moment().utc().format('DD')
 
 export default function Calender() {
   return (
@@ -24,17 +24,17 @@ export default function Calender() {
         keyExtractor={(item, index) => 'key' + index}
         horizontal
         showsHorizontalScrollIndicator={false}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <View
               style={[
                 styles.wrapItem,
                 {
-                  backgroundColor:
-                    curDate === item.date ? '#F1ECFF' : '#E8F1F4',
+                  backgroundColor: curDate === item.date ? '#F1ECFF' : '#E8F1F4',
                   borderWidth: curDate === item.date ? 1 : 0,
                 },
-              ]}>
+              ]}
+            >
               <Text
                 style={[
                   styles.txtItem,
@@ -44,7 +44,8 @@ export default function Calender() {
                     fontWeight: curDate === item.date ? 'bold' : 'normal',
                     color: curDate === item.date ? '#9F7EFF' : '#698790',
                   },
-                ]}>
+                ]}
+              >
                 {item.day.toUpperCase()}
               </Text>
               <Text
@@ -53,15 +54,16 @@ export default function Calender() {
                   {
                     color: curDate === item.date ? '#9F7EFF' : '#698790',
                   },
-                ]}>
+                ]}
+              >
                 {item.date}
               </Text>
             </View>
-          );
+          )
         }}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -80,4 +82,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#698790',
   },
-});
+})

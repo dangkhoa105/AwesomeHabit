@@ -1,9 +1,9 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
-import {VictoryBar} from 'victory';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import { VictoryBar } from 'victory'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-export default function CompletionRate({data}) {
+export default function CompletionRate({ data }) {
   return (
     <View style={styles.container}>
       {/* HEADER */}
@@ -21,7 +21,7 @@ export default function CompletionRate({data}) {
                 y='value'
             /> */}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
     color: '#859EA4',
     paddingRight: 16,
   },
-});
+})

@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React, { useState } from 'react'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-export default function ItemPlan({data}) {
-  const [isSelected, setIsSelected] = useState(data.isSelected);
+export default function ItemPlan({ data }) {
+  const [isSelected, setIsSelected] = useState(data.isSelected)
 
   const handleSelected = () => {
-    setIsSelected(!isSelected);
-  };
+    setIsSelected(!isSelected)
+  }
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleSelected}>
@@ -16,12 +16,12 @@ export default function ItemPlan({data}) {
         size={25}
         color="#9F7EFF"
       />
-      <View style={{paddingLeft: 16}}>
+      <View style={{ paddingLeft: 16 }}>
         <Text style={styles.name}>{data.name}</Text>
         <Text style={styles.content}>{data.content}</Text>
       </View>
     </TouchableOpacity>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#91A7AD',
   },
-});
+})

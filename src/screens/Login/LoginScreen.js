@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
+import { Text } from '../../components/text/Text'
 
 export default function LoginScreen({ navigation }) {
-    return (
-        <View>
-            <TouchableOpacity onPress={() => navigation.navigate('Tab')}>
-                <Text>LoginScreen</Text>
-            </TouchableOpacity>
-        </View>
-    )
+  return (
+    <View>
+      <TouchableOpacity onPress={() => navigation.navigate('Tab')}>
+        <Text variant="h3bold">LoginScreen</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }

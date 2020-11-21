@@ -1,14 +1,14 @@
-import React from 'react';
-import {View, Text, Dimensions, StyleSheet} from 'react-native';
+import React from 'react'
+import { View, Text, Dimensions, StyleSheet } from 'react-native'
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window')
 
 export default function Header() {
   return (
     <View style={styles.container}>
       <Text>Header</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
-});
+})

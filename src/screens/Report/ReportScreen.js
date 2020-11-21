@@ -1,7 +1,7 @@
-import React from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import ProcessingPlan from './Customs/ProcessingPlan';
-import CompletionRate from './Customs/CompletionRate';
+import React from 'react'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import ProcessingPlan from './Customs/ProcessingPlan'
+import CompletionRate from './Customs/CompletionRate'
 
 const DataProcessingPlan = [
   {
@@ -36,7 +36,7 @@ const DataProcessingPlan = [
     name: 'Read Book',
     ratio: 30,
   },
-];
+]
 
 const DataChart = [
   {
@@ -59,17 +59,15 @@ const DataChart = [
     name: 'Read Book',
     value: 30,
   },
-];
+]
 
 export default function ReportScreen() {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.container}>
       <ProcessingPlan data={DataProcessingPlan} />
       <CompletionRate data={DataChart} />
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -77,4 +75,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8FBFB',
     paddingHorizontal: 25,
   },
-});
+})
