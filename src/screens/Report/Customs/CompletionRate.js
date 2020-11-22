@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { VictoryBar } from 'victory'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { Icon } from 'react-native-eva-icons'
 
 export default function CompletionRate({ data }) {
   return (
@@ -11,7 +11,7 @@ export default function CompletionRate({ data }) {
         <Text style={styles.title}>This week</Text>
         <TouchableOpacity style={styles.filter}>
           <Text style={styles.txtFilter}>Weekly</Text>
-          <MaterialIcons name="keyboard-arrow-down" size={16} color="#9F7EFF" />
+          {/* <Icon name="chevron-down-outline" width={16} height={16} color="#9F7EFF" /> */}
         </TouchableOpacity>
       </View>
 
@@ -29,45 +29,45 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   filter: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   txtFilter: {
-    fontSize: 12,
     color: '#9F7EFF',
+    fontSize: 12,
     paddingRight: 12,
   },
   title: {
+    color: '#333',
     fontSize: 16,
     fontWeight: 'bold',
     paddingBottom: 16,
-    color: '#333',
   },
   contentContainer: {
     backgroundColor: '#fff',
     borderRadius: 16,
   },
   wrapItem: {
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   name: {
+    color: '#333',
     fontSize: 14,
     fontWeight: 'bold',
     paddingLeft: 12,
-    color: '#333',
   },
   ratio: {
+    color: '#859EA4',
     fontSize: 11,
     fontWeight: '500',
-    color: '#859EA4',
     paddingRight: 16,
   },
 })

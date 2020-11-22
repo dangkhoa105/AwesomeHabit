@@ -1,16 +1,14 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import React from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 
-export default function Header({title, type}) {
+export default function Header({ title, type }) {
   return (
     <View style={styles.container}>
       <View style={styles.itemLeft}>
-        <MaterialIcons name="back" size={16} />
         <Text>{title}</Text>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -21,8 +19,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemLeft: {
-    flexDirection: 'row',
     alignItems: 'center',
+    flexDirection: 'row',
   },
   title: {},
-});
+})

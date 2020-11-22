@@ -7,7 +7,7 @@ const DataRatio = {
   ratio: '80',
 }
 
-const DataPlan = [
+const DataHabit = [
   {
     name: 'Read Book',
     content: 'Complete today to have the first streak',
@@ -54,15 +54,15 @@ export default function HomeScreen() {
   const [ratio, setRatio] = useState(0)
 
   useEffect(() => {
-    calRatio()
+    setRatio(calRatio)
   }, [ratio])
 
   const calRatio = () => {
-    let listComplete = DataPlan.filter((val) => {
+    const listHabitComplete = DataHabit.filter((val) => {
       return val.isSelected === true
     })
 
-    setRatio((listComplete.length * 100) / DataPlan.length)
+    return (listHabitComplete.length * 100) / DataHabit.length
   }
 
   return (
@@ -81,9 +81,11 @@ export default function HomeScreen() {
         </View>
       </View>
 
+      {/* <View style={styles.divider} /> */}
+
       {/* CONTENT */}
       <FlatList
-        data={DataPlan}
+        data={DataHabit}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => 'key' + index}
         renderItem={({ item, index }) => {
@@ -96,36 +98,39 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#F8FBFB',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    flex: 1,
     paddingHorizontal: 22,
   },
   header: {
-    paddingVertical: 16,
+    borderBottomColor: '#9CA3AF',
+    borderBottomWidth: 0.5,
+    paddingBottom: 20,
   },
   titleHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom: 12,
     paddingHorizontal: 7,
-    paddingBottom: 1,
+    paddingVertical: 16,
   },
   txtTitleHeader: {
+    color: '#91A7AD',
     fontSize: 12,
     fontWeight: '500',
-    color: '#91A7AD',
   },
   ratioHeader: {
-    flexDirection: 'row',
-    height: 8,
     backgroundColor: '#E8F1F4',
     borderRadius: 16,
+    flexDirection: 'row',
+    height: 8,
   },
   ratioInfo: {
     backgroundColor: '#FF79C9',
-    height: 8,
     borderRadius: 16,
+    height: 8,
   },
   content: {},
 })

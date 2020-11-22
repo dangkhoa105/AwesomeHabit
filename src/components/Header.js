@@ -13,9 +13,9 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    height: '30%',
     backgroundColor: '#8F64E3',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
+    height: '30%',
   },
 })

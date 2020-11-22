@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { Icon } from 'react-native-eva-icons'
 
 export default function ItemPlan({ data }) {
   const [isSelected, setIsSelected] = useState(data.isSelected)
@@ -11,10 +11,11 @@ export default function ItemPlan({ data }) {
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleSelected}>
-      <MaterialIcons
-        name={isSelected ? 'check-circle' : 'radio-button-unchecked'}
-        size={25}
-        color="#9F7EFF"
+      <Icon
+        name={isSelected ? 'checkmark-circle-2' : 'radio-button-off-outline'}
+        width={24}
+        height={24}
+        fill="#9570FF"
       />
       <View style={{ paddingLeft: 16 }}>
         <Text style={styles.name}>{data.name}</Text>
@@ -26,19 +27,19 @@ export default function ItemPlan({ data }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingVertical: 12,
-    flexDirection: 'row',
     alignItems: 'center',
-  },
-  name: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#333',
+    flex: 1,
+    flexDirection: 'row',
+    paddingVertical: 12,
   },
   content: {
+    color: '#91A7AD',
     fontSize: 12,
     fontWeight: '500',
-    color: '#91A7AD',
+  },
+  name: {
+    color: '#333',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 })

@@ -1,14 +1,17 @@
+/* eslint-disable react/display-name */
 import * as React from 'react'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
+import { AppThemeProvider } from '../theme/themeProvider'
+import { Icon } from 'react-native-eva-icons'
 import HomeContainer from './Home/HomeContainer'
 import ReportContainer from './Report/ReportContainer'
 import SettingContainer from './Setting/SettingContainer'
 import LoginContainer from './Login/LoginContainer'
-import CreatePlanContainer from './Plan/CreatePlanContainer'
-import { AppThemeProvider } from '../theme/themeProvider'
+import CategoriesContainer from './Habit/CategoriesContainer'
+import CategoryContainer from './Habit/CategoryContainer'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const Tab = createBottomTabNavigator()
 
@@ -18,13 +21,13 @@ function TAB() {
       initialRouteName="HomeContainer"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName
+          let iconName = ''
 
-          if (route.name === 'HomeContainer') iconName = 'dashboard'
-          else if (route.name === 'ReportContainer') iconName = 'insert-chart'
+          if (route.name === 'HomeContainer') iconName = 'calendar'
+          else if (route.name === 'ReportContainer') iconName = 'bar-chart'
           else if (route.name === 'SettingContainer') iconName = 'settings'
 
-          return <MaterialIcons name={iconName} size={size} color={color} />
+          return <Icon name={iconName} width={24} height={24} fill={color} />
         },
       })}
       tabBarOptions={{
@@ -53,13 +56,14 @@ export default function App() {
     <AppThemeProvider>
       <NavigationContainer>
         <Stack.Navigator headerMode="none" initialRouteName="LoginContainer">
-          <Stack.Screen name="LoginContainer" component={LoginContainer} />
           <Stack.Screen
             options={{ cardStyle: { backgroundColor: '#F8FBFB' } }}
             name="Tab"
             component={TAB}
           />
-          <Stack.Screen name="CreatePlanContainer" component={CreatePlanContainer} />
+          <Stack.Screen name="LoginContainer" component={LoginContainer} />
+          <Stack.Screen name="CategoriesContainer" component={CategoriesContainer} />
+          <Stack.Screen name="CategoryContainer" component={CategoryContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppThemeProvider>

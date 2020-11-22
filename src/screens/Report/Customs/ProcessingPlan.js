@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import ProgressCircle from 'react-native-progress-circle'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 export default function ProcessingPlan({ data }) {
   return (
@@ -47,7 +46,6 @@ export default function ProcessingPlan({ data }) {
                 <Text style={styles.ratio}>{item.ratio}%</Text>
 
                 {/* ARROW */}
-                <MaterialIcons name="keyboard-arrow-right" size={16} color="#859EA4" />
               </View>
             </View>
           )
@@ -63,10 +61,10 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
   },
   title: {
+    color: '#333',
     fontSize: 16,
     fontWeight: 'bold',
     paddingBottom: 16,
-    color: '#333',
   },
   contentContainer: {
     backgroundColor: '#fff',
@@ -78,15 +76,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
+    color: '#333',
     fontSize: 14,
     fontWeight: 'bold',
     paddingLeft: 12,
-    color: '#333',
   },
   ratio: {
+    color: '#859EA4',
     fontSize: 11,
     fontWeight: '500',
-    color: '#859EA4',
     paddingRight: 16,
   },
 })
