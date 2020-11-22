@@ -1,25 +1,46 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
-import { VictoryBar } from 'victory'
+import { View, Text, TouchableOpacity, FlatList, Dimensions, StyleSheet } from 'react-native'
+import { VictoryChart, VictoryBar, VictoryTheme } from 'victory-native'
 import { Icon } from 'react-native-eva-icons'
 
+const { width } = Dimensions.get('window')
+
 export default function CompletionRate({ data }) {
+  const dataX = data.filter((val, index) => {
+    return index + 1
+  })
+
   return (
     <View style={styles.container}>
       {/* HEADER */}
       <View style={styles.header}>
-        <Text style={styles.title}>This week</Text>
+        <Text style={styles.title}>Completion Rate</Text>
         <TouchableOpacity style={styles.filter}>
           <Text style={styles.txtFilter}>Weekly</Text>
-          {/* <Icon name="chevron-down-outline" width={16} height={16} color="#9F7EFF" /> */}
+          <Icon name="chevron-down-outline" width={20} height={20} fill="#9F7EFF" />
         </TouchableOpacity>
       </View>
 
       {/* CONTENT */}
-      {/* <VictoryBar
-                data={data}
-                y='value'
-            /> */}
+      <View style={styles.contentContainer}>
+        <VictoryChart width={width - 40} theme={VictoryTheme.material}>
+          <VictoryBar
+            data={data}
+            animate={{
+              onExit: {
+                duration: 500,
+                before: () => ({
+                  _y: 0,
+                  fill: '#EC4899',
+                }),
+              },
+            }}
+            y="value"
+            style={{ data: { fill: '#EC4899', width: 12 } }}
+            cornerRadius={{ top: 6 }}
+          />
+        </VictoryChart>
+      </View>
     </View>
   )
 }
@@ -27,6 +48,7 @@ export default function CompletionRate({ data }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginBottom: 16,
   },
   header: {
     alignItems: 'center',
@@ -52,6 +74,14 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: '#fff',
     borderRadius: 16,
+    shadowColor: '#9CA3AF',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 1,
+    elevation: 5,
   },
   wrapItem: {
     alignItems: 'center',

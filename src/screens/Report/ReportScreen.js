@@ -20,22 +20,6 @@ const DataProcessingPlan = [
     name: 'Read Book',
     ratio: 30,
   },
-  {
-    name: 'Read Book',
-    ratio: 30,
-  },
-  {
-    name: 'Read Book',
-    ratio: 30,
-  },
-  {
-    name: 'Read Book',
-    ratio: 30,
-  },
-  {
-    name: 'Read Book',
-    ratio: 30,
-  },
 ]
 
 const DataChart = [

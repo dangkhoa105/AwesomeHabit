@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import ProgressCircle from 'react-native-progress-circle'
+import { Icon } from 'react-native-eva-icons'
 
 export default function ProcessingPlan({ data }) {
   return (
@@ -11,7 +12,7 @@ export default function ProcessingPlan({ data }) {
       {/* CONTENT */}
       <FlatList
         data={data}
-        contentContainerStyle={styles.contentContainer}
+        style={styles.contentContainer}
         keyExtractor={(item, index) => 'key' + index}
         renderItem={({ item, index }) => {
           return (
@@ -46,6 +47,7 @@ export default function ProcessingPlan({ data }) {
                 <Text style={styles.ratio}>{item.ratio}%</Text>
 
                 {/* ARROW */}
+                <Icon name="chevron-right-outline" width={24} height={24} fill="#859EA4" />
               </View>
             </View>
           )
@@ -69,6 +71,14 @@ const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: '#fff',
     borderRadius: 16,
+    shadowColor: '#9CA3AF',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 1,
+    elevation: 5,
   },
   wrapItem: {
     flexDirection: 'row',

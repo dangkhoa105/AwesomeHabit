@@ -39,7 +39,7 @@ export default function CategoryScreen({ route, navigation }) {
       <IconText label="Popular healthy habit:" color="color-gray-400" paddingTop={0} />
 
       {/* IMAGE */}
-      <Box position="absolute" bottom={30} right={20} opacity={0.5}>
+      <Box position="absolute" bottom={30} right={20}>
         <Image
           resizeMode="contain"
           style={styles.imgFooter}
