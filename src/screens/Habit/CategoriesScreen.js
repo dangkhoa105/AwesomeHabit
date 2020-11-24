@@ -4,6 +4,8 @@ import { Box } from '../../components/box/Box'
 import IconText from './Custom/IconText'
 import Header from './Custom/Header'
 
+const { width, height } = Dimensions.get('window')
+
 const DataCategories = [
   { title: 'Healthy', iconName: 'heart-outline', iconFill: '#DC2626' },
   { title: 'Learning', iconName: 'browser-outline', iconFill: '#60A5FA' },
@@ -14,51 +16,58 @@ const DataCategories = [
 
 export default function CategoriesScreen({ route, navigation }) {
   return (
-    <Box flex={1} paddingHorizontal={4} paddingTop={4}>
+    <Box flex={1} paddingLeft={8} paddingRight={4} paddingTop={5}>
       {/* HEADER */}
       <Header title="Choose the category" navigation={navigation} />
 
       {/* CONTENT */}
       {/* TITLE */}
-      <IconText label="Create a custom category" iconName="edit-outline" iconFill="#9570FF" />
+      <IconText
+        label="Create a custom category"
+        iconName="edit-outline"
+        iconFill="#9570FF"
+        onPress={() => console.log('aaaa')}
+      />
 
       {/* LIST CATEGORY */}
       {/* TITLE */}
       <IconText label="Popular categories:" color="color-gray-400" paddingTop={0} />
 
+      {/* LIST */}
+      <Box height={height / 2}>
+        <FlatList
+          data={DataCategories}
+          keyExtractor={(item, index) => index.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return (
+              <IconText
+                label={item.title}
+                iconName={item.iconName}
+                iconFill={item.iconFill}
+                paddingTop={0}
+                onPress={() => navigation.navigate('CategoryContainer', { title: item.title })}
+              />
+            )
+          }}
+        />
+      </Box>
+
       {/* IMAGE */}
-      <Box position="absolute" bottom={20} right={-30}>
+      <Box position="absolute" bottom={45} left={(width * 144) / 375}>
         <Image
           resizeMode="contain"
           style={styles.imgFooter}
           source={require('../../theme/images/footer_categories.png')}
         />
       </Box>
-
-      {/* LIST */}
-      <FlatList
-        data={DataCategories}
-        keyExtractor={(item, index) => index.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
-            <IconText
-              label={item.title}
-              iconName={item.iconName}
-              iconFill={item.iconFill}
-              paddingTop={0}
-              onPress={() => navigation.navigate('CategoryContainer', { title: item.title })}
-            />
-          )
-        }}
-      />
     </Box>
   )
 }
 
 const styles = StyleSheet.create({
   imgFooter: {
-    height: Dimensions.get('window').width / 2,
-    width: Dimensions.get('window').width / 2 + 100,
+    height: 200,
+    width: 280,
   },
 })

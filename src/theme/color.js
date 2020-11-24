@@ -15,17 +15,17 @@ export const colors = {
   'color-primary-transparent-200': 'rgba(149, 112, 255, 0.16)',
   'color-primary-transparent-300': 'rgba(149, 112, 255, 0.24)',
   'color-primary-transparent-400': 'rgba(149, 112, 255, 0.32)',
-  'color-primary-transparent-500': 'rgba(149, 112, 255, 0.4)',
+  'color-primary-transparent-500': 'rgba(149, 112, 255, 0.4)', 
   'color-primary-transparent-600': 'rgba(149, 112, 255, 0.48)',
-  'color-success-100': '#E3FCDA',
-  'color-success-200': '#C1F9B5',
-  'color-success-300': '#95ED8D',
-  'color-success-400': '#6CDB6D',
-  'color-success-500': '#40C44D',
-  'color-success-600': '#2EA845',
-  'color-success-700': '#208D3E',
-  'color-success-800': '#147137',
-  'color-success-900': '#0C5E32',
+  'color-success-100': '#D1FAE5',
+  'color-success-200': '#A7F3D0',
+  'color-success-300': '#6EE7B7',
+  'color-success-400': '#34D399',
+  'color-success-500': '#10B981',
+  'color-success-600': '#059669',
+  'color-success-700': '#047857',
+  'color-success-800': '#065F46',
+  'color-success-900': '#064E3B',
   'color-success-transparent-100': 'rgba(64, 196, 77, 0.08)',
   'color-success-transparent-200': 'rgba(64, 196, 77, 0.16)',
   'color-success-transparent-300': 'rgba(64, 196, 77, 0.24)',
@@ -78,15 +78,15 @@ export const colors = {
   'color-danger-transparent-500': 'rgba(255, 82, 66, 0.4)',
   'color-danger-transparent-600': 'rgba(255, 82, 66, 0.48)',
 
-  'color-gray-100': '#F9F9FF',
-  'color-gray-200': '#EDF2F7',
-  'color-gray-300': '#E2E8F0',
-  'color-gray-400': '#CBD5E0',
-  'color-gray-500': '#A0AEC0',
-  'color-gray-600': '#718096',
-  'color-gray-700': '#4A5568',
-  'color-gray-800': '#222B45',
-  'color-gray-900': '#1A2138',
+  'color-gray-100': '#F3F4F6',
+  'color-gray-200': '#E5E7EB',
+  'color-gray-300': '#D1D5DB',
+  'color-gray-400': '#9CA3AF',
+  'color-gray-500': '#6B7280',
+  'color-gray-600': '#4B5563',
+  'color-gray-700': '#374151',
+  'color-gray-800': '#1F2937',
+  'color-gray-900': '#111827',
   'color-gray-1000': '#151A30',
   'color-gray-1100': '#101426',
   'color-basic-100': '#FFFFFF',
@@ -112,7 +112,7 @@ export const colors = {
   'color-shadow-transparent-400': 'rgba(0,0,0,0.32)',
   'color-shadow-transparent-500': 'rgba(0,0,0,0.40)',
   'color-shadow-transparent-600': 'rgba(0,0,0,0.48)',
-};
+}
 
 export const lightColors = {
   'shadow-1': 'rgba(0,0,0,0.1)',
@@ -131,7 +131,7 @@ export const lightColors = {
   'border-basic-1': colors['color-basic-400'],
   'border-basic-2': colors['color-basic-500'],
   'border-basic-1-active': colors['color-basic-500'],
-};
+}
 
 export const darkColors = {
   'shadow-1': 'rgba(0,0,0,0.1)',
@@ -150,4 +150,4 @@ export const darkColors = {
   'border-basic-1': colors['color-basic-600'],
   'border-basic-2': colors['color-basic-700'],
   'border-basic-1-active': colors['color-primary-500'],
-};
+}

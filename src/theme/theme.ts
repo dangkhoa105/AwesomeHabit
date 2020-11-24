@@ -26,7 +26,7 @@ const spacing = {
 };
 
 export const fonts = {
-  regular: 'Montserrat-Black',
+  regular: 'Montserrat-Regular',
   medium: 'Montserrat-Medium',
   bold: 'Montserrat-Bold',
   semibold: 'Montserrat-SemiBold',
