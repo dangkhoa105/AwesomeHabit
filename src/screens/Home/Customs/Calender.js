@@ -21,7 +21,7 @@ export default function Calender() {
     <View>
       <FlatList
         data={calendar}
-        keyExtractor={(item, index) => 'key' + index}
+        keyExtractor={(_, index) => 'key' + index}
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {

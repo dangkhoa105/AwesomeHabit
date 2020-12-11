@@ -1,8 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
-import { Box } from '../../../components/box/Box'
-import { Text } from '../../../components/text/Text'
+import { Box, Text, Button } from '../../../../components'
 
 export default function IconText({ label, iconName, iconFill, color, paddingTop, onPress }) {
   return (

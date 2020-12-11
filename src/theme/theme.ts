@@ -95,6 +95,11 @@ const theme = createTheme({
       color: 'text-gray',
     },
   },
+  borderRadii: {
+    ...spacing,
+    'rounded-full':99999
+  },
+
 });
 
 export default theme;

@@ -11,7 +11,9 @@ import SettingContainer from './Setting/SettingContainer'
 import LoginContainer from './Login/LoginContainer'
 import CategoriesContainer from './Habit/CategoriesContainer'
 import CategoryContainer from './Habit/CategoryContainer'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import CreateNewHabitContainer from './Habit/CreateNewHabitContainer'
+import CreateNewCategoryContainer from './Habit/CreateNewCategoryContainer'
+import DetailScheduleContainer from './Habit/DetailScheduleContainer'
 
 const Tab = createBottomTabNavigator()
 
@@ -64,6 +66,9 @@ export default function App() {
           <Stack.Screen name="LoginContainer" component={LoginContainer} />
           <Stack.Screen name="CategoriesContainer" component={CategoriesContainer} />
           <Stack.Screen name="CategoryContainer" component={CategoryContainer} />
+          <Stack.Screen name="CreateNewHabitContainer" component={CreateNewHabitContainer} />
+          <Stack.Screen name="CreateNewCategoryContainer" component={CreateNewCategoryContainer} />
+          <Stack.Screen name="DetailScheduleContainer" component={DetailScheduleContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppThemeProvider>

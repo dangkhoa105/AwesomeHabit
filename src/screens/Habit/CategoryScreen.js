@@ -1,9 +1,9 @@
 import React from 'react'
 import { FlatList, Image, Dimensions, StyleSheet } from 'react-native'
-import { Box } from '../../components/box/Box'
-import IconText from './Custom/IconText'
-import Header from './Custom/Header'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Box, Text, Button } from '../../components'
+import { getImage } from '../../theme/images'
+import IconText from './Custom/Header/IconText'
+import Header from './Custom/Header/Header'
 
 const { width, height } = Dimensions.get('window')
 
@@ -28,13 +28,18 @@ const DataCategories = [
 export default function CategoryScreen({ route, navigation }) {
   const { title } = route.params
   return (
-    <Box flex={1} paddingLeft={8} paddingRight={4} paddingTop={5}>
+    <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       {/* HEADER */}
       <Header title={title} type="other" navigation={navigation} />
 
       {/* CONTENT */}
       {/* TITLE */}
-      <IconText label="Create a custom habit" iconName="edit-outline" iconFill="#9570FF" />
+      <IconText
+        label="Create a custom habit"
+        iconName="edit-outline"
+        iconFill="#9570FF"
+        onPress={() => navigation.navigate('CreateNewHabitContainer')}
+      />
 
       {/* LIST CATEGORY */}
       {/* TITLE */}
@@ -62,11 +67,7 @@ export default function CategoryScreen({ route, navigation }) {
 
       {/* IMAGE */}
       <Box position="absolute" bottom={30} right={20}>
-        <Image
-          resizeMode="contain"
-          style={styles.imgFooter}
-          source={require('../../theme/images/footer_category.png')}
-        />
+        <Image resizeMode="contain" style={styles.imgFooter} source={getImage.footer_category} />
       </Box>
     </Box>
   )

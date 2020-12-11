@@ -15,7 +15,7 @@ export const colors = {
   'color-primary-transparent-200': 'rgba(149, 112, 255, 0.16)',
   'color-primary-transparent-300': 'rgba(149, 112, 255, 0.24)',
   'color-primary-transparent-400': 'rgba(149, 112, 255, 0.32)',
-  'color-primary-transparent-500': 'rgba(149, 112, 255, 0.4)', 
+  'color-primary-transparent-500': 'rgba(149, 112, 255, 0.4)',
   'color-primary-transparent-600': 'rgba(149, 112, 255, 0.48)',
   'color-success-100': '#D1FAE5',
   'color-success-200': '#A7F3D0',
@@ -112,6 +112,12 @@ export const colors = {
   'color-shadow-transparent-400': 'rgba(0,0,0,0.32)',
   'color-shadow-transparent-500': 'rgba(0,0,0,0.40)',
   'color-shadow-transparent-600': 'rgba(0,0,0,0.48)',
+  'color-pink-500': '#FF79C9',
+  'color-pink-600': '#EC4899',
+  'color-blue-400': '#60A5FA',
+  'color-yellow-200': '#FDE68A',
+  'color-yellow-400': '#F59E0B',
+  'color-indigo': '#4F46E5',
 }
 
 export const lightColors = {
@@ -151,3 +157,17 @@ export const darkColors = {
   'border-basic-2': colors['color-basic-700'],
   'border-basic-1-active': colors['color-primary-500'],
 }
+
+export const listColorPicker = [
+  'color-primary-500',
+  'color-pink-500',
+  'color-info-400',
+  'color-info-700',
+  'color-danger-600',
+  'color-yellow-400',
+  'color-success-400',
+  'color-danger-400',
+  'color-yellow-200',
+  'color-indigo',
+  'color-danger-200',
+]
