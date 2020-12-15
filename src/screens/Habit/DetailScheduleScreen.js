@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
-import { colors } from '../../theme/color'
 import { getImage } from '../../theme/images'
 import Header from './Custom/Header/Header'
 import Schedule from './Custom/Schedule'

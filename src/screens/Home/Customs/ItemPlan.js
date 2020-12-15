@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 
-export default function ItemPlan({ data }) {
-  const [isSelected, setIsSelected] = useState(data.isSelected)
+export default function ItemPlan({ item, index, onChangeValue }) {
+  const [isSelected, setIsSelected] = useState(item.isSelected)
 
   const handleSelected = () => {
     setIsSelected(!isSelected)
+    onChangeValue({ ...item, isSelected: !isSelected }, index)
   }
 
   return (
@@ -18,8 +19,8 @@ export default function ItemPlan({ data }) {
         fill="#9570FF"
       />
       <View style={{ paddingLeft: 16 }}>
-        <Text style={styles.name}>{data.name}</Text>
-        <Text style={styles.content}>{data.content}</Text>
+        <Text style={styles.name}>{item !== null && item.name}</Text>
+        <Text style={styles.content}>{item !== null && item.content}</Text>
       </View>
     </TouchableOpacity>
   )

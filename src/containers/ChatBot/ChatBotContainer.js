@@ -1,11 +1,11 @@
 import React from 'react'
 import { View, SafeAreaView } from 'react-native'
-import LoginScreen from '../../screens/Login/LoginScreen'
+import ChatBotScreen from '../../screens/ChatBot/ChatBotScreen'
 
-function LoginContainer(props) {
+function ChatBotContainer(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <LoginScreen {...props} />
+      <ChatBotScreen {...props} />
     </SafeAreaView>
   )
 }
@@ -19,4 +19,4 @@ const mapStateToProps = (state) => {
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
-export default LoginContainer
+export default ChatBotContainer

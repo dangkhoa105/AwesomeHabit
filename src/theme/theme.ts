@@ -71,6 +71,11 @@ const theme = createTheme({
       fontWeight: 'normal',
       fontStyle: 'normal',
     },
+    h3medium: {
+      ...BASE_TEXT,
+      fontSize: 18,
+      fontFamily: fonts.medium,
+    },
     h3bold: {
       ...BASE_TEXT,
       fontSize: 18,

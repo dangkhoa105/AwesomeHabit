@@ -43,26 +43,33 @@ const DataHabit = [
     content: 'Complete today to have the first streak',
     isSelected: false,
   },
-  {
-    name: 'Read Bookkk',
-    content: 'Complete today to have the first streak',
-    isSelected: false,
-  },
 ]
 
 export default function HomeScreen() {
+  const [habits, setHabits] = useState([])
   const [ratio, setRatio] = useState(0)
 
   useEffect(() => {
+    setHabits(DataHabit)
+  }, [])
+
+  useEffect(() => {
     setRatio(calRatio)
-  }, [ratio])
+  }, [ratio, habits])
 
   const calRatio = () => {
-    const listHabitComplete = DataHabit.filter((val) => {
+    const listHabitComplete = habits.filter((val) => {
       return val.isSelected === true
     })
 
-    return (listHabitComplete.length * 100) / DataHabit.length
+    return Math.round(((listHabitComplete.length * 100) / habits.length) * 100) / 100
+  }
+
+  const onChangeValueItem = (value, index) => {
+    let newArr = [...habits] // copying the old datas array
+    newArr[index] = value // replace value with whatever you want to change it to
+
+    setHabits(newArr)
   }
 
   return (
@@ -85,11 +92,17 @@ export default function HomeScreen() {
 
       {/* CONTENT */}
       <FlatList
-        data={DataHabit}
+        data={habits}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => 'key' + index}
         renderItem={({ item, index }) => {
-          return <ItemPlan data={item} />
+          return (
+            <ItemPlan
+              item={item}
+              index={index}
+              onChangeValue={(value, index) => onChangeValueItem(value, index)}
+            />
+          )
         }}
       />
     </View>

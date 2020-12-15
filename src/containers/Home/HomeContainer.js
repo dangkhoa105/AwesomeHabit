@@ -5,6 +5,7 @@ import Header from '../../components/Header'
 import ButtonAdd from '../../components/ButtonAdd'
 import Calender from '../../screens/Home/Customs/Calender'
 import HomeScreen from '../../screens/Home/HomeScreen'
+import MovingButton from '../../components/MovingButton'
 
 function HomeContainer(props) {
   return (
@@ -13,6 +14,7 @@ function HomeContainer(props) {
       <Calender />
       <HomeScreen {...props} />
       <ButtonAdd onPress={() => props.navigation.navigate('CategoriesContainer')} />
+      <MovingButton onPress={() => props.navigation.navigate('ChatBotContainer')} />
     </SafeAreaView>
   )
 }

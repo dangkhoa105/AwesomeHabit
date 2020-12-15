@@ -8,12 +8,17 @@ import { Icon } from 'react-native-eva-icons'
 import HomeContainer from './Home/HomeContainer'
 import ReportContainer from './Report/ReportContainer'
 import SettingContainer from './Setting/SettingContainer'
-import LoginContainer from './Login/LoginContainer'
+import AboutContainer from './About/AboutContainer'
+import WelcomeScreen from '../screens/Authentication/WelcomeScreen'
+import LoginContainer from './Authentication/LoginContainer'
+import SignupContainer from './Authentication/SignupContainer'
 import CategoriesContainer from './Habit/CategoriesContainer'
 import CategoryContainer from './Habit/CategoryContainer'
 import CreateNewHabitContainer from './Habit/CreateNewHabitContainer'
 import CreateNewCategoryContainer from './Habit/CreateNewCategoryContainer'
 import DetailScheduleContainer from './Habit/DetailScheduleContainer'
+import ChatBotContainer from './ChatBot/ChatBotContainer'
+import ButtonAdd from '../components/ButtonAdd'
 
 const Tab = createBottomTabNavigator()
 
@@ -28,6 +33,7 @@ function TAB() {
           if (route.name === 'HomeContainer') iconName = 'calendar'
           else if (route.name === 'ReportContainer') iconName = 'bar-chart'
           else if (route.name === 'SettingContainer') iconName = 'settings'
+          else if (route.name === 'AboutContainer') iconName = 'person'
 
           return <Icon name={iconName} width={24} height={24} fill={color} />
         },
@@ -47,6 +53,7 @@ function TAB() {
       <Tab.Screen name="HomeContainer" component={HomeContainer} />
       <Tab.Screen name="ReportContainer" component={ReportContainer} />
       <Tab.Screen name="SettingContainer" component={SettingContainer} />
+      <Tab.Screen name="AboutContainer" component={AboutContainer} />
     </Tab.Navigator>
   )
 }
@@ -57,18 +64,21 @@ export default function App() {
   return (
     <AppThemeProvider>
       <NavigationContainer>
-        <Stack.Navigator headerMode="none" initialRouteName="LoginContainer">
+        <Stack.Navigator headerMode="none" initialRouteName="WelcomeContainer">
           <Stack.Screen
             options={{ cardStyle: { backgroundColor: '#F8FBFB' } }}
             name="Tab"
             component={TAB}
           />
+          <Stack.Screen name="WelcomeContainer" component={WelcomeScreen} />
           <Stack.Screen name="LoginContainer" component={LoginContainer} />
+          <Stack.Screen name="SignupContainer" component={SignupContainer} />
           <Stack.Screen name="CategoriesContainer" component={CategoriesContainer} />
           <Stack.Screen name="CategoryContainer" component={CategoryContainer} />
           <Stack.Screen name="CreateNewHabitContainer" component={CreateNewHabitContainer} />
           <Stack.Screen name="CreateNewCategoryContainer" component={CreateNewCategoryContainer} />
           <Stack.Screen name="DetailScheduleContainer" component={DetailScheduleContainer} />
+          <Stack.Screen name="ChatBotContainer" component={ChatBotContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppThemeProvider>
