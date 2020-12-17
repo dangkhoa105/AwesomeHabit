@@ -19,6 +19,7 @@ import CreateNewCategoryContainer from './Habit/CreateNewCategoryContainer'
 import DetailScheduleContainer from './Habit/DetailScheduleContainer'
 import ChatBotContainer from './ChatBot/ChatBotContainer'
 import ButtonAdd from '../components/ButtonAdd'
+import database from '@react-native-firebase/database'
 
 const Tab = createBottomTabNavigator()
 
@@ -61,6 +62,14 @@ function TAB() {
 const Stack = createStackNavigator()
 
 export default function App() {
+  React.useEffect(() => {
+    database()
+      .ref('/user/123')
+      .once('value')
+      .then((snapshot) => {
+        console.log('User data: ', snapshot.val())
+      })
+  }, [])
   return (
     <AppThemeProvider>
       <NavigationContainer>
