@@ -1,39 +1,37 @@
-import React from "react";
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import createSagaMiddleware from 'redux-saga';
-import allReducers from './reducers/index';
-import rootSaga from '../redux/middlewares/saga/index';
-import App from "../containers/App";
-const sagaMiddleware = createSagaMiddleware();
-let store = createStore(allReducers, applyMiddleware(sagaMiddleware));
+import React from 'react'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import firebase from 'firebase'
+import createSagaMiddleware from 'redux-saga'
+import reducers from './reducers'
+import rootSaga from '../redux/middlewares/saga'
+import App from '../containers/App'
+const sagaMiddleware = createSagaMiddleware()
+let store = createStore(reducers, applyMiddleware(sagaMiddleware))
 
-const RootStack = createStackNavigator(
-    {
-        App: {
-            screen: App,
-        },
-
-    },
-    {
-        initialRouteName: "App",
-        mode: 'modal',
-        headerMode: 'none',
-    }
-);
-
-
-const AppContainer = createAppContainer(RootStack);
+sagaMiddleware.run(rootSaga)
 
 export default class Root extends React.Component {
-    render() {
-        return <Provider store={store}>
-            <AppContainer />
-        </Provider>;
-
+  componentWillMount() {
+    var firebaseConfig = {
+      apiKey: 'AIzaSyDJtenFFHnKBUDHF2m4PaFy-ztL4NhQnpw',
+      authDomain: 'authentication-486c9.firebaseapp.com',
+      projectId: 'authentication-486c9',
+      storageBucket: 'authentication-486c9.appspot.com',
+      messagingSenderId: '711978846929',
+      appId: '1:711978846929:web:7ecb046e8e0d372573d3f0',
+      measurementId: 'G-LF6QX20YX1',
     }
-}
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig)
+    // firebase.analytics()
+  }
 
-sagaMiddleware.run(rootSaga);
+  render() {
+    return (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+  }
+}

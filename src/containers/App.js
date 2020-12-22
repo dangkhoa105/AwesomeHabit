@@ -18,7 +18,6 @@ import CreateNewHabitContainer from './Habit/CreateNewHabitContainer'
 import CreateNewCategoryContainer from './Habit/CreateNewCategoryContainer'
 import DetailScheduleContainer from './Habit/DetailScheduleContainer'
 import ChatBotContainer from './ChatBot/ChatBotContainer'
-import ButtonAdd from '../components/ButtonAdd'
 
 const Tab = createBottomTabNavigator()
 
