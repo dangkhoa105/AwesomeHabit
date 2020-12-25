@@ -1,11 +1,10 @@
 import React from 'react'
-import { Image, Dimensions, StyleSheet } from 'react-native'
+import { SafeAreaView, Image, Dimensions, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
 import ButtonCustom from './Custom/ButtonCustom'
-import { SafeAreaView } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 
@@ -14,8 +13,8 @@ const size = 18
 export default function WelcomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-      <Box flex={1} bg="white" paddingVertical={12}>
-        <Box pl={4}>
+      <Box flex={1} bg="white">
+        <Box flex={1} pl={4} justifyContent="center">
           <Text fontSize={24} variant="h3bold" color="color-gray-700">
             Welcome!
           </Text>
@@ -24,9 +23,11 @@ export default function WelcomeScreen({ navigation }) {
           </Text>
         </Box>
 
-        <Box alignItems="center">
+        <Box flex={1} alignItems="center">
           <Image resizeMode="contain" style={styles.img} source={getImage.background_welcome} />
+        </Box>
 
+        <Box flex={2} justifyContent="center" alignItems="center">
           <Box>
             <ButtonCustom
               iconLeft={
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   },
   img: {
     width: (width * 702) / 900,
-    height: width,
+    height: (height * 1) / 4,
   },
   btn: {
     marginVertical: 8,
