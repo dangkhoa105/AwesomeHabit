@@ -5,75 +5,24 @@ import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
 import IconTextInput from '../../components/IconTextInput'
 import ButtonCustom from './Custom/ButtonCustom'
-import firebase from 'firebase'
+import Loading from '../../components/Loading'
+import { handleLogin } from './Function'
 
 const { width } = Dimensions.get('window')
 
 const size = 20
 
-const users = [
-  { email: 'a', password: 'a' },
-  { email: 'b', password: 'b' },
-  { email: 'c', password: 'c' },
-  { email: 'd', password: 'd' },
-]
-
 export default function LoginScreen(props) {
   const [email, setEmail] = useState({ value: '', resultCode: true, message: '' })
   const [password, setPassword] = useState({ value: '', resultCode: true, message: '' })
+  const [fetching, setFetching] = useState(false)
   const [secureTextEntry, setSecureTextEntry] = useState(true)
-
-  const handleLogin = () => {
-    // let resultCode = { email: true, password: true }
-    // let message = { email: '', password: '' }
-    // if (email.value === '' && password.value === '') {
-    //   resultCode.email = false
-    //   message.email = 'Please enter your email!'
-    //   resultCode.password = false
-    //   message.password = 'Please enter your password!'
-    // } else if (email.value !== '' && password.value === '') {
-    //   resultCode.email = true
-    //   message.email = ''
-    //   resultCode.password = false
-    //   message.password = 'Please enter your password!'
-    // } else if (email.value === '' && password.value !== '') {
-    //   resultCode.email = false
-    //   message.email = 'Please enter your email!'
-    //   resultCode.password = true
-    //   message.password = ''
-    // } else if (email.value !== '' && password.value !== '') {
-    //   let listEmail = users.filter((v) => v.email.toLowerCase() === email.value.toLowerCase())
-    //   if (listEmail.length === 0) {
-    //     resultCode.email = false
-    //     message.email = 'Email is not valid!'
-    //   } else {
-    //     let listPass = users.filter(
-    //       (v) => v.password.toLowerCase() === password.value.toLowerCase(),
-    //     )
-    //     if (listPass.length === 0) {
-    //       resultCode.password = false
-    //       message.password = 'Password is not valid!'
-    //     } else {
-    //       resultCode.email = true
-    //       message.email = ''
-    //       resultCode.password = true
-    //       message.password = ''
-    //       navigation.navigate('Tab')
-    //     }
-    //   }
-    // }
-    // setEmail({ ...email, resultCode: resultCode.email, message: message.email })
-    // setPassword({ ...password, resultCode: resultCode.password, message: message.password })
-    // props.loginAction(email, password)
-    firebase.auth().signInWithEmailAndPassword(email.value, password.value)
-
-    console.log(props)
-  }
 
   let nameIconRight = secureTextEntry ? 'eye-off-outline' : 'eye-outline'
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      {!!fetching && <Loading />}
       <ScrollView contentContainerStyle={styles.container}>
         <Box alignItems="center" paddingVertical={4}>
           <Text fontSize={24} variant="h3bold" color="color-gray-700">
@@ -146,7 +95,7 @@ export default function LoginScreen(props) {
           bg="color-primary-500"
           textColor="white"
           containerStyles={styles.btn}
-          onPress={() => handleLogin()}
+          onPress={() => handleLogin(email, setEmail, password, setPassword, setFetching)}
         />
 
         {/* Sign up Text */}
