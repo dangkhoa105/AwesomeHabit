@@ -1,7 +1,15 @@
+import React, { useState, useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
 
 // Login
-export const handleLogin = async (email, setEmail, password, setPassword, setFetching) => {
+export const handleLogin = async (
+  email,
+  setEmail,
+  password,
+  setPassword,
+  navigation,
+  setFetching,
+) => {
   let resultCode = { email: true, password: true }
   let message = { email: '', password: '' }
 
@@ -23,7 +31,11 @@ export const handleLogin = async (email, setEmail, password, setPassword, setFet
   } else if (email.value !== '' && password.value !== '') {
     await auth()
       .signInWithEmailAndPassword(email.value, password.value)
+      .then(() => {
+        navigation.navigate('Tab')
+      })
       .catch((error) => {
+        console.log('vo day', error)
         switch (error.code) {
           case 'auth/invalid-email':
             resultCode.email = false
@@ -44,6 +56,7 @@ export const handleLogin = async (email, setEmail, password, setPassword, setFet
             message.password = 'Your password is wrong'
             break
         }
+
         setEmail({ ...email, resultCode: resultCode.email, message: message.email })
         setPassword({
           ...password,
@@ -51,8 +64,20 @@ export const handleLogin = async (email, setEmail, password, setPassword, setFet
           message: message.password,
         })
       })
+    setFetching(false)
   }
-
+  setFetching(false)
   setEmail({ ...email, resultCode: resultCode.email, message: message.email })
   setPassword({ ...password, resultCode: resultCode.password, message: message.password })
+}
+
+export const handleUserUsedToLogin = (navigation) => {
+  auth().onAuthStateChanged(function (user) {
+    if (user) {
+      navigation.navigate('Tab')
+    } else {
+      console.log('vo day')
+      navigation.navigate('LoginContainer')
+    }
+  })
 }

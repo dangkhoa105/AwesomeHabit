@@ -1,12 +1,12 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
-import CategoryScreen from '../../screens/Habit/CategoryScreen'
+import HabitsScreen from '../../screens/Habit/HabitsScreen'
 
-function CategoryContainer(props) {
+function HabitsContainer(props) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F2F7F8' }}>
-      <CategoryScreen {...props} />
+      <HabitsScreen {...props} />
     </SafeAreaView>
   )
 }
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => {
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default CategoryContainer
+export default HabitsContainer

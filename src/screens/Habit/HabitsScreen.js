@@ -25,7 +25,7 @@ const DataCategories = [
   { title: 'Go for a ride', iconName: 'camera-outline', iconFill: '#EC4899' },
 ]
 
-export default function CategoryScreen({ route, navigation }) {
+export default function HabitsScreen({ route, navigation }) {
   const { title } = route.params
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">

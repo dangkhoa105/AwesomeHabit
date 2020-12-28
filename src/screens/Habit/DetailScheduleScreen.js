@@ -12,7 +12,7 @@ export default function DetailScheduleScreen({ navigation, route }) {
   const { dataSelect } = route.params
 
   const handleOnPressDone = () => {
-    console.log(data, dataSelect)
+    console.log(Object.assign(data, dataSelect))
   }
 
   return (

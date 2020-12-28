@@ -10,13 +10,6 @@ const { width } = Dimensions.get('window')
 
 const size = 20
 
-const users = [
-  { email: 'a', password: 'a' },
-  { email: 'b', password: 'b' },
-  { email: 'c', password: 'c' },
-  { email: 'd', password: 'd' },
-]
-
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState({ value: '', resultCode: true, message: '' })
   const [email, setEmail] = useState({ value: '', resultCode: true, message: '' })
@@ -240,7 +233,7 @@ export default function SignupScreen({ navigation }) {
           )}
         </Box>
 
-        {/* Button Login */}
+        {/* Button Sign Up */}
         <ButtonCustom
           title="Sign up"
           bg="color-primary-500"
@@ -248,18 +241,6 @@ export default function SignupScreen({ navigation }) {
           containerStyles={styles.btn}
           onPress={() => handleSignup()}
         />
-
-        {/* Sign up Text */}
-        <Box flexDirection="row">
-          <Text variant="s1" color="color-gray-500">
-            Already have a account?{' '}
-          </Text>
-          <Button onPress={() => navigation.navigate('LoginContainer')}>
-            <Text variant="s1" fontWeight="bold" color="color-primary-500">
-              Login now
-            </Text>
-          </Button>
-        </Box>
       </ScrollView>
     </SafeAreaView>
   )

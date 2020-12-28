@@ -47,7 +47,7 @@ export default function CategoriesScreen({ route, navigation }) {
                 iconName={item.iconName}
                 iconFill={item.iconFill}
                 paddingTop={0}
-                onPress={() => navigation.navigate('CategoryContainer', { title: item.title })}
+                onPress={() => navigation.navigate('HabitsContainer', { title: item.title })}
               />
             )
           }}

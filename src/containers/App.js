@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AppThemeProvider } from '../theme/themeProvider'
 import { Icon } from 'react-native-eva-icons'
+import database from '@react-native-firebase/database'
 import HomeContainer from './Home/HomeContainer'
 import ReportContainer from './Report/ReportContainer'
 import SettingContainer from './Setting/SettingContainer'
@@ -13,12 +14,11 @@ import WelcomeScreen from '../screens/Authentication/WelcomeScreen'
 import LoginContainer from './Authentication/LoginContainer'
 import SignupContainer from './Authentication/SignupContainer'
 import CategoriesContainer from './Habit/CategoriesContainer'
-import CategoryContainer from './Habit/CategoryContainer'
+import HabitsContainer from './Habit/HabitsContainer'
 import CreateNewHabitContainer from './Habit/CreateNewHabitContainer'
 import CreateNewCategoryContainer from './Habit/CreateNewCategoryContainer'
 import DetailScheduleContainer from './Habit/DetailScheduleContainer'
 import ChatBotContainer from './ChatBot/ChatBotContainer'
-import database from '@react-native-firebase/database'
 
 const Tab = createBottomTabNavigator()
 
@@ -82,7 +82,7 @@ export default function App() {
           <Stack.Screen name="LoginContainer" component={LoginContainer} />
           <Stack.Screen name="SignupContainer" component={SignupContainer} />
           <Stack.Screen name="CategoriesContainer" component={CategoriesContainer} />
-          <Stack.Screen name="CategoryContainer" component={CategoryContainer} />
+          <Stack.Screen name="HabitsContainer" component={HabitsContainer} />
           <Stack.Screen name="CreateNewHabitContainer" component={CreateNewHabitContainer} />
           <Stack.Screen name="CreateNewCategoryContainer" component={CreateNewCategoryContainer} />
           <Stack.Screen name="DetailScheduleContainer" component={DetailScheduleContainer} />

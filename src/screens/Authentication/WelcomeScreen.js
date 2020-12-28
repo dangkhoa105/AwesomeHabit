@@ -1,16 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView, Image, Dimensions, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
 import ButtonCustom from './Custom/ButtonCustom'
+import auth from '@react-native-firebase/auth'
 
 const { width, height } = Dimensions.get('window')
 
 const size = 18
 
 export default function WelcomeScreen({ navigation }) {
+  const [initializing, setInitializing] = useState(true)
+  const [user, setUser] = useState()
+
+  function onAuthStateChanged(user) {
+    setUser(user)
+    if (initializing) setInitializing(false)
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged)
+    return subscriber // unsubscribe on unmount
+  }, [])
+
+  handleUserUsedToLogin = () => {
+    if (user) {
+      navigation.navigate('Tab')
+    } else {
+      navigation.navigate('LoginContainer')
+    }
+  }
+
+  if (initializing) return null
+
   return (
     <SafeAreaView style={styles.container}>
       <Box flex={1} bg="white">
@@ -61,7 +85,7 @@ export default function WelcomeScreen({ navigation }) {
             <Text variant="s1" color="color-gray-500">
               Already have a account?{' '}
             </Text>
-            <Button onPress={() => navigation.navigate('LoginContainer')}>
+            <Button onPress={() => handleUserUsedToLogin(navigation)}>
               <Text variant="s1" fontWeight="bold" color="color-primary-500">
                 Login now
               </Text>

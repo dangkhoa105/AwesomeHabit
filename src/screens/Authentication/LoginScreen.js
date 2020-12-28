@@ -18,11 +18,16 @@ export default function LoginScreen(props) {
   const [fetching, setFetching] = useState(false)
   const [secureTextEntry, setSecureTextEntry] = useState(true)
 
-  let nameIconRight = secureTextEntry ? 'eye-off-outline' : 'eye-outline'
+  let nameIconRight = !secureTextEntry ? 'eye-off-outline' : 'eye-outline'
+
+  const onPress = () => {
+    setFetching(true)
+    handleLogin(email, setEmail, password, setPassword, props.navigation, setFetching)
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {!!fetching && <Loading />}
+      {fetching && <Loading />}
       <ScrollView contentContainerStyle={styles.container}>
         <Box alignItems="center" paddingVertical={4}>
           <Text fontSize={24} variant="h3bold" color="color-gray-700">
@@ -95,7 +100,7 @@ export default function LoginScreen(props) {
           bg="color-primary-500"
           textColor="white"
           containerStyles={styles.btn}
-          onPress={() => handleLogin(email, setEmail, password, setPassword, setFetching)}
+          onPress={onPress}
         />
 
         {/* Sign up Text */}

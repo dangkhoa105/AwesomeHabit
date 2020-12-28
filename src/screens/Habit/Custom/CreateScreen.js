@@ -6,21 +6,18 @@ import Header from '../Custom/Header/Header'
 import ColorPicker from '../Custom/ColorPicker/ColorPicker'
 import IconPicker from '../Custom/IconPicker/IconPicker'
 
-export default function CreateScreen({ type, navigation, getValue }) {
+export default function CreateScreen({ type, navigation, getValue, onPressNext }) {
   const [select, setSelect] = useState({ name: '', color: '', icon: '' })
 
   let checkCondition = select.name.trim() !== '' && select.color !== '' && select.icon !== ''
 
   let bg = checkCondition ? 'color-primary-500' : 'color-primary-200'
 
-  const handleOnPressNext = () => {
+  useEffect(() => {
     if (checkCondition) {
       getValue(select)
-      navigation.navigate('DetailScheduleContainer', { dataSelect: select })
-    } else {
-      return {}
     }
-  }
+  }, [select])
 
   const jsUcFirst = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
@@ -61,7 +58,7 @@ export default function CreateScreen({ type, navigation, getValue }) {
             </Text>
           </Button>
 
-          <Button bg={bg} borderRadius={1} onPress={handleOnPressNext}>
+          <Button bg={bg} borderRadius={1} onPress={onPressNext}>
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
               Next
             </Text>

@@ -12,6 +12,8 @@ target 'AwesomeHabit' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNDateTimePicker', :path => '../node_modules/@react-native-community/datetimepicker'
+
   target 'AwesomeHabitTests' do
     inherit! :complete
     # Pods for testing

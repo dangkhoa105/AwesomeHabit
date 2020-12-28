@@ -21,7 +21,7 @@ export default function OnDays({ getDays }) {
       flexDirection="row"
       justifyContent="center"
       alignItems="center"
-      borderWidth={0.25}
+      borderWidth={1}
       borderColor="color-primary-500"
       borderRadius={8}
       p={2}
@@ -36,7 +36,7 @@ export default function OnDays({ getDays }) {
         name="close-circle"
         width={size}
         height={size}
-        fill={colors['color-primary-transparent-600']}
+        fill={colors['color-primary-500']}
         onPress={() => {
           setIndexDelete(index)
           setDaysSelected(daysSelected.filter((_, i) => i !== index))
