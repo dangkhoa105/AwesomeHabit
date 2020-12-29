@@ -5,12 +5,14 @@ import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
 import ButtonCustom from './Custom/ButtonCustom'
 import IconTextInput from '../../components/IconTextInput'
+import Loading from '../../components/Loading'
+import { handleSignup } from './Function'
 
 const { width } = Dimensions.get('window')
 
 const size = 20
 
-export default function SignupScreen({ navigation }) {
+export default function SignupScreen(props) {
   const [name, setName] = useState({ value: '', resultCode: true, message: '' })
   const [email, setEmail] = useState({ value: '', resultCode: true, message: '' })
   const [password, setPassword] = useState({ value: '', resultCode: true, message: '' })
@@ -19,92 +21,35 @@ export default function SignupScreen({ navigation }) {
     resultCode: true,
     message: '',
   })
+  const [fetching, setFetching] = useState(false)
+
   const [secureTextEntry, setSecureTextEntry] = useState({ password: true, confirmPassword: true })
 
-  const handleSignup = () => {
-    let resultCode = { name: true, email: true, password: true, confirmPassword: true }
-    let message = { name: '', email: '', password: '', confirmPassword: '' }
-
-    if (name.value === '') {
-      resultCode.name = false
-      message.name = 'Please enter your name!'
-    } else {
-      resultCode.name = true
-      message.name = ''
-    }
-
-    if (email.value === '') {
-      resultCode.email = false
-      message.email = 'Please enter your email!'
-    } else {
-      let listEmail = users.filter((v) => v.email.toLowerCase() === email.value.toLowerCase())
-      if (listEmail.length === 0) {
-        resultCode.email = true
-        message.email = ''
-      } else {
-        resultCode.email = false
-        message.email = 'Email is already in use!'
-      }
-    }
-
-    if (password.value === '') {
-      resultCode.password = false
-      message.password = 'Please enter your password!'
-    } else {
-      resultCode.password = true
-      message.password = ''
-    }
-
-    if (confirmPassword.value === '') {
-      resultCode.confirmPassword = false
-      message.confirmPassword = 'Please enter your confirm password!'
-    } else {
-      if (confirmPassword.value === password.value) {
-        resultCode.confirmPassword = true
-        message.confirmPassword = ''
-      } else {
-        resultCode.confirmPassword = false
-        message.confirmPassword = 'Password are not matching'
-      }
-    }
-
-    setName({ ...name, resultCode: resultCode.name, message: message.name })
-    setEmail({ ...email, resultCode: resultCode.email, message: message.email })
-    setPassword({ ...password, resultCode: resultCode.password, message: message.password })
-    setConfirmPassword({
-      ...confirmPassword,
-      resultCode: resultCode.confirmPassword,
-      message: message.confirmPassword,
-    })
-
-    if (
-      name.value !== '' &&
-      email.value !== '' &&
-      password.value !== '' &&
-      confirmPassword.value !== ''
-    ) {
-      let listEmail = users.filter((v) => v.email.toLowerCase() === email.value.toLowerCase())
-      if (listEmail.length === 0) {
-        setName({ ...name, value: '' })
-        setEmail({ ...email, value: '' })
-        setPassword({ ...password, value: '' })
-        setConfirmPassword({ ...confirmPassword, value: '' })
-        alert('Your account has been created successful')
-      } else {
-        resultCode.email = false
-        message.email = 'Email is already in use!'
-      }
-    }
+  const onPress = () => {
+    setFetching(true)
+    handleSignup(
+      name,
+      setName,
+      email,
+      setEmail,
+      password,
+      setPassword,
+      confirmPassword,
+      setConfirmPassword,
+      props.navigation,
+      setFetching,
+    )
   }
 
-  let nameIconRightPassword = secureTextEntry.password ? 'eye-off-outline' : 'eye-outline'
-  let nameIconRightConfirmPassword = secureTextEntry.confirmPassword
+  let nameIconRightPassword = !secureTextEntry.password ? 'eye-off-outline' : 'eye-outline'
+  let nameIconRightConfirmPassword = !secureTextEntry.confirmPassword
     ? 'eye-off-outline'
     : 'eye-outline'
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.container}>
+        {fetching && <Loading />}
         <Box alignItems="center" paddingVertical={4}>
           <Text fontSize={24} variant="h3bold" color="color-gray-700">
             Sign Up
@@ -220,7 +165,7 @@ export default function SignupScreen({ navigation }) {
                 }
               />
             }
-            title="Password"
+            title="Confirm password"
             secureTextEntry={secureTextEntry.confirmPassword}
             placeholder="Enter your password"
             value={confirmPassword.value}
@@ -239,7 +184,7 @@ export default function SignupScreen({ navigation }) {
           bg="color-primary-500"
           textColor="white"
           containerStyles={styles.btn}
-          onPress={() => handleSignup()}
+          onPress={onPress}
         />
       </ScrollView>
     </SafeAreaView>

@@ -3,6 +3,7 @@ import { Box, Text, Button } from '../../components'
 import auth from '@react-native-firebase/auth'
 
 export default function AboutScreen({ navigation }) {
+  console.log(auth().currentUser)
   return (
     <Box>
       <Button
