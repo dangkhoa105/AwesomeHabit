@@ -3,12 +3,18 @@ import { TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { Box, Text, Button } from '../../../../components'
 
-export default function IconText({ label, iconName, iconFill, color, paddingTop, onPress }) {
+export default function IconText({ label, iconName, iconFill, color, paddingTop, onPress, style }) {
   return (
     <Box>
       {onPress !== undefined ? (
         <TouchableOpacity onPress={onPress}>
-          <Box flexDirection="row" alignItems="center" paddingVertical={5} paddingTop={paddingTop}>
+          <Box
+            flexDirection="row"
+            alignItems="center"
+            paddingVertical={5}
+            paddingTop={paddingTop}
+            style={style}
+          >
             {iconName !== undefined && (
               <Icon name={iconName} width={18} height={18} fill={iconFill} />
             )}
@@ -18,7 +24,13 @@ export default function IconText({ label, iconName, iconFill, color, paddingTop,
           </Box>
         </TouchableOpacity>
       ) : (
-        <Box flexDirection="row" alignItems="center" paddingVertical={5} paddingTop={paddingTop}>
+        <Box
+          flexDirection="row"
+          alignItems="center"
+          paddingVertical={5}
+          paddingTop={paddingTop}
+          style={style}
+        >
           {iconName !== undefined && (
             <Icon name={iconName} width={18} height={18} fill={iconFill} />
           )}

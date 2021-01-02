@@ -1,69 +1,40 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
-import ItemPlan from './Customs/ItemPlan'
+import { FlatList, StyleSheet } from 'react-native'
+import { Box, Text, Button } from '../../components'
+import { calRatio, handleAlertRatio } from './Function'
+import ItemHabit from './Customs/ItemHabit'
+import Loading from '../../components/Loading'
 
-const DataRatio = {
-  content: "You're almost done, go ahead!",
-  ratio: '80',
-}
-
-const DataHabit = [
-  {
-    name: 'Read Book',
-    content: 'Complete today to have the first streak',
-    isSelected: true,
-  },
-  {
-    name: 'Learning Arabic',
-    content: '1-day streak',
-    isSelected: true,
-  },
-  {
-    name: 'Morning Run',
-    content: '1-day streak',
-    isSelected: true,
-  },
-  {
-    name: 'Read Book',
-    content: 'Complete today to have the first streak',
-    isSelected: false,
-  },
-  {
-    name: 'Read Book',
-    content: 'Complete today to have the first streak',
-    isSelected: false,
-  },
-  {
-    name: 'Read Book',
-    content: 'Complete today to have the first streak',
-    isSelected: false,
-  },
-  {
-    name: 'Read Book',
-    content: 'Complete today to have the first streak',
-    isSelected: false,
-  },
-]
-
-export default function HomeScreen() {
+export default function HomeScreen(props) {
+  const [categories, setCategories] = useState([])
   const [habits, setHabits] = useState([])
   const [ratio, setRatio] = useState(0)
 
   useEffect(() => {
-    setHabits(DataHabit)
+    props.getCategoriesAction()
   }, [])
 
   useEffect(() => {
-    setRatio(calRatio)
+    if (props.dataGetCategories !== null) {
+      setCategories(props.dataGetCategories)
+    }
+    props.getHabitsAction()
+  }, [props.dataGetCategories])
+
+  useEffect(() => {
+    if (props.dataGetHabits !== null) {
+      let list = []
+      categories.map((item) => {
+        list = [...list, ...props.dataGetHabits.filter((v) => v.idCategory === item.id)]
+      })
+
+      setHabits(list)
+    }
+  }, [props.dataGetHabits])
+
+  useEffect(() => {
+    setRatio(calRatio(habits))
   }, [ratio, habits])
-
-  const calRatio = () => {
-    const listHabitComplete = habits.filter((val) => {
-      return val.isSelected === true
-    })
-
-    return Math.round(((listHabitComplete.length * 100) / habits.length) * 100) / 100
-  }
 
   const onChangeValueItem = (value, index) => {
     let newArr = [...habits] // copying the old datas array
@@ -73,39 +44,49 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <Box style={styles.container}>
       {/* HEADER */}
-      <View style={styles.header}>
-        {/* TITLE HEADER */}
-        <View style={styles.titleHeader}>
-          <Text style={styles.txtTitleHeader}>{DataRatio.content}</Text>
-          <Text style={styles.txtTitleHeader}>{ratio}%</Text>
-        </View>
+      {props.fetchingGetHabits ? (
+        <Loading />
+      ) : (
+        <Box style={styles.header}>
+          {/* TITLE HEADER */}
+          <Box style={styles.titleHeader}>
+            <Text variant="p" style={[styles.txtTitleHeader, { width: '80%' }]}>
+              {handleAlertRatio(ratio)}
+            </Text>
+            <Text variant="p" style={[styles.txtTitleHeader, { width: '20%' }]} textAlign="right">
+              {ratio}%
+            </Text>
+          </Box>
 
-        {/* RATIO */}
-        <View style={styles.ratioHeader}>
-          <View style={[styles.ratioInfo, { width: `${ratio}%` }]} />
-        </View>
-      </View>
-
-      {/* <View style={styles.divider} /> */}
+          {/* RATIO */}
+          <Box style={styles.ratioHeader}>
+            <Box style={[styles.ratioInfo, { width: `${ratio}%` }]} />
+          </Box>
+        </Box>
+      )}
 
       {/* CONTENT */}
-      <FlatList
-        data={habits}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item, index) => 'key' + index}
-        renderItem={({ item, index }) => {
-          return (
-            <ItemPlan
-              item={item}
-              index={index}
-              onChangeValue={(value, index) => onChangeValueItem(value, index)}
-            />
-          )
-        }}
-      />
-    </View>
+      {props.fetchingGetHabits ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={habits}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({ item, index }) => {
+            return (
+              <ItemHabit
+                item={item}
+                index={index}
+                onChangeValue={(value, index) => onChangeValueItem(value, index)}
+              />
+            )
+          }}
+        />
+      )}
+    </Box>
   )
 }
 

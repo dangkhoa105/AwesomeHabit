@@ -21,7 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     fetching: state.loginReducer.fetching,
     data: state.loginReducer.data,

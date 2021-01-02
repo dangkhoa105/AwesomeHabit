@@ -1,5 +1,14 @@
-import React, { useState, useEffect } from 'react'
 import auth from '@react-native-firebase/auth'
+import { userProfile } from '../../../config'
+
+// Set User Profile
+export const setUserProfile = () => {
+  let { displayName, email, uid } = auth().currentUser
+
+  userProfile.displayName = displayName
+  userProfile.email = email
+  userProfile.uid = uid
+}
 
 // Login
 export const handleLogin = async (
@@ -32,10 +41,10 @@ export const handleLogin = async (
     await auth()
       .signInWithEmailAndPassword(email.value, password.value)
       .then(() => {
+        setUserProfile()
         navigation.navigate('Tab')
       })
       .catch((error) => {
-        console.log('vo day', error)
         switch (error.code) {
           case 'auth/invalid-email':
             resultCode.email = false
@@ -69,17 +78,6 @@ export const handleLogin = async (
   setFetching(false)
   setEmail({ ...email, resultCode: resultCode.email, message: message.email })
   setPassword({ ...password, resultCode: resultCode.password, message: message.password })
-}
-
-export const handleUserUsedToLogin = (navigation) => {
-  auth().onAuthStateChanged(function (user) {
-    if (user) {
-      navigation.navigate('Tab')
-    } else {
-      console.log('vo day')
-      navigation.navigate('LoginContainer')
-    }
-  })
 }
 
 // Sign up

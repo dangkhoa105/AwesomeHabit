@@ -1,11 +1,10 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, n } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AppThemeProvider } from '../theme/themeProvider'
 import { Icon } from 'react-native-eva-icons'
-import database from '@react-native-firebase/database'
 import HomeContainer from './Home/HomeContainer'
 import ReportContainer from './Report/ReportContainer'
 import SettingContainer from './Setting/SettingContainer'
@@ -61,14 +60,12 @@ function TAB() {
 const Stack = createStackNavigator()
 
 export default function App() {
-  React.useEffect(() => {
-    database()
-      .ref('/user/123')
-      .once('value')
-      .then((snapshot) => {
-        console.log('User data: ', snapshot.val())
-      })
-  }, [])
+  // React.useEffect(() => {
+  //   let { displayName, email, uid } = auth().currentUser
+  //   console.log(uid)
+  //   ;(userProfile.displayName = displayName), (userProfile.email = email), (userProfile.uid = uid)
+  // }, [])
+
   return (
     <AppThemeProvider>
       <NavigationContainer>

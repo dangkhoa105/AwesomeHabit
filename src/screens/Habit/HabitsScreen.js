@@ -1,44 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FlatList, Image, Dimensions, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { getImage } from '../../theme/images'
+import { colors } from '../../theme/color'
 import IconText from './Custom/Header/IconText'
 import Header from './Custom/Header/Header'
+import Loading from '../../components/Loading'
 
 const { width, height } = Dimensions.get('window')
 
-const DataCategories = [
-  { title: 'Hit the gym', iconName: 'heart-outline', iconFill: '#DC2626' },
-  { title: 'Go for a walk', iconName: 'browser-outline', iconFill: '#60A5FA' },
-  { title: 'Go for a run', iconName: 'star-outline', iconFill: '#F59E0B' },
-  { title: 'Play some sport', iconName: 'award-outline', iconFill: '#34D399' },
-  { title: 'Go for a ride', iconName: 'camera-outline', iconFill: '#EC4899' },
-  { title: 'Hit the gym', iconName: 'heart-outline', iconFill: '#DC2626' },
-  { title: 'Go for a walk', iconName: 'browser-outline', iconFill: '#60A5FA' },
-  { title: 'Go for a run', iconName: 'star-outline', iconFill: '#F59E0B' },
-  { title: 'Play some sport', iconName: 'award-outline', iconFill: '#34D399' },
-  { title: 'Go for a ride', iconName: 'camera-outline', iconFill: '#EC4899' },
-  { title: 'Hit the gym', iconName: 'heart-outline', iconFill: '#DC2626' },
-  { title: 'Go for a walk', iconName: 'browser-outline', iconFill: '#60A5FA' },
-  { title: 'Go for a run', iconName: 'star-outline', iconFill: '#F59E0B' },
-  { title: 'Play some sport', iconName: 'award-outline', iconFill: '#34D399' },
-  { title: 'Go for a ride', iconName: 'camera-outline', iconFill: '#EC4899' },
-]
+export default function HabitsScreen(props) {
+  const { title, idCategory } = props.route.params
 
-export default function HabitsScreen({ route, navigation }) {
-  const { title } = route.params
+  const [habits, setHabits] = useState([])
+
+  useEffect(() => {
+    props.getHabitsAction()
+  }, [])
+
+  useEffect(() => {
+    if (props.dataGetHabits !== null) {
+      let list = props.dataGetHabits.filter((item) => item.idCategory === idCategory)
+      setHabits(list)
+    }
+  }, [props.dataGetHabits])
+
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       {/* HEADER */}
-      <Header title={title} type="other" navigation={navigation} />
+      <Header title={title} type="other" navigation={props.navigation} />
 
       {/* CONTENT */}
       {/* TITLE */}
       <IconText
         label="Create a custom habit"
         iconName="edit-outline"
-        iconFill="#9570FF"
-        onPress={() => navigation.navigate('CreateNewHabitContainer')}
+        iconFill={colors['color-primary-500']}
+        onPress={() => props.navigation.navigate('CreateNewHabitContainer')}
       />
 
       {/* LIST CATEGORY */}
@@ -46,24 +44,28 @@ export default function HabitsScreen({ route, navigation }) {
       <IconText label="Popular healthy habit:" color="color-gray-400" paddingTop={0} />
 
       {/* LIST */}
-      <Box height={height / 2}>
-        <FlatList
-          data={DataCategories}
-          keyExtractor={(item, index) => index.toString()}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-            return (
-              <IconText
-                label={item.title}
-                iconName={item.iconName}
-                iconFill={item.iconFill}
-                paddingTop={0}
-                onPress={() => console.log('aa')}
-              />
-            )
-          }}
-        />
-      </Box>
+      {props.fetchingGetHabits ? (
+        <Loading />
+      ) : (
+        <Box height={height / 2}>
+          <FlatList
+            data={habits}
+            keyExtractor={(item, index) => index.toString()}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item }) => {
+              return (
+                <IconText
+                  label={item.title}
+                  iconName={item.iconName}
+                  iconFill={colors[item.iconFill]}
+                  paddingTop={0}
+                  onPress={() => console.log('aa')}
+                />
+              )
+            }}
+          />
+        </Box>
+      )}
 
       {/* IMAGE */}
       <Box position="absolute" bottom={30} right={20}>

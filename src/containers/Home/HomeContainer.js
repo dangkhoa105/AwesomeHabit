@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
+import { getCategoriesAction, getHabitsAction } from '../../redux/actions'
 import Header from '../../components/Header'
 import ButtonAdd from '../../components/ButtonAdd'
 import Calender from '../../screens/Home/Customs/Calender'
@@ -20,12 +21,25 @@ function HomeContainer(props) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    getCategoriesAction: () => {
+      dispatch(getCategoriesAction())
+    },
+    getHabitsAction: () => {
+      dispatch(getHabitsAction())
+    },
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    fetchingGetCategories: state.getCategoriesReducer.fetching,
+    dataGetCategories: state.getCategoriesReducer.data,
+    messageGetCategories: state.getCategoriesReducer.message,
+    fetchingGetHabits: state.getHabitsReducer.fetching,
+    dataGetHabits: state.getHabitsReducer.data,
+    messageGetHabits: state.getHabitsReducer.message,
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default HomeContainer
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

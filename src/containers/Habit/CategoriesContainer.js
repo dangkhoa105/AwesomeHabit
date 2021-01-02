@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
+import { getCategoriesAction } from '../../redux/actions'
 import CategoriesScreen from '../../screens/Habit/CategoriesScreen'
 
 function CategoriesContainer(props) {
@@ -12,12 +13,19 @@ function CategoriesContainer(props) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    getCategoriesAction: () => {
+      dispatch(getCategoriesAction())
+    },
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    fetchingGetCategories: state.getCategoriesReducer.fetching,
+    dataGetCategories: state.getCategoriesReducer.data,
+    messageGetCategories: state.getCategoriesReducer.message,
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default CategoriesContainer
+export default connect(mapStateToProps, mapDispatchToProps)(CategoriesContainer)

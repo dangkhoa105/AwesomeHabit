@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
+import { getHabitsAction } from '../../redux/actions'
 import HabitsScreen from '../../screens/Habit/HabitsScreen'
 
 function HabitsContainer(props) {
@@ -12,12 +13,19 @@ function HabitsContainer(props) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    getHabitsAction: () => {
+      dispatch(getHabitsAction())
+    },
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    fetchingGetHabits: state.getHabitsReducer.fetching,
+    dataGetHabits: state.getHabitsReducer.data,
+    messageGetHabits: state.getHabitsReducer.message,
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default HabitsContainer
+export default connect(mapStateToProps, mapDispatchToProps)(HabitsContainer)

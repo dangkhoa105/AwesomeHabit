@@ -4,6 +4,7 @@ import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
+import { setUserProfile } from './Function'
 import ButtonCustom from './Custom/ButtonCustom'
 import auth from '@react-native-firebase/auth'
 
@@ -25,8 +26,9 @@ export default function WelcomeScreen({ navigation }) {
     return subscriber // unsubscribe on unmount
   }, [])
 
-  handleUserUsedToLogin = () => {
+  const handleUserUsedToLogin = () => {
     if (user) {
+      setUserProfile()
       navigation.navigate('Tab')
     } else {
       navigation.navigate('LoginContainer')
@@ -85,7 +87,7 @@ export default function WelcomeScreen({ navigation }) {
             <Text variant="s1" color="color-gray-500">
               Already have a account?{' '}
             </Text>
-            <Button onPress={() => handleUserUsedToLogin(navigation)}>
+            <Button onPress={handleUserUsedToLogin}>
               <Text variant="s1" fontWeight="bold" color="color-primary-500">
                 Login now
               </Text>

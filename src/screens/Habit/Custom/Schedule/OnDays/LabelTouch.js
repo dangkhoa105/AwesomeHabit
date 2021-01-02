@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Icon } from 'react-native-eva-icons'
-import { set } from 'react-native-reanimated'
 import { Box, Text, Button } from '../../../../../components'
 import { colors } from '../../../../../theme/color'
 
@@ -27,8 +26,6 @@ export default function LabelTouch({
   const onPress = () => {
     setSelect(!select)
   }
-
-  // console.log('3', select)
 
   return (
     <Button onPress={onPress}>

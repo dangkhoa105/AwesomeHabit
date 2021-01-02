@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
+import { fonts } from '../../../theme/theme'
 
-export default function ItemPlan({ item, index, onChangeValue }) {
-  const [isSelected, setIsSelected] = useState(item.isSelected)
+const size = 20
+
+export default function ItemHabit({ item, index, onChangeValue }) {
+  const [isSelected, setIsSelected] = useState(item.check)
 
   const handleSelected = () => {
     setIsSelected(!isSelected)
-    onChangeValue({ ...item, isSelected: !isSelected }, index)
+    onChangeValue({ ...item, check: !isSelected }, index)
   }
 
   return (
     <TouchableOpacity style={styles.container} onPress={handleSelected}>
       <Icon
         name={isSelected ? 'checkmark-circle-2' : 'radio-button-off-outline'}
-        width={24}
-        height={24}
+        width={size}
+        height={size}
         fill="#9570FF"
       />
       <View style={{ paddingLeft: 16 }}>
-        <Text style={styles.name}>{item !== null && item.name}</Text>
-        <Text style={styles.content}>{item !== null && item.content}</Text>
+        <Text style={styles.name}>{item !== null && item.title}</Text>
       </View>
     </TouchableOpacity>
   )
@@ -40,7 +42,8 @@ const styles = StyleSheet.create({
   },
   name: {
     color: '#333',
-    fontSize: 12,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontFamily: fonts.medium,
+    fontWeight: '500',
   },
 })
