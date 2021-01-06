@@ -7,9 +7,10 @@ import ColorPicker from '../Custom/ColorPicker/ColorPicker'
 import IconPicker from '../Custom/IconPicker/IconPicker'
 
 export default function CreateScreen({ type, navigation, getValue, onPressNext }) {
-  const [select, setSelect] = useState({ name: '', color: '', icon: '' })
+  const [select, setSelect] = useState({ title: '', iconFill: '', iconName: '' })
 
-  let checkCondition = select.name.trim() !== '' && select.color !== '' && select.icon !== ''
+  let checkCondition =
+    select.title.trim() !== '' && select.iconFill !== '' && select.iconName !== ''
 
   let bg = checkCondition ? 'color-primary-500' : 'color-primary-200'
 
@@ -35,13 +36,13 @@ export default function CreateScreen({ type, navigation, getValue, onPressNext }
             <Text pb={2}>{jsUcFirst(type)} name:</Text>
             <TextInput
               style={styles.textInput}
-              onChangeText={(value) => setSelect({ ...select, name: value })}
+              onChangeText={(value) => setSelect({ ...select, title: value })}
             />
           </Box>
 
-          <ColorPicker onSelectColor={(value) => setSelect({ ...select, color: value })} />
+          <ColorPicker onSelectColor={(value) => setSelect({ ...select, iconFill: value })} />
 
-          <IconPicker onSelectIcon={(value) => setSelect({ ...select, icon: value })} />
+          <IconPicker onSelectIcon={(value) => setSelect({ ...select, iconName: value })} />
         </Box>
 
         {/* BUTTONS */}

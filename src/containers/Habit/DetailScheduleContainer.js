@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
+import { createHabitAction } from '../../redux/actions'
 import DetailScheduleScreen from '../../screens/Habit/DetailScheduleScreen'
 
 function DetailScheduleContainer(props) {
@@ -12,12 +13,19 @@ function DetailScheduleContainer(props) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    createHabitAction: (data) => {
+      dispatch(createHabitAction(data))
+    },
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    fetchingCreateHabit: state.createHabitReducer.fetching,
+    dataCreateHabit: state.createHabitReducer.data,
+    messageCreateHabit: state.createHabitReducer.message,
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default DetailScheduleContainer
+export default connect(mapStateToProps, mapDispatchToProps)(DetailScheduleContainer)

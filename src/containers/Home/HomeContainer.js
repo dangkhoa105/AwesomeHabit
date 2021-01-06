@@ -12,7 +12,7 @@ function HomeContainer(props) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F2F7F8' }}>
       <Header />
-      <Calender />
+      <Calender {...props} />
       <HomeScreen {...props} />
       <ButtonAdd onPress={() => props.navigation.navigate('CategoriesContainer')} />
       <MovingButton onPress={() => props.navigation.navigate('ChatBotContainer')} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ScrollView, FlatList, Dimensions, Platform, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../../../../components'
-import { formatTime } from '../../../Function'
+import { formatTime } from '../../../../../components/Function'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import LabelTime from './LabelTime'
 

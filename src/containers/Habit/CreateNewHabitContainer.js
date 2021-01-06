@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
+import { createHabitAction } from '../../redux/actions'
 import CreateNewHabitScreen from '../../screens/Habit/CreateNewHabitScreen'
 
 function CreateNewHabitContainer(props) {
@@ -16,8 +17,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default CreateNewHabitContainer
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewHabitContainer)

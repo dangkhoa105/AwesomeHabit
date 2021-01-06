@@ -1,25 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
+import { objectIsNull } from '../../components/Function'
 import { getImage } from '../../theme/images'
 import Header from './Custom/Header/Header'
 import Schedule from './Custom/Schedule'
 
 const { width, height } = Dimensions.get('window')
 
-export default function DetailScheduleScreen({ navigation, route }) {
+export default function DetailScheduleScreen(props) {
   const [data, setData] = useState({})
-  const { dataSelect } = route.params
+  const { dataSelect } = props.route.params
+  const prevProps = useRef({ dataCreateHabit: props.dataCreateHabit }).current
 
   const handleOnPressDone = () => {
-    console.log(Object.assign(data, dataSelect))
+    props.createHabitAction(Object.assign(data, dataSelect))
   }
+
+  useEffect(() => {
+    if (
+      !objectIsNull(props.dataCreateHabit) &&
+      prevProps.dataCreateHabit !== props.dataCreateHabit
+    ) {
+      if (props.dataCreateHabit.resultCode === 1) {
+        props.navigation.navigate('HabitsContainer')
+      }
+    }
+  }, [props.dataCreateHabit])
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Box flex={1} paddingHorizontal={8} pt={5} bg="white">
         {/* HEADER */}
-        <Header title={'Detail Schedule'} type="other" navigation={navigation} />
+        <Header title={'Detail Schedule'} type="other" navigation={props.navigation} />
 
         {/* SELECTIONS */}
         <Schedule getData={(value) => setData(value)} />

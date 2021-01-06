@@ -5,6 +5,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AppThemeProvider } from '../theme/themeProvider'
 import { Icon } from 'react-native-eva-icons'
+import { formatTime } from '../components/Function'
+import { getNotification } from '../screens/Home/Function'
+import moment from 'moment'
 import HomeContainer from './Home/HomeContainer'
 import ReportContainer from './Report/ReportContainer'
 import SettingContainer from './Setting/SettingContainer'
@@ -60,11 +63,22 @@ function TAB() {
 const Stack = createStackNavigator()
 
 export default function App() {
-  // React.useEffect(() => {
-  //   let { displayName, email, uid } = auth().currentUser
-  //   console.log(uid)
-  //   ;(userProfile.displayName = displayName), (userProfile.email = email), (userProfile.uid = uid)
-  // }, [])
+  let curTime = ''
+  let time = new Date().getTime()
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      time += 1000
+      curTime =
+        formatTime(moment(time).hour()) +
+        ':' +
+        formatTime(moment(time).minute()) +
+        ':' +
+        formatTime(moment(time).second())
+      getNotification(curTime)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <AppThemeProvider>

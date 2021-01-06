@@ -1,34 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { calRatio, handleAlertRatio } from './Function'
+import { objectIsNull, stringIsEmpty } from '../../components/Function'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
 
 export default function HomeScreen(props) {
-  const [categories, setCategories] = useState([])
   const [habits, setHabits] = useState([])
   const [ratio, setRatio] = useState(0)
+  const prevProps = useRef({ dataGetHabits: props.dataGetHabits }).current
 
   useEffect(() => {
-    props.getCategoriesAction()
+    props.getHabitsAction()
   }, [])
 
   useEffect(() => {
-    if (props.dataGetCategories !== null) {
-      setCategories(props.dataGetCategories)
-    }
-    props.getHabitsAction()
-  }, [props.dataGetCategories])
-
-  useEffect(() => {
-    if (props.dataGetHabits !== null) {
-      let list = []
-      categories.map((item) => {
-        list = [...list, ...props.dataGetHabits.filter((v) => v.idCategory === item.id)]
-      })
-
-      setHabits(list)
+    if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
+      setHabits(props.dataGetHabits)
     }
   }, [props.dataGetHabits])
 
@@ -37,11 +26,13 @@ export default function HomeScreen(props) {
   }, [ratio, habits])
 
   const onChangeValueItem = (value, index) => {
-    let newArr = [...habits] // copying the old datas array
+    const newArr = [...habits] // copying the old datas array
     newArr[index] = value // replace value with whatever you want to change it to
 
     setHabits(newArr)
   }
+
+  const showRatio = !isNaN(ratio) ? ratio + '%' : ''
 
   return (
     <Box style={styles.container}>
@@ -56,7 +47,7 @@ export default function HomeScreen(props) {
               {handleAlertRatio(ratio)}
             </Text>
             <Text variant="p" style={[styles.txtTitleHeader, { width: '20%' }]} textAlign="right">
-              {ratio}%
+              {showRatio}
             </Text>
           </Box>
 
@@ -126,5 +117,4 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     height: 8,
   },
-  content: {},
 })

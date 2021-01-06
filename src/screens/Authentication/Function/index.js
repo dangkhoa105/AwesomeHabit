@@ -3,7 +3,7 @@ import { userProfile } from '../../../config'
 
 // Set User Profile
 export const setUserProfile = () => {
-  let { displayName, email, uid } = auth().currentUser
+  const { displayName, email, uid } = auth().currentUser
 
   userProfile.displayName = displayName
   userProfile.email = email
@@ -19,8 +19,8 @@ export const handleLogin = async (
   navigation,
   setFetching,
 ) => {
-  let resultCode = { email: true, password: true }
-  let message = { email: '', password: '' }
+  const resultCode = { email: true, password: true }
+  const message = { email: '', password: '' }
 
   if (email.value === '' && password.value === '') {
     resultCode.email = false
@@ -93,8 +93,8 @@ export const handleSignup = async (
   navigation,
   setFetching,
 ) => {
-  let resultCode = { name: true, email: true, password: true, confirmPassword: true }
-  let message = { name: '', email: '', password: '', confirmPassword: '' }
+  const resultCode = { name: true, email: true, password: true, confirmPassword: true }
+  const message = { name: '', email: '', password: '', confirmPassword: '' }
 
   if (
     name.value === '' ||

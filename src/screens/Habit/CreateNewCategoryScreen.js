@@ -1,15 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { objectIsNull } from '../../components/Function'
 import CreateScreen from './Custom/CreateScreen'
 
-export default function CreateNewCategoryScreen({ navigation }) {
+export default function CreateNewCategoryScreen(props) {
   const [value, setValue] = useState(null)
-  // console.log(value)
+  const prevProps = useRef({ dataCreateCategory: props.dataCreateCategory }).current
+
+  useEffect(() => {
+    if (
+      !objectIsNull(props.dataCreateCategory) &&
+      prevProps.dataCreateCategory !== props.dataCreateCategory
+    ) {
+      if (props.dataCreateCategory.resultCode === 1) {
+        props.navigation.navigate('HabitsContainer', {
+          title: value.title,
+          idCategory: props.dataCreateCategory.id,
+        })
+      }
+    }
+  }, [props.dataCreateCategory])
+
   return (
     <CreateScreen
       type="category"
-      navigation={navigation}
+      navigation={props.navigation}
       getValue={(value) => setValue(value)}
-      onPressNext={() => navigation.navigate('HabitsContainer', { title: value.name })}
+      onPressNext={() => {
+        props.createCategoryAction(value)
+      }}
     />
   )
 }

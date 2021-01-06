@@ -1,6 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
+import { createCategoryAction } from '../../redux/actions'
 import CreateNewCategoryScreen from '../../screens/Habit/CreateNewCategoryScreen'
 
 function CreateNewCategoryContainer(props) {
@@ -12,12 +13,19 @@ function CreateNewCategoryContainer(props) {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    createCategoryAction: (data) => {
+      dispatch(createCategoryAction(data))
+    },
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    fetchingCreateCategory: state.createCategoryReducer.fetching,
+    dataCreateCategory: state.createCategoryReducer.data,
+    messageCreateCategory: state.createCategoryReducer.message,
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
-export default CreateNewCategoryContainer
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewCategoryContainer)

@@ -1,15 +1,21 @@
 import database from '@react-native-firebase/database'
-import { userProfile } from '../../../../config'
+import auth from '@react-native-firebase/auth'
+import { objectIsNull } from '../../../../components/Function'
 
 export const getCategories = async () => {
+  const { uid } = auth().currentUser
   try {
-    let data = null
+    const data = []
     await database()
-      .ref('/categories')
+      .ref(`/users/${uid}/categories`)
       .once('value')
       .then((snapshot) => {
-        let list = snapshot.val()
-        data = list.filter((item) => item.uid === userProfile.uid)
+        if (!objectIsNull(snapshot.val())) {
+          const keys = Object.keys(snapshot.val())
+          Object.values(snapshot.val()).map((v, i) => {
+            data.push({ ...v, id: keys[i] })
+          })
+        }
       })
 
     return data
