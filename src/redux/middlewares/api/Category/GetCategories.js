@@ -11,8 +11,9 @@ export const getCategories = async () => {
       .once('value')
       .then((snapshot) => {
         if (!objectIsNull(snapshot.val())) {
-          const keys = Object.keys(snapshot.val())
-          Object.values(snapshot.val()).map((v, i) => {
+          const obj = Object.values(snapshot)[0]
+          const keys = obj.childKeys.reverse()
+          Object.values(obj.value).map((v, i) => {
             data.push({ ...v, id: keys[i] })
           })
         }

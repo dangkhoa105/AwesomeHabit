@@ -3,6 +3,7 @@ import { Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { objectIsNull } from '../../components/Function'
 import { getImage } from '../../theme/images'
+import { checkCondition } from './Function'
 import Header from './Custom/Header/Header'
 import Schedule from './Custom/Schedule'
 
@@ -28,6 +29,8 @@ export default function DetailScheduleScreen(props) {
     }
   }, [props.dataCreateHabit])
 
+  let bg = checkCondition(data) ? 'color-primary-500' : 'color-primary-200'
+
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Box flex={1} paddingHorizontal={8} pt={5} bg="white">
@@ -50,7 +53,11 @@ export default function DetailScheduleScreen(props) {
             style={styles.imgFooter}
             source={getImage.footer_detailSchedule}
           />
-          <Button bg="color-primary-500" borderRadius={1} onPress={handleOnPressDone}>
+          <Button
+            bg={bg}
+            borderRadius={1}
+            onPress={() => (checkCondition(data) ? handleOnPressDone() : {})}
+          >
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
               Done
             </Text>

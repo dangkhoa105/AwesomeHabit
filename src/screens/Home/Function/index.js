@@ -45,7 +45,6 @@ const { uid } = auth().currentUser
 export const getNotification = (curTime) => {
   let habits = []
   let listTime = []
-  console.log('vo day')
   database()
     .ref(`/users/${uid}/habits`)
     .once('value')

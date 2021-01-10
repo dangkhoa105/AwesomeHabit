@@ -3,7 +3,7 @@ import { FlatList, Image, Dimensions, StyleSheet } from 'react-native'
 import { Box } from '../../components'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
-import { objectIsNull } from '../../components/Function'
+import { arrayIsEmpty, objectIsNull } from '../../components/Function'
 import IconText from './Custom/Header/IconText'
 import Header from './Custom/Header/Header'
 import Loading from '../../components/Loading'
@@ -26,8 +26,10 @@ export default function HabitsScreen(props) {
 
   useEffect(() => {
     if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
-      const list = props.dataGetHabits.filter((item) => item.idCategory === idCategory)
-      setHabits(list)
+      if (!arrayIsEmpty(props.dataGetHabits)) {
+        const list = props.dataGetHabits.data.filter((item) => item.idCategory === idCategory)
+        setHabits(list)
+      }
     }
   }, [props.dataGetHabits])
 

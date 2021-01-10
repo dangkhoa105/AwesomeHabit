@@ -2,14 +2,29 @@ import React, { useState, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { calRatio, handleAlertRatio } from './Function'
-import { objectIsNull, stringIsEmpty } from '../../components/Function'
+import { arrayIsEmpty, objectIsNull, stringIsEmpty } from '../../components/Function'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
+import Swiper from '../../components/Swiper'
+
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
 
 export default function HomeScreen(props) {
   const [habits, setHabits] = useState([])
+  const [keys, setKeys] = useState([])
   const [ratio, setRatio] = useState(0)
-  const prevProps = useRef({ dataGetHabits: props.dataGetHabits }).current
+  const [indexSelected, setIndexSelected] = useState('')
+  const [indexScroll, setIndexScroll] = useState('')
+  const prevProps = {
+    dataGetHabits: usePrevious(props.dataGetHabits),
+    dataDeleteHabit: usePrevious(props.dataDeleteHabit),
+  }
 
   useEffect(() => {
     props.getHabitsAction()
@@ -17,18 +32,29 @@ export default function HomeScreen(props) {
 
   useEffect(() => {
     if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
-      setHabits(props.dataGetHabits)
+      setHabits(props.dataGetHabits.data)
+      setKeys(props.dataGetHabits.keys)
     }
-  }, [props.dataGetHabits])
+
+    if (
+      !objectIsNull(props.dataDeleteHabit) &&
+      prevProps.dataDeleteHabit !== props.dataDeleteHabit
+    ) {
+      if (props.dataDeleteHabit.resultCode === 1) {
+        props.getHabitsAction()
+      }
+    }
+  }, [props.dataGetHabits, props.dataDeleteHabit])
 
   useEffect(() => {
     setRatio(calRatio(habits))
+    props.updateHabitAction(keys[indexSelected], habits[indexSelected])
   }, [ratio, habits])
 
   const onChangeValueItem = (value, index) => {
     const newArr = [...habits] // copying the old datas array
     newArr[index] = value // replace value with whatever you want to change it to
-
+    setIndexSelected(index)
     setHabits(newArr)
   }
 
@@ -66,13 +92,22 @@ export default function HomeScreen(props) {
           data={habits}
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
+          onScroll={() => setIndexScroll('')}
           renderItem={({ item, index }) => {
             return (
-              <ItemHabit
-                item={item}
+              <Swiper
                 index={index}
-                onChangeValue={(value, index) => onChangeValueItem(value, index)}
-              />
+                indexScroll={indexScroll}
+                setIndexScroll={(value) => setIndexScroll(value)}
+              >
+                <ItemHabit
+                  item={item}
+                  index={index}
+                  onChangeValue={(value, index) => onChangeValueItem(value, index)}
+                  keys={keys}
+                  onDelete={(id) => props.deleteHabitAction(id)}
+                />
+              </Swiper>
             )
           }}
         />

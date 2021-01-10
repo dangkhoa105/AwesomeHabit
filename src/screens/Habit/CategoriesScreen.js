@@ -27,6 +27,7 @@ export default function CategoriesScreen(props) {
     }
   }, [props.dataGetCategories])
 
+  console.log(categories)
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       {/* HEADER */}
@@ -51,7 +52,7 @@ export default function CategoriesScreen(props) {
       ) : (
         <Box height={height / 2}>
           <FlatList
-            data={categories.sort(compare)}
+            data={categories}
             keyExtractor={(_, index) => index.toString()}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {

@@ -59,7 +59,7 @@ export default function CreateScreen({ type, navigation, getValue, onPressNext }
             </Text>
           </Button>
 
-          <Button bg={bg} borderRadius={1} onPress={onPressNext}>
+          <Button bg={bg} borderRadius={1} onPress={() => (checkCondition ? onPressNext() : {})}>
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
               Next
             </Text>

@@ -19,14 +19,10 @@ export const arrayIsEmpty = (arr) => {
 }
 
 export const stringIsEmpty = (str) => {
-  if (!objectIsNull(str)) {
-    if (str !== '') {
-      return true
-    } else {
-      return false
-    }
-  } else {
+  if (str === '') {
     return true
+  } else {
+    return false
   }
 }
 

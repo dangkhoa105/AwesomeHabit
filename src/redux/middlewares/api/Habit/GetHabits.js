@@ -5,14 +5,18 @@ import { objectIsNull } from '../../../../components/Function'
 export const getHabits = async () => {
   const { uid } = auth().currentUser
   try {
-    let data = null
+    let list = { data: [], keys: [] }
     await database()
       .ref(`/users/${uid}/habits`)
       .once('value')
       .then((snapshot) => {
-        data = objectIsNull(snapshot.val()) ? null : Object.values(snapshot.val())
+        if (!objectIsNull(snapshot.val())) {
+          const obj = Object.values(snapshot)[0]
+          const keys = obj.childKeys.reverse()
+          list = { data: Object.values(obj.value), keys }
+        }
       })
-    return data
+    return list
   } catch (err) {
     return err
   }

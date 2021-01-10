@@ -6,7 +6,7 @@ import reducers from './reducers'
 import rootSaga from '../redux/middlewares/saga'
 import App from '../containers/App'
 const sagaMiddleware = createSagaMiddleware()
-let store = createStore(reducers, applyMiddleware(sagaMiddleware))
+const store = createStore(reducers, applyMiddleware(sagaMiddleware))
 
 sagaMiddleware.run(rootSaga)
 

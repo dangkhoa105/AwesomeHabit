@@ -11,7 +11,7 @@ export default function CreateNewHabitScreen({ navigation, route }) {
       getValue={(value) => setValue(value)}
       onPressNext={() =>
         navigation.navigate('DetailScheduleContainer', {
-          dataSelect: { ...value, idCategory: route.params.idCategory },
+          dataSelect: { ...value, idCategory: route.params.idCategory, check: false },
         })
       }
     />

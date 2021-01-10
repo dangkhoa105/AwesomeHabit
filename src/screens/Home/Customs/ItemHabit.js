@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
+import { colors } from '../../../theme/color'
 import { fonts } from '../../../theme/theme'
 
+const { width } = Dimensions.get('window')
 const size = 20
 
-export default function ItemHabit({ item, index, onChangeValue }) {
+export default function ItemHabit({ item, index, onChangeValue, keys, onDelete }) {
   const [isSelected, setIsSelected] = useState(item.check)
 
   const handleSelected = () => {
@@ -14,17 +16,22 @@ export default function ItemHabit({ item, index, onChangeValue }) {
   }
 
   return (
-    <TouchableOpacity style={styles.container} onPress={handleSelected}>
-      <Icon
-        name={isSelected ? 'checkmark-circle-2' : 'radio-button-off-outline'}
-        width={size}
-        height={size}
-        fill="#9570FF"
-      />
-      <View style={{ paddingLeft: 16 }}>
-        <Text style={styles.name}>{item !== null && item.title}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={handleSelected}>
+        <View style={styles.content}>
+          <Icon
+            name={isSelected ? 'checkmark-circle-2' : 'radio-button-off-outline'}
+            width={size}
+            height={size}
+            fill="#9570FF"
+          />
+          <Text style={styles.name}>{item !== null && item.title}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonDelete} onPress={() => onDelete(keys[index])}>
+        <Text style={styles.textButton}>Delete</Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -36,14 +43,25 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   content: {
-    color: '#91A7AD',
-    fontSize: 12,
-    fontWeight: '500',
+    width: width,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   name: {
     color: '#333',
     fontSize: 14,
     fontFamily: fonts.medium,
-    fontWeight: '500',
+    paddingLeft: 16,
+  },
+  buttonDelete: {
+    backgroundColor: colors['color-danger-400'],
+    padding: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  textButton: {
+    fontSize: 14,
+    fontFamily: fonts.medium,
+    color: '#fff',
   },
 })
