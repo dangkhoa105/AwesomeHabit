@@ -4,18 +4,19 @@ import { Box, Text, Button } from '../../../../../components'
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../../../../../theme/color'
 
-const dates = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const daily = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 const size = 16
 
-export default function DayPicker({ indexDelete, getDays }) {
-  const [checkDaysSelected, setCheckDaysSelected] = useState(new Array(dates.length).fill(false))
+export default function DayPicker({ getDays }) {
+  const [checkDaysSelected, setCheckDaysSelected] = useState(new Array(daily.length).fill(false))
   const [isSelectAll, setIsSelectAll] = useState(false)
 
   useEffect(() => {
-    let list = []
+    const list = []
     checkDaysSelected.map((v, i) => {
       if (v) {
-        list.push(dates[i])
+        list.push(daily[i])
       }
     })
     getDays(list)
@@ -31,8 +32,8 @@ export default function DayPicker({ indexDelete, getDays }) {
   }
 
   const renderItem = ({ item, index }) => {
-    let isLastItem = index === dates.length - 1
-    let pb = isLastItem ? 2 : 0
+    const isLastItem = index === daily.length - 1
+    const pb = isLastItem ? 2 : 0
 
     const onSelect = () => {
       setCheckDaysSelected(checkDaysSelected.map((v, i) => (i === index ? !v : v)))
@@ -77,7 +78,7 @@ export default function DayPicker({ indexDelete, getDays }) {
       zIndex={1}
     >
       <FlatList
-        data={dates}
+        data={daily}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
       />

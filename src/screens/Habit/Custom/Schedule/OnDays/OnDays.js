@@ -7,7 +7,7 @@ import DayPicker from './DayPicker'
 
 const size = 20
 
-export default function OnDays({ getDays }) {
+export default function OnDays({ habitType, getDays }) {
   const [isShowPopup, setIsShowPopup] = useState(false)
   const [daysSelected, setDaysSelected] = useState([])
   const [indexDelete, setIndexDelete] = useState('')
@@ -65,7 +65,9 @@ export default function OnDays({ getDays }) {
           </Text>
         </Button>
 
-        {isShowPopup && <DayPicker indexDelete={indexDelete} getDays={setDaysSelected} />}
+        {isShowPopup && (
+          <DayPicker habitType={habitType} indexDelete={indexDelete} getDays={setDaysSelected} />
+        )}
       </Box>
 
       <FlatList

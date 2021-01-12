@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Dimensions } from 'react-native'
+import React from 'react'
 import { Box, Text, Button } from '../../../../../components'
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../../../../../theme/color'
+import { formatTime } from '../../../../../components/Function'
 
 const size = 20
-const { width } = Dimensions.get('window')
 
 export default function LabelTime({ time, index, onRemove }) {
   return (
@@ -23,7 +22,7 @@ export default function LabelTime({ time, index, onRemove }) {
       <Box flexDirection="row" alignItems="center">
         <Icon name="clock" width={size} height={size} fill={colors['color-primary-500']} />
         <Text fontWeight="bold" color="color-primary-500" pl={1}>
-          {time}
+          {formatTime(new Date(time).getHours()) + ':' + formatTime(new Date(time).getMinutes())}
         </Text>
       </Box>
 

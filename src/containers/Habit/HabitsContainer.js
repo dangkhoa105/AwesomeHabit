@@ -1,7 +1,7 @@
 import React from 'react'
 import { SafeAreaView, View } from 'react-native'
 import { connect } from 'react-redux'
-import { getHabitsAction } from '../../redux/actions'
+import { deleteCategoryAction, getHabitsAction } from '../../redux/actions'
 import HabitsScreen from '../../screens/Habit/HabitsScreen'
 
 function HabitsContainer(props) {
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
     getHabitsAction: () => {
       dispatch(getHabitsAction())
     },
+    deleteCategoryAction: (id) => {
+      dispatch(deleteCategoryAction(id))
+    },
   }
 }
 
@@ -25,6 +28,9 @@ const mapStateToProps = (state) => {
     fetchingGetHabits: state.getHabitsReducer.fetching,
     dataGetHabits: state.getHabitsReducer.data,
     messageGetHabits: state.getHabitsReducer.message,
+    fetchingDeleteCategory: state.deleteCategoryReducer.fetching,
+    dataDeleteCategory: state.deleteCategoryReducer.data,
+    messageDeleteCategory: state.deleteCategoryReducer.message,
   }
 }
 

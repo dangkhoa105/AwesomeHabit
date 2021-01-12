@@ -11,7 +11,7 @@ export default function SelectionButton({ title, data, getValue }) {
   }
 
   const renderItem = ({ item, index }) => {
-    let isSelect = type === index
+    const isSelect = type === index
 
     let bg = 'transparent'
 

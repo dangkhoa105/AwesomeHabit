@@ -1,10 +1,8 @@
 import { arrayIsEmpty, stringIsEmpty } from '../../../components/Function'
 
-export const checkCondition = (value) => {
-  console.log(!arrayIsEmpty(value.days))
+export const checkConditionCreateHabit = (value) => {
   if (
-    !stringIsEmpty(value.at) &&
-    !arrayIsEmpty(value.days) &&
+    (!arrayIsEmpty(value.days) || !stringIsEmpty(value.weeks) || !stringIsEmpty(value.setMonths)) &&
     !stringIsEmpty(value.habitType) &&
     !arrayIsEmpty(value.times)
   ) {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { calRatio, handleAlertRatio } from './Function'
-import { arrayIsEmpty, objectIsNull, stringIsEmpty } from '../../components/Function'
+import { alert, arrayIsEmpty, objectIsNull, stringIsEmpty } from '../../components/Function'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
 import Swiper from '../../components/Swiper'
@@ -26,9 +26,13 @@ export default function HomeScreen(props) {
     dataDeleteHabit: usePrevious(props.dataDeleteHabit),
   }
 
-  useEffect(() => {
-    props.getHabitsAction()
-  }, [])
+  React.useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      props.getHabitsAction()
+    })
+
+    return unsubscribe
+  }, [props.navigation])
 
   useEffect(() => {
     if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
@@ -41,6 +45,7 @@ export default function HomeScreen(props) {
       prevProps.dataDeleteHabit !== props.dataDeleteHabit
     ) {
       if (props.dataDeleteHabit.resultCode === 1) {
+        alert('You deleted this habit')
         props.getHabitsAction()
       }
     }
@@ -56,6 +61,10 @@ export default function HomeScreen(props) {
     newArr[index] = value // replace value with whatever you want to change it to
     setIndexSelected(index)
     setHabits(newArr)
+  }
+
+  const onDelete = (id) => {
+    alert('Are you sure you want to delete?', () => props.deleteHabitAction(id))
   }
 
   const showRatio = !isNaN(ratio) ? ratio + '%' : ''
@@ -105,7 +114,7 @@ export default function HomeScreen(props) {
                   index={index}
                   onChangeValue={(value, index) => onChangeValueItem(value, index)}
                   keys={keys}
-                  onDelete={(id) => props.deleteHabitAction(id)}
+                  onDelete={(id) => onDelete(id)}
                 />
               </Swiper>
             )

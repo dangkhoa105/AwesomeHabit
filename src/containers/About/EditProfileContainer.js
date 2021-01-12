@@ -1,16 +1,11 @@
 import React from 'react'
 import { View, SafeAreaView } from 'react-native'
-import AboutScreen from '../../screens/About/AboutScreen'
-import Header from '../../components/Header'
-import HeaderChildren from '../../screens/About/Custom/HeaderChildren'
+import EditProfileScreen from '../../screens/About/EditProfileScreen'
 
-function AboutContainer(props) {
+function EditProfileContainer(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header>
-        <HeaderChildren />
-      </Header>
-      <AboutScreen {...props} />
+      <EditProfileScreen {...props} />
     </SafeAreaView>
   )
 }
@@ -24,4 +19,4 @@ const mapStateToProps = (state) => {
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
-export default AboutContainer
+export default EditProfileContainer

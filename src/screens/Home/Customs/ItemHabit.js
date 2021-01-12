@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-nati
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../../../theme/color'
 import { fonts } from '../../../theme/theme'
+import { checkExpDate } from '../Function'
 
 const { width } = Dimensions.get('window')
 const size = 20
@@ -25,7 +26,10 @@ export default function ItemHabit({ item, index, onChangeValue, keys, onDelete }
             height={size}
             fill="#9570FF"
           />
-          <Text style={styles.name}>{item !== null && item.title}</Text>
+          <View>
+            <Text style={styles.name}>{item !== null && item.title} </Text>
+            <Text style={styles.habitType}>type: {item !== null && item.habitType}</Text>
+          </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonDelete} onPress={() => onDelete(keys[index])}>
@@ -50,6 +54,18 @@ const styles = StyleSheet.create({
   name: {
     color: '#333',
     fontSize: 14,
+    fontFamily: fonts.medium,
+    paddingLeft: 16,
+  },
+  habitType: {
+    color: '#999',
+    fontSize: 12,
+    fontFamily: fonts.medium,
+    paddingLeft: 16,
+  },
+  expDate: {
+    color: '#999',
+    fontSize: 10,
     fontFamily: fonts.medium,
     paddingLeft: 16,
   },

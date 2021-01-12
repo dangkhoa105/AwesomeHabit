@@ -1,19 +1,14 @@
 import React from 'react'
-import { View, Text, Dimensions, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { colors } from '../theme/color'
 
-const { width, height } = Dimensions.get('window')
-
-export default function Header() {
-  return (
-    <View style={styles.container}>
-      <Text>Header</Text>
-    </View>
-  )
+export default function Header({ children }) {
+  return <View style={styles.container}>{children}</View>
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#8F64E3',
+    backgroundColor: colors['color-primary-500'],
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     height: '30%',

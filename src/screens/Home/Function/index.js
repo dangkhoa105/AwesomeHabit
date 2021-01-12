@@ -1,7 +1,7 @@
 import database from '@react-native-firebase/database'
 import auth from '@react-native-firebase/auth'
 import { showForeground } from '../../../firebase'
-import { arrayIsEmpty, objectIsNull } from '../../../components/Function'
+import { arrayIsEmpty, objectIsNull, formatTime } from '../../../components/Function'
 
 export const countDaysInYear = () => {
   const date = new Date()
@@ -40,36 +40,41 @@ export const calRatio = (habits) => {
   return Math.round(((listHabitComplete.length * 100) / habits.length) * 100) / 100
 }
 
-const { uid } = auth().currentUser
-
 export const getNotification = (curTime) => {
-  let habits = []
-  let listTime = []
-  database()
-    .ref(`/users/${uid}/habits`)
-    .once('value')
-    .then((snapshot) => {
-      if (!objectIsNull(snapshot.val())) {
-        habits = Object.values(snapshot.val())
-        const listHabit = habits.filter((item) => !item.check)
+  const user = auth().currentUser
 
-        listHabit.map((item) => {
-          item.times.map((i) => {
-            if (curTime === i + ':00') {
-              listTime.push(item.title)
-            }
-          })
-        })
+  if (user) {
+    let habits = []
+    const listTime = []
+    database()
+      .ref(`/users/${user.uid}/habits`)
+      .once('value')
+      .then((snapshot) => {
+        if (!objectIsNull(snapshot.val())) {
+          habits = Object.values(snapshot.val())
+          const listHabit = habits.filter((item) => !item.check)
 
-        if (!arrayIsEmpty(listTime)) {
-          showForeground({
-            notification: {
-              title: 'Your habits for today',
-              message: `remaining ${listTime.length} habits: ${listTime.join(', ')}`,
-              date: new Date(),
-            },
+          listHabit.map((item) => {
+            item.times.map((i) => {
+              const tempt =
+                formatTime(new Date(i).getHours()) + ':' + formatTime(new Date(i).getMinutes())
+
+              if (curTime === tempt + ':00') {
+                listTime.push(item.title)
+              }
+            })
           })
+
+          if (!arrayIsEmpty(listTime)) {
+            showForeground({
+              notification: {
+                title: 'Your habits for today',
+                message: `remaining ${listTime.length} habits: ${listTime.join(', ')}`,
+                date: new Date(),
+              },
+            })
+          }
         }
-      }
-    })
+      })
+  }
 }

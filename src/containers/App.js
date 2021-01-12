@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import * as React from 'react'
-import { NavigationContainer, n } from '@react-navigation/native'
+import { AppState } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { AppThemeProvider } from '../theme/themeProvider'
@@ -21,6 +22,8 @@ import CreateNewHabitContainer from './Habit/CreateNewHabitContainer'
 import CreateNewCategoryContainer from './Habit/CreateNewCategoryContainer'
 import DetailScheduleContainer from './Habit/DetailScheduleContainer'
 import ChatBotContainer from './ChatBot/ChatBotContainer'
+import ProfileContainer from './About/ProfileContainer'
+import EditProfileContainer from './About/EditProfileContainer'
 
 const Tab = createBottomTabNavigator()
 
@@ -54,7 +57,7 @@ function TAB() {
     >
       <Tab.Screen name="HomeContainer" component={HomeContainer} />
       <Tab.Screen name="ReportContainer" component={ReportContainer} />
-      <Tab.Screen name="SettingContainer" component={SettingContainer} />
+      {/* <Tab.Screen name="SettingContainer" component={SettingContainer} /> */}
       <Tab.Screen name="AboutContainer" component={AboutContainer} />
     </Tab.Navigator>
   )
@@ -67,17 +70,25 @@ export default function App() {
   let time = new Date().getTime()
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      time += 1000
-      curTime =
-        formatTime(moment(time).hour()) +
-        ':' +
-        formatTime(moment(time).minute()) +
-        ':' +
-        formatTime(moment(time).second())
-      getNotification(curTime)
-    }, 1000)
-    return () => clearInterval(interval)
+    AppState.addEventListener('change', (nextAppState) => {
+      if (
+        nextAppState === 'background' ||
+        nextAppState === 'active' ||
+        nextAppState === 'inactive'
+      ) {
+        const interval = setInterval(() => {
+          time += 1000
+          curTime =
+            formatTime(moment(time).hour()) +
+            ':' +
+            formatTime(moment(time).minute()) +
+            ':' +
+            formatTime(moment(time).second())
+          getNotification(curTime)
+        }, 1000)
+        return () => clearInterval(interval)
+      }
+    })
   }, [])
 
   return (
@@ -98,6 +109,8 @@ export default function App() {
           <Stack.Screen name="CreateNewCategoryContainer" component={CreateNewCategoryContainer} />
           <Stack.Screen name="DetailScheduleContainer" component={DetailScheduleContainer} />
           <Stack.Screen name="ChatBotContainer" component={ChatBotContainer} />
+          <Stack.Screen name="ProfileContainer" component={ProfileContainer} />
+          <Stack.Screen name="EditProfileContainer" component={EditProfileContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppThemeProvider>

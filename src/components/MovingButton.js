@@ -1,11 +1,12 @@
 import React, { useRef } from 'react'
 import { Animated, View, StyleSheet, PanResponder, Text } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { colors } from '../theme/color'
 
-const size = 32
+const size = 40
 
-export default function MovingButton({ onPress }) {
+const MovingButton = ({ onPress }) => {
   const pan = useRef(new Animated.ValueXY()).current
 
   const panResponder = useRef(
@@ -21,7 +22,10 @@ export default function MovingButton({ onPress }) {
         useNativeDriver: false,
       }),
       onPanResponderRelease: () => {
-        pan.flattenOffset()
+        Animated.spring(
+          pan, // Auto-multiplexed
+          { toValue: { x: 0, y: 0 }, useNativeDriver: false }, // Back to zero
+        ).start()
       },
     }),
   ).current
@@ -34,13 +38,14 @@ export default function MovingButton({ onPress }) {
         }}
         {...panResponder.panHandlers}
       >
-        <Icon
-          name="message-circle-outline"
-          width={size}
-          height={size}
-          fill={colors['color-info-500']}
-          onPress={onPress}
-        />
+        <TouchableOpacity onPress={onPress}>
+          <Icon
+            name="message-circle-outline"
+            width={size}
+            height={size}
+            fill={colors['color-info-500']}
+          />
+        </TouchableOpacity>
       </Animated.View>
     </View>
   )
@@ -51,15 +56,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 100,
   },
-  titleText: {
-    fontSize: 14,
-    lineHeight: 24,
-    fontWeight: 'bold',
-  },
-  box: {
-    height: 24,
-    width: 24,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-  },
 })
+
+export default MovingButton

@@ -1,3 +1,5 @@
+import { Alert } from 'react-native'
+
 export const objectIsNull = (obj) => {
   if (obj === undefined || obj === null) {
     return true
@@ -42,4 +44,19 @@ export const compare = (a, b) => {
 export const formatTime = (time) => {
   if (time < 10) return '0' + time
   return time
+}
+
+export const alert = (message, onPress) => {
+  Alert.alert(
+    'Notification',
+    message,
+    [
+      !objectIsNull(onPress) && {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      { text: 'OK', onPress: onPress },
+    ],
+    { cancelable: false },
+  )
 }

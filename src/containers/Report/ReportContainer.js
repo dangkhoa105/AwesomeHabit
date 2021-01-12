@@ -1,26 +1,41 @@
 import React from 'react'
-import { View, SafeAreaView } from 'react-native'
+import { SafeAreaView } from 'react-native'
+import { connect } from 'react-redux'
+import { getHabitsAction } from '../../redux/actions'
 import Header from '../../components/Header'
 import ButtonAdd from '../../components/ButtonAdd'
 import ReportScreen from '../../screens/Report/ReportScreen'
+import HeaderChildren from '../../screens/Report/Customs/HeaderChildren'
 
 function ReportContainer(props) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F2F7F8' }}>
-      <Header />
+      <Header>
+        <HeaderChildren {...props} />
+      </Header>
       <ReportScreen {...props} />
-      <ButtonAdd onPress={() => props.navigation.navigate('CategoriesContainer')} />
+      <ButtonAdd
+        onPressCreate={() => props.navigation.navigate('CategoriesContainer')}
+        onPressChatBot={() => props.navigation.navigate('ChatBotContainer')}
+      />
     </SafeAreaView>
   )
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    getHabitsAction: () => {
+      dispatch(getHabitsAction())
+    },
+  }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    fetchingGetHabits: state.getHabitsReducer.fetching,
+    dataGetHabits: state.getHabitsReducer.data,
+    messageGetHabits: state.getHabitsReducer.message,
+  }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
-export default ReportContainer
+export default connect(mapStateToProps, mapDispatchToProps)(ReportContainer)

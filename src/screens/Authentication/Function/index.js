@@ -1,14 +1,4 @@
 import auth from '@react-native-firebase/auth'
-import { userProfile } from '../../../config'
-
-// Set User Profile
-export const setUserProfile = () => {
-  const { displayName, email, uid } = auth().currentUser
-
-  userProfile.displayName = displayName
-  userProfile.email = email
-  userProfile.uid = uid
-}
 
 // Login
 export const handleLogin = async (
@@ -41,10 +31,10 @@ export const handleLogin = async (
     await auth()
       .signInWithEmailAndPassword(email.value, password.value)
       .then(() => {
-        setUserProfile()
         navigation.navigate('Tab')
       })
       .catch((error) => {
+        console.log(error)
         switch (error.code) {
           case 'auth/invalid-email':
             resultCode.email = false

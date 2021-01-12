@@ -69,7 +69,6 @@ export default function ChatBotScreen({ navigation }) {
   const renderItem = ({ item, index }) => {
     let findDuplicates = steps.filter((item, index) => steps.indexOf(item.type) != index)
 
-    // console.log(findDuplicates)
     return <LineChat message={item.message} type={item.type} />
   }
 

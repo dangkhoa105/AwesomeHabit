@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
+import { Alert, Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
-import { objectIsNull } from '../../components/Function'
+import { alert, objectIsNull } from '../../components/Function'
 import { getImage } from '../../theme/images'
-import { checkCondition } from './Function'
+import { checkConditionCreateHabit } from './Function'
 import Header from './Custom/Header/Header'
 import Schedule from './Custom/Schedule'
 
@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get('window')
 
 export default function DetailScheduleScreen(props) {
   const [data, setData] = useState({})
-  const { dataSelect } = props.route.params
+  const { dataSelect, title, type } = props.route.params
   const prevProps = useRef({ dataCreateHabit: props.dataCreateHabit }).current
 
   const handleOnPressDone = () => {
@@ -24,12 +24,16 @@ export default function DetailScheduleScreen(props) {
       prevProps.dataCreateHabit !== props.dataCreateHabit
     ) {
       if (props.dataCreateHabit.resultCode === 1) {
-        props.navigation.navigate('HabitsContainer')
+        Alert.alert('Notification', props.messageCreateHabit)
+        props.navigation.navigate('HabitsContainer', {
+          title: title,
+          idCategory: dataSelect.idCategory,
+        })
       }
     }
   }, [props.dataCreateHabit])
 
-  let bg = checkCondition(data) ? 'color-primary-500' : 'color-primary-200'
+  const bg = checkConditionCreateHabit(data) ? 'color-primary-500' : 'color-primary-200'
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -38,7 +42,7 @@ export default function DetailScheduleScreen(props) {
         <Header title={'Detail Schedule'} type="other" navigation={props.navigation} />
 
         {/* SELECTIONS */}
-        <Schedule getData={(value) => setData(value)} />
+        <Schedule type={type} getData={(value) => setData(value)} />
 
         {/* BUTTON */}
         <Box
@@ -56,7 +60,7 @@ export default function DetailScheduleScreen(props) {
           <Button
             bg={bg}
             borderRadius={1}
-            onPress={() => (checkCondition(data) ? handleOnPressDone() : {})}
+            onPress={() => (checkConditionCreateHabit(data) ? handleOnPressDone() : {})}
           >
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
               Done

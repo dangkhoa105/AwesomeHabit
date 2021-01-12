@@ -107,7 +107,7 @@ const showForeground = ({ notification }) => {
     showWhen: true, // (optional) default: true
     autoCancel: true, // (optional) default: true
     largeIcon: 'ic_notification', // (optional) default: "ic_launcher". Use "" for no large icon.
-    largeIconUrl: 'ic_notification', // (optional) default: undefined
+    // largeIconUrl: 'ic_notification', // (optional) default: undefined
     smallIcon: 'ic_notification', // (optional) default: "ic_notification" with fallback for "ic_launcher". Use "" for default small icon.
     bigText: notification.message, // (optional) default: "message" prop
     // subText: none, // (optional) default: none

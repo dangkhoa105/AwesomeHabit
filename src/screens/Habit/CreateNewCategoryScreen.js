@@ -27,6 +27,7 @@ export default function CreateNewCategoryScreen(props) {
       getValue={(value) => setValue(value)}
       onPressNext={() => {
         props.createCategoryAction(value)
+        alert('Create successfully')
       }}
     />
   )

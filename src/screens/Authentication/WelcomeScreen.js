@@ -4,7 +4,6 @@ import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
-import { setUserProfile } from './Function'
 import ButtonCustom from './Custom/ButtonCustom'
 import auth from '@react-native-firebase/auth'
 
@@ -28,7 +27,6 @@ export default function WelcomeScreen({ navigation }) {
 
   const handleUserUsedToLogin = () => {
     if (user) {
-      setUserProfile()
       navigation.navigate('Tab')
     } else {
       navigation.navigate('LoginContainer')

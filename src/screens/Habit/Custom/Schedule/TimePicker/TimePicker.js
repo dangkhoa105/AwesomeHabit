@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, FlatList, Dimensions, Platform, StyleSheet } from 'react-native'
+import { FlatList } from 'react-native'
 import { Box, Text, Button } from '../../../../../components'
-import { formatTime } from '../../../../../components/Function'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import LabelTime from './LabelTime'
-
-const { width } = Dimensions.get('window')
 
 export default function TimePicker({ getValue }) {
   const [times, setTimes] = useState([])
@@ -18,10 +15,7 @@ export default function TimePicker({ getValue }) {
   const onChange = (event, selectedDate) => {
     setShowTimePicker(false)
     if (selectedDate !== undefined) {
-      setTimes([
-        ...times,
-        formatTime(selectedDate.getHours()) + ':' + formatTime(selectedDate.getMinutes()),
-      ])
+      setTimes([...times, `${selectedDate}`])
     }
   }
 

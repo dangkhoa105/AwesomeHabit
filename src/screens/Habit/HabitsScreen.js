@@ -1,18 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { FlatList, Image, Dimensions, StyleSheet } from 'react-native'
+import { Alert, FlatList, Image, Dimensions, StyleSheet } from 'react-native'
 import { Box } from '../../components'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
-import { arrayIsEmpty, objectIsNull } from '../../components/Function'
+import { alert, arrayIsEmpty, objectIsNull } from '../../components/Function'
 import IconText from './Custom/Header/IconText'
 import Header from './Custom/Header/Header'
 import Loading from '../../components/Loading'
 
 const { width, height } = Dimensions.get('window')
 
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  })
+  return ref.current
+}
+
 export default function HabitsScreen(props) {
   const { title, idCategory } = props.route.params
-  const prevProps = useRef({ dataGetHabits: props.dataGetHabits }).current
+
+  const prevProps = {
+    dataGetHabits: usePrevious(props.dataGetHabits),
+  }
 
   const [habits, setHabits] = useState([])
 
@@ -31,9 +42,19 @@ export default function HabitsScreen(props) {
         setHabits(list)
       }
     }
-  }, [props.dataGetHabits])
+  }, [props.dataGetHabits, props.dataDeleteCategory])
 
-  console.log('idCategory', idCategory)
+  const onDelete = () => {
+    if (arrayIsEmpty(habits)) {
+      alert('Are you sure you want to delete?', () => {
+        props.deleteCategoryAction(idCategory)
+        props.navigation.navigate('CategoriesContainer')
+      })
+    } else {
+      alert('You can not delete this category')
+    }
+  }
+
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       {/* HEADER */}
@@ -45,7 +66,36 @@ export default function HabitsScreen(props) {
         label="Create a custom habit"
         iconName="edit-outline"
         iconFill={colors['color-primary-500']}
-        onPress={() => props.navigation.navigate('CreateNewHabitContainer', { idCategory })}
+        onPress={() =>
+          Alert.alert(
+            'Options',
+            'Choosing your type habit',
+            [
+              {
+                text: 'Once a time',
+                onPress: () =>
+                  props.navigation.navigate('CreateNewHabitContainer', {
+                    title,
+                    idCategory,
+                    type: 'Once',
+                  }),
+              },
+              {
+                text: 'Repeat',
+                onPress: () =>
+                  props.navigation.navigate('CreateNewHabitContainer', { title, idCategory }),
+              },
+            ],
+            { cancelable: false },
+          )
+        }
+      />
+      <IconText
+        label="Delete this category"
+        iconName="trash-2-outline"
+        iconFill={colors['color-danger-500']}
+        onPress={onDelete}
+        style={{ paddingTop: 0 }}
       />
 
       {/* LIST CATEGORY */}
