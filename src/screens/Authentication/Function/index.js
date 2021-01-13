@@ -124,7 +124,7 @@ export const handleSignup = async (
           userCredentials.user.updateProfile({
             displayName: name.value,
           })
-          navigation.navigate('Tab')
+          navigation.navigate('LoginContainer')
         })
         .catch((error) => {
           switch (error.code) {

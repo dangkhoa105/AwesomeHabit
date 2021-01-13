@@ -14,10 +14,7 @@ function ReportContainer(props) {
         <HeaderChildren {...props} />
       </Header>
       <ReportScreen {...props} />
-      <ButtonAdd
-        onPressCreate={() => props.navigation.navigate('CategoriesContainer')}
-        onPressChatBot={() => props.navigation.navigate('ChatBotContainer')}
-      />
+      <ButtonAdd onPressCreate={() => props.navigation.navigate('CategoriesContainer')} />
     </SafeAreaView>
   )
 }

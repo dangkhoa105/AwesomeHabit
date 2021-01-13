@@ -16,10 +16,7 @@ function HomeContainer(props) {
       </Header>
       <Calender {...props} />
       <HomeScreen {...props} />
-      <ButtonAdd
-        onPressCreate={() => props.navigation.navigate('CategoriesContainer')}
-        onPressChatBot={() => props.navigation.navigate('ChatBotContainer')}
-      />
+      <ButtonAdd onPressCreate={() => props.navigation.navigate('CategoriesContainer')} />
     </SafeAreaView>
   )
 }
