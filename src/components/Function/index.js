@@ -1,4 +1,5 @@
 import { Alert } from 'react-native'
+import moment from 'moment'
 
 export const objectIsNull = (obj) => {
   if (obj === undefined || obj === null) {
@@ -39,6 +40,19 @@ export const compare = (a, b) => {
     comparison = -1
   }
   return comparison
+}
+
+export const compareMoment = (date1, date2) => {
+  const moment1 = moment(date1).format('YYYY-MM-DD')
+  const moment2 = moment(date2).format('YYYY-MM-DD')
+
+  if (moment1 < moment2) {
+    return -1
+  } else if (moment1 > moment2) {
+    return 1
+  } else {
+    return 0
+  }
 }
 
 export const formatTime = (time) => {

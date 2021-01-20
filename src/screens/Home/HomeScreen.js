@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
-import { Box, Text, Button } from '../../components'
-import { calRatio, handleAlertRatio } from './Function'
-import { alert, arrayIsEmpty, objectIsNull, stringIsEmpty } from '../../components/Function'
+import { Box, Text } from '../../components'
+import { calRatio, checkTypeHabit, handleAlertRatio } from './Function'
+import { alert, arrayIsEmpty, compareMoment, objectIsNull } from '../../components/Function'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
 import Swiper from '../../components/Swiper'
+import Calender from './Customs/Calender'
 
 function usePrevious(value) {
   const ref = useRef()
@@ -19,6 +20,8 @@ export default function HomeScreen(props) {
   const [habits, setHabits] = useState([])
   const [keys, setKeys] = useState([])
   const [ratio, setRatio] = useState(0)
+  const [daySelect, setDaySelect] = useState(new Date())
+
   const [indexSelected, setIndexSelected] = useState('')
   const [indexScroll, setIndexScroll] = useState('')
   const prevProps = {
@@ -36,8 +39,10 @@ export default function HomeScreen(props) {
 
   useEffect(() => {
     if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
-      setHabits(props.dataGetHabits.data)
-      setKeys(props.dataGetHabits.keys)
+      props.dataGetHabits.data.map((v) => {
+        setHabits(props.dataGetHabits.data)
+        setKeys(props.dataGetHabits.keys)
+      })
     }
 
     if (
@@ -53,7 +58,14 @@ export default function HomeScreen(props) {
 
   useEffect(() => {
     setRatio(calRatio(habits))
-    props.updateHabitAction(keys[indexSelected], habits[indexSelected])
+    if (!objectIsNull(habits[indexSelected])) {
+      if (!arrayIsEmpty(habits[indexSelected].checkins)) {
+        const arrFilter = habits[indexSelected].checkins.filter(
+          (v, i) => habits[indexSelected].checkins.indexOf(v) === i,
+        )
+        props.updateCheckinsHabitAction(keys[indexSelected], arrFilter)
+      }
+    }
   }, [ratio, habits])
 
   const onChangeValueItem = (value, index) => {
@@ -71,6 +83,8 @@ export default function HomeScreen(props) {
 
   return (
     <Box style={styles.container}>
+      <Calender getHabitsAction={props.getHabitsAction} getDaySelect={(day) => setDaySelect(day)} />
+
       {/* HEADER */}
       {props.fetchingGetHabits ? (
         <Loading />
@@ -99,25 +113,29 @@ export default function HomeScreen(props) {
       ) : (
         <FlatList
           data={habits}
+          style={{ paddingHorizontal: 22 }}
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           onScroll={() => setIndexScroll('')}
           renderItem={({ item, index }) => {
-            return (
-              <Swiper
-                index={index}
-                indexScroll={indexScroll}
-                setIndexScroll={(value) => setIndexScroll(value)}
-              >
-                <ItemHabit
-                  item={item}
+            if (checkTypeHabit(item.habitType, item.days, item.startDate, daySelect)) {
+              return (
+                <Swiper
                   index={index}
-                  onChangeValue={(value, index) => onChangeValueItem(value, index)}
-                  keys={keys}
-                  onDelete={(id) => onDelete(id)}
-                />
-              </Swiper>
-            )
+                  indexScroll={indexScroll}
+                  setIndexScroll={(value) => setIndexScroll(value)}
+                >
+                  <ItemHabit
+                    item={item}
+                    index={index}
+                    daySelect={daySelect}
+                    onChangeValue={(value, index) => onChangeValueItem(value, index)}
+                    keys={keys}
+                    onDelete={(id) => onDelete(id)}
+                  />
+                </Swiper>
+              )
+            }
           }}
         />
       )}
@@ -131,12 +149,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flex: 1,
-    paddingHorizontal: 22,
+    // paddingHorizontal: 22,
   },
   header: {
     borderBottomColor: '#9CA3AF',
     borderBottomWidth: 0.5,
     paddingBottom: 20,
+    marginHorizontal: 22,
   },
   titleHeader: {
     flexDirection: 'row',

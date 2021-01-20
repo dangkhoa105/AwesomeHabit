@@ -7,8 +7,8 @@ import { watchDeleteCategory } from './Category/DeleteCategorySaga'
 
 import { watchGetHabits } from './Habit/GetHabitsSaga'
 import { watchCreateHabit } from './Habit/CreateHabitSaga'
-import { watchUpdateHabit } from './Habit/UpdateHabitSaga'
 import { watchDeleteHabit } from './Habit/DeleteHabitSaga'
+import { watchUpdateCheckinsHabit } from './Habit/UpdateCheckinsHabitSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -20,7 +20,7 @@ export default function* rootSaga() {
 
     watchGetHabits(),
     watchCreateHabit(),
-    watchUpdateHabit(),
     watchDeleteHabit(),
+    watchUpdateCheckinsHabit(),
   ])
 }

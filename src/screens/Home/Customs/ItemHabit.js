@@ -3,17 +3,38 @@ import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-nati
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../../../theme/color'
 import { fonts } from '../../../theme/theme'
-import { checkExpDate } from '../Function'
+import { arrayIsEmpty, compareMoment } from '../../../components/Function/index'
 
 const { width } = Dimensions.get('window')
 const size = 20
 
-export default function ItemHabit({ item, index, onChangeValue, keys, onDelete }) {
-  const [isSelected, setIsSelected] = useState(item.check)
+export default function ItemHabit({ item, index, daySelect, onChangeValue, keys, onDelete }) {
+  const [isSelected, setIsSelected] = useState(false)
+
+  useEffect(() => {
+    if (!arrayIsEmpty(item.checkins)) {
+      item.checkins.map((v, i) => {
+        if (compareMoment(new Date(v), new Date(daySelect)) === 0) {
+          setIsSelected(true)
+        }
+      })
+    }
+  }, [daySelect])
+
+  useEffect(() => {
+    let list = arrayIsEmpty(item.checkins) ? [] : item.checkins
+    if (isSelected) {
+      list.push(`${new Date(daySelect)}`)
+    } else {
+      list = list.filter((v) => compareMoment(new Date(v), new Date(daySelect)) !== 0)
+    }
+    const arrFilter = list.filter((v, i) => list.indexOf(v) === i)
+
+    onChangeValue({ ...item, checkins: arrFilter }, index)
+  }, [isSelected])
 
   const handleSelected = () => {
     setIsSelected(!isSelected)
-    onChangeValue({ ...item, check: !isSelected }, index)
   }
 
   return (

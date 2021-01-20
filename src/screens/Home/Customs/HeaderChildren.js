@@ -6,6 +6,7 @@ import { getImage } from '../../../theme/images'
 import { fonts } from '../../../theme/theme'
 import database from '@react-native-firebase/database'
 import auth from '@react-native-firebase/auth'
+import moment from 'moment'
 
 export default function HeaderChildren() {
   const [habits, setHabits] = useState([])
@@ -19,7 +20,11 @@ export default function HeaderChildren() {
       .then((snapshot) => {
         if (!objectIsNull(snapshot.val())) {
           const tempt = Object.values(snapshot.val())
-          setHabits(tempt.filter((item) => !item.check))
+          setHabits(
+            tempt.filter((item) => {
+              return item.days.includes(moment().format('dddd'))
+            }),
+          )
         }
       })
 

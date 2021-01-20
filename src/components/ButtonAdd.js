@@ -1,5 +1,4 @@
-import React, { useCallback } from 'react'
-import { Linking } from 'react-native'
+import React from 'react'
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../theme/color'
 import ActionButton from 'react-native-action-button'

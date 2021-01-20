@@ -1,7 +1,8 @@
 import database from '@react-native-firebase/database'
 import auth from '@react-native-firebase/auth'
+import moment from 'moment'
 import { showForeground } from '../../../firebase'
-import { arrayIsEmpty, objectIsNull, formatTime } from '../../../components/Function'
+import { arrayIsEmpty, objectIsNull, formatTime, compareMoment } from '../../../components/Function'
 
 export const countDaysInYear = () => {
   const date = new Date()
@@ -76,5 +77,16 @@ export const getNotification = (curTime) => {
           }
         }
       })
+  }
+}
+
+export const checkTypeHabit = (habitType, days, startDate, daySelect) => {
+  if (
+    compareMoment(new Date(startDate).toJSON(), daySelect) === 0 ||
+    compareMoment(new Date(startDate).toJSON(), daySelect) === -1
+  ) {
+    return days.includes(moment(daySelect).format('dddd'))
+  } else {
+    return false
   }
 }

@@ -7,8 +7,8 @@ import { deleteCategoryReducer } from './Category/DeleteCategoryReducer'
 
 import { getHabitsReducer } from './Habit/GetHabitsReducer'
 import { createHabitReducer } from './Habit/CreateHabitReducer'
-import { updateHabitReducer } from './Habit/UpdateHabitReducer'
 import { deleteHabitReducer } from './Habit/DeleteHabitReducer'
+import { updateCheckinsHabitReducer } from './Habit/UpdateCheckinsHabitReducer'
 
 export default combineReducers({
   loginReducer,
@@ -19,6 +19,6 @@ export default combineReducers({
 
   getHabitsReducer,
   createHabitReducer,
-  updateHabitReducer,
   deleteHabitReducer,
+  updateCheckinsHabitReducer,
 })
