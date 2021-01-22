@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Alert, Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
-import { alert, objectIsNull } from '../../components/Function'
+import { objectIsNull } from '../../components/Function'
 import { getImage } from '../../theme/images'
 import { checkConditionCreateHabit } from './Function'
 import Header from './Custom/Header/Header'
@@ -33,7 +33,7 @@ export default function DetailScheduleScreen(props) {
     }
   }, [props.dataCreateHabit])
 
-  const bg = checkConditionCreateHabit(data) ? 'color-primary-500' : 'color-primary-200'
+  const bg = checkConditionCreateHabit(data, type) ? 'color-primary-500' : 'color-primary-200'
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -60,7 +60,7 @@ export default function DetailScheduleScreen(props) {
           <Button
             bg={bg}
             borderRadius={1}
-            onPress={() => (checkConditionCreateHabit(data) ? handleOnPressDone() : {})}
+            onPress={() => (checkConditionCreateHabit(data, type) ? handleOnPressDone() : {})}
           >
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
               Done

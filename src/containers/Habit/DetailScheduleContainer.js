@@ -21,7 +21,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('state', state.createHabitReducer)
   return {
     fetchingCreateHabit: state.createHabitReducer.fetching,
     dataCreateHabit: state.createHabitReducer.data,

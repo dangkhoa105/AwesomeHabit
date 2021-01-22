@@ -34,7 +34,6 @@ export const handleLogin = async (
         navigation.navigate('Tab')
       })
       .catch((error) => {
-        console.log(error)
         switch (error.code) {
           case 'auth/invalid-email':
             resultCode.email = false

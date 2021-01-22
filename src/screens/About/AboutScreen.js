@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Box, Text, Button } from '../../components'
 import auth from '@react-native-firebase/auth'
-import { Icon } from 'react-native-eva-icons'
+import IconButton from './Custom/IconButton'
+import { Box } from '../../components'
 import { colors } from '../../theme/color'
 import { alert } from '../../components/Function'
 
@@ -10,19 +10,23 @@ const size = 22
 export default function AboutScreen({ navigation }) {
   return (
     <Box p={8}>
-      <Button
-        flexDirection="row"
-        alignItems="center"
+      <IconButton
+        icon={{ name: 'info-outline', size: size, fill: colors['color-gray-700'] }}
+        text="Your profile"
         onPress={() => navigation.navigate('ProfileContainer')}
-      >
-        <Icon name="info-outline" width={size} height={size} fill={colors.black} />
-        <Text pl={4} variant="h3medium">
-          Your profile
-        </Text>
-      </Button>
-      <Button
-        flexDirection="row"
-        alignItems="center"
+      />
+
+      <IconButton
+        icon={{ name: 'clipboard-outline', size: size, fill: colors['color-gray-700'] }}
+        text="Instructions"
+        pt={4}
+        onPress={() => navigation.navigate('InstructionsScreen')}
+      />
+
+      <IconButton
+        icon={{ name: 'power-outline', size: size, fill: colors['color-danger-600'] }}
+        text="Log out"
+        textColor="color-danger-600"
         pt={4}
         onPress={() => {
           alert('Are you sure you want to log out the app', () =>
@@ -33,12 +37,7 @@ export default function AboutScreen({ navigation }) {
               }),
           )
         }}
-      >
-        <Icon name="power-outline" width={size} height={size} fill={colors['color-danger-600']} />
-        <Text pl={4} variant="h3medium" color="color-danger-600">
-          Log out
-        </Text>
-      </Button>
+      />
     </Box>
   )
 }

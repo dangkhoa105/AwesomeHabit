@@ -11,9 +11,11 @@ export const getHabits = async () => {
       .once('value')
       .then((snapshot) => {
         if (!objectIsNull(snapshot.val())) {
-          const obj = Object.values(snapshot)[0]
-          const keys = obj.childKeys.reverse()
-          list = { data: Object.values(obj.value), keys }
+          // const obj = Object.values(snapshot)[0]
+          // console.log(obj)
+          const keys = Object.keys(snapshot.val())
+          list = { data: Object.values(snapshot.val()), keys }
+          // console.log('api', Object.values(obj.value))
         }
       })
     return list

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { alert } from '../../components/Function'
 import CreateScreen from './Custom/CreateScreen'
 
 export default function CreateNewHabitScreen({ navigation, route }) {
@@ -12,7 +11,7 @@ export default function CreateNewHabitScreen({ navigation, route }) {
       getValue={(value) => setValue(value)}
       onPressNext={() =>
         navigation.navigate('DetailScheduleContainer', {
-          dataSelect: { ...value, idCategory: route.params.idCategory, check: false },
+          dataSelect: { ...value, idCategory: route.params.idCategory },
           title: route.params.title,
           type: route.params.type,
         })

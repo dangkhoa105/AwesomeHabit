@@ -3,6 +3,7 @@ import { FlatList, StyleSheet } from 'react-native'
 import { Box, Text } from '../../components'
 import { calRatio, checkTypeHabit, handleAlertRatio } from './Function'
 import { alert, arrayIsEmpty, compareMoment, objectIsNull } from '../../components/Function'
+import moment from 'moment'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
 import Swiper from '../../components/Swiper'
@@ -21,7 +22,6 @@ export default function HomeScreen(props) {
   const [keys, setKeys] = useState([])
   const [ratio, setRatio] = useState(0)
   const [daySelect, setDaySelect] = useState(new Date())
-
   const [indexSelected, setIndexSelected] = useState('')
   const [indexScroll, setIndexScroll] = useState('')
   const prevProps = {
@@ -39,10 +39,18 @@ export default function HomeScreen(props) {
 
   useEffect(() => {
     if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
-      props.dataGetHabits.data.map((v) => {
-        setHabits(props.dataGetHabits.data)
-        setKeys(props.dataGetHabits.keys)
-      })
+      if (!arrayIsEmpty(props.dataGetHabits.data) && !arrayIsEmpty(props.dataGetHabits.keys)) {
+        const keys = []
+        setHabits(
+          props.dataGetHabits.data.filter((item, index) => {
+            if (item.days.includes(moment(daySelect).format('dddd'))) {
+              keys.push(props.dataGetHabits.keys[index])
+              return true
+            }
+          }),
+        )
+        setKeys(keys)
+      }
     }
 
     if (
@@ -57,9 +65,9 @@ export default function HomeScreen(props) {
   }, [props.dataGetHabits, props.dataDeleteHabit])
 
   useEffect(() => {
-    setRatio(calRatio(habits))
+    setRatio(calRatio(habits, daySelect))
     if (!objectIsNull(habits[indexSelected])) {
-      if (!arrayIsEmpty(habits[indexSelected].checkins)) {
+      if (!objectIsNull(habits[indexSelected].checkins)) {
         const arrFilter = habits[indexSelected].checkins.filter(
           (v, i) => habits[indexSelected].checkins.indexOf(v) === i,
         )
@@ -118,7 +126,16 @@ export default function HomeScreen(props) {
           keyExtractor={(_, index) => index.toString()}
           onScroll={() => setIndexScroll('')}
           renderItem={({ item, index }) => {
-            if (checkTypeHabit(item.habitType, item.days, item.startDate, daySelect)) {
+            if (
+              checkTypeHabit(
+                item.habitType,
+                item.days,
+                item.weeks,
+                item.checkins,
+                item.startDate,
+                daySelect,
+              )
+            ) {
               return (
                 <Swiper
                   index={index}

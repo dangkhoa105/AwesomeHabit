@@ -33,12 +33,23 @@ export const handleAlertRatio = (ratio) => {
   return text
 }
 
-export const calRatio = (habits) => {
-  const listHabitComplete = habits.filter((val) => {
-    return val.check === true
+export const calRatio = (habits, daySelect) => {
+  const listHabitInDay = habits.filter((val) => {
+    return val.days.includes(moment(daySelect).format('dddd'))
   })
 
-  return Math.round(((listHabitComplete.length * 100) / habits.length) * 100) / 100
+  const listHabitComplete = []
+  listHabitInDay.map((v) => {
+    if (!objectIsNull(v.checkins)) {
+      v.checkins.map((item) => {
+        if (compareMoment(new Date(item), daySelect) === 0) {
+          listHabitComplete.push(item)
+        }
+      })
+    }
+  })
+
+  return Math.round((listHabitComplete.length / listHabitInDay.length) * 100)
 }
 
 export const getNotification = (curTime) => {
@@ -80,13 +91,45 @@ export const getNotification = (curTime) => {
   }
 }
 
-export const checkTypeHabit = (habitType, days, startDate, daySelect) => {
-  if (
-    compareMoment(new Date(startDate).toJSON(), daySelect) === 0 ||
-    compareMoment(new Date(startDate).toJSON(), daySelect) === -1
-  ) {
-    return days.includes(moment(daySelect).format('dddd'))
+export const checkTypeHabit = (habitType, days, weeks, checkins, startDate, daySelect) => {
+  if (habitType !== 'Once') {
+    if (
+      compareMoment(new Date(startDate).toJSON(), daySelect) === 0 ||
+      compareMoment(new Date(startDate).toJSON(), daySelect) === -1
+    ) {
+      console.log('habitType', habitType)
+      if (habitType === 'Daily') {
+        return days.includes(moment(daySelect).format('dddd'))
+      } else if (habitType === 'Weekly') {
+        const chekins = !objectIsNull(checkins) ? checkins : []
+        if (weeks - chekins.length === 0) {
+          for (let i = 0; i < chekins.length; i++) {
+            if (compareMoment(chekins[i], daySelect) === 0) {
+              return true
+            }
+          }
+          return false
+        } else {
+          return true
+        }
+      } else {
+        console.log(
+          moment(daySelect).endOf('month'),
+          daySelect,
+          compareMoment(moment(daySelect).endOf('month'), daySelect),
+        )
+        if (compareMoment(moment(daySelect).endOf('month'), daySelect) === 0) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
   } else {
-    return false
+    if (compareMoment(new Date(startDate).toJSON(), daySelect) === 0) {
+      return days.includes(moment(daySelect).format('dddd'))
+    } else {
+      return false
+    }
   }
 }

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-nati
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../../../theme/color'
 import { fonts } from '../../../theme/theme'
-import { arrayIsEmpty, compareMoment } from '../../../components/Function/index'
+import { arrayIsEmpty, compareMoment, objectIsNull } from '../../../components/Function/index'
 
 const { width } = Dimensions.get('window')
 const size = 20
@@ -24,7 +24,11 @@ export default function ItemHabit({ item, index, daySelect, onChangeValue, keys,
   useEffect(() => {
     let list = arrayIsEmpty(item.checkins) ? [] : item.checkins
     if (isSelected) {
-      list.push(`${new Date(daySelect)}`)
+      const d = new Date(daySelect).getDate()
+      const m = new Date(daySelect).getMonth() + 1
+      const y = new Date(daySelect).getFullYear()
+
+      list.push(`${new Date(`${m}/${d}/${y}`)}`)
     } else {
       list = list.filter((v) => compareMoment(new Date(v), new Date(daySelect)) !== 0)
     }
@@ -34,7 +38,28 @@ export default function ItemHabit({ item, index, daySelect, onChangeValue, keys,
   }, [isSelected])
 
   const handleSelected = () => {
-    setIsSelected(!isSelected)
+    if (
+      compareMoment(new Date().toJSON(), daySelect) === 0 ||
+      compareMoment(new Date().toJSON(), daySelect) === 1
+    ) {
+      setIsSelected(!isSelected)
+    }
+  }
+
+  const showViewType = () => {
+    if (item.habitType === 'Weekly') {
+      const checkins = !objectIsNull(item.checkins) ? item.checkins : []
+      return (
+        <View>
+          <Text style={styles.habitType}>type: {item !== null && item.habitType}</Text>
+          <Text style={styles.habitType}>
+            You have <Text style={styles.expDate}>{item.weeks - checkins.length}</Text> in this week
+          </Text>
+        </View>
+      )
+    } else {
+      return <Text style={styles.habitType}>type: {item !== null && item.habitType}</Text>
+    }
   }
 
   return (
@@ -49,7 +74,7 @@ export default function ItemHabit({ item, index, daySelect, onChangeValue, keys,
           />
           <View>
             <Text style={styles.name}>{item !== null && item.title} </Text>
-            <Text style={styles.habitType}>type: {item !== null && item.habitType}</Text>
+            {showViewType()}
           </View>
         </View>
       </TouchableOpacity>
@@ -85,9 +110,9 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   expDate: {
-    color: '#999',
-    fontSize: 10,
-    fontFamily: fonts.medium,
+    color: '#9570FF',
+    fontSize: 14,
+    fontFamily: fonts.semibold,
     paddingLeft: 16,
   },
   buttonDelete: {
