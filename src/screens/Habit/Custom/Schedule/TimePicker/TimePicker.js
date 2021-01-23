@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { Box, Text, Button } from '../../../../../components'
+import { arrayIsEmpty } from '../../../../../components/Function'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import LabelTime from './LabelTime'
 
-export default function TimePicker({ getValue }) {
+export default function TimePicker({ value, getValue }) {
   const [times, setTimes] = useState([])
   const [showTimePicker, setShowTimePicker] = useState(false)
+
+  useEffect(() => {
+    if (!arrayIsEmpty(value)) {
+      setTimes(value)
+    }
+  }, [value])
 
   useEffect(() => {
     getValue(times)

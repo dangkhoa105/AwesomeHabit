@@ -8,7 +8,15 @@ import { arrayIsEmpty, compareMoment, objectIsNull } from '../../../components/F
 const { width } = Dimensions.get('window')
 const size = 20
 
-export default function ItemHabit({ item, index, daySelect, onChangeValue, keys, onDelete }) {
+export default function ItemHabit({
+  item,
+  index,
+  daySelect,
+  onChangeValue,
+  keys,
+  onDelete,
+  onGoToDetail,
+}) {
   const [isSelected, setIsSelected] = useState(false)
 
   useEffect(() => {
@@ -78,6 +86,9 @@ export default function ItemHabit({ item, index, daySelect, onChangeValue, keys,
           </View>
         </View>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonDetail} onPress={() => onGoToDetail()}>
+        <Text style={styles.textButton}>Detail</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.buttonDelete} onPress={() => onDelete(keys[index])}>
         <Text style={styles.textButton}>Delete</Text>
       </TouchableOpacity>
@@ -114,6 +125,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: fonts.semibold,
     paddingLeft: 16,
+  },
+  buttonDetail: {
+    backgroundColor: colors['color-success-400'],
+    padding: 16,
+    paddingVertical: 8,
+    marginRight: 8,
+    borderRadius: 8,
   },
   buttonDelete: {
     backgroundColor: colors['color-danger-400'],

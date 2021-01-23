@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList } from 'react-native'
 import { Box, Text, Button } from '../../../../components'
+import { objectIsNull } from '../../../../components/Function'
 import { listColorPicker } from '../../../../theme/color'
 import CircleButton from './CircleButton'
 import CircleCheckButton from './CircleCheckButton'
 
-export default function ColorPicker({ onSelectColor }) {
+export default function ColorPicker({ value, onSelectColor }) {
   const [selectColor, setSelectColor] = useState(null)
+
+  useEffect(() => {
+    if (!objectIsNull(value)) {
+      setSelectColor(listColorPicker.indexOf(value))
+    }
+  }, [value])
 
   const onPress = (item, index) => {
     setSelectColor(index)
@@ -50,4 +57,8 @@ export default function ColorPicker({ onSelectColor }) {
       />
     </Box>
   )
+}
+
+ColorPicker.defaultProps = {
+  value: null,
 }

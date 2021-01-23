@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, Dimensions, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../../../components'
+import { objectIsNull } from '../../../../components/Function'
 
-export default function SelectionButton({ title, data, getValue }) {
+export default function SelectionButton({ title, data, value, getValue }) {
   const [type, setType] = useState(null)
+
+  useEffect(() => {
+    if (!objectIsNull(value)) {
+      setType(data.indexOf(value))
+    }
+  }, [value])
 
   const onPress = (item, index) => {
     setType(index)
@@ -42,7 +49,7 @@ export default function SelectionButton({ title, data, getValue }) {
 
   return (
     <Box pt={11}>
-      <Text variant="p" color="color-gray-400" pb={4}>
+      <Text variant="p" pb={4}>
         {title}:
       </Text>
 
@@ -56,9 +63,3 @@ export default function SelectionButton({ title, data, getValue }) {
     </Box>
   )
 }
-
-const styles = StyleSheet.create({
-  contentContainer: {
-    justifyContent: 'space-between',
-  },
-})

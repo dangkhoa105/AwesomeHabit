@@ -8,6 +8,7 @@ import { watchDeleteCategory } from './Category/DeleteCategorySaga'
 import { watchGetHabits } from './Habit/GetHabitsSaga'
 import { watchCreateHabit } from './Habit/CreateHabitSaga'
 import { watchDeleteHabit } from './Habit/DeleteHabitSaga'
+import { watchUpdateHabit } from './Habit/UpdateHabitSaga'
 import { watchUpdateCheckinsHabit } from './Habit/UpdateCheckinsHabitSaga'
 
 export default function* rootSaga() {
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     watchGetHabits(),
     watchCreateHabit(),
     watchDeleteHabit(),
+    watchUpdateHabit(),
     watchUpdateCheckinsHabit(),
   ])
 }

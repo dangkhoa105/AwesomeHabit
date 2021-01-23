@@ -3,11 +3,18 @@ import { FlatList, Dimensions, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../../../components'
 import { Icon } from 'react-native-eva-icons'
 import { listIconPicker } from '../../../../theme/icon'
+import { objectIsNull } from '../../../../components/Function'
 
 const size = 24
 
-export default function IconPicker({ onSelectIcon }) {
+export default function IconPicker({ value, onSelectIcon }) {
   const [selectIcon, setSelectIcon] = useState(null)
+
+  useEffect(() => {
+    if (!objectIsNull(value)) {
+      setSelectIcon(listIconPicker.indexOf(value))
+    }
+  }, [value])
 
   const onPress = (item, index) => {
     setSelectIcon(index)
@@ -41,4 +48,8 @@ export default function IconPicker({ onSelectIcon }) {
       />
     </Box>
   )
+}
+
+IconPicker.defaultProps = {
+  value: null,
 }

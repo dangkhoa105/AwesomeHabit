@@ -7,3 +7,4 @@ import Root from './src/redux/Root'
 import { name as appName } from './app.json'
 
 AppRegistry.registerComponent(appName, () => Root)
+console.disableYellowBox = true

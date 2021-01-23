@@ -9,10 +9,10 @@ import IconPicker from '../Custom/IconPicker/IconPicker'
 export default function CreateScreen({ type, navigation, getValue, onPressNext }) {
   const [select, setSelect] = useState({ title: '', iconFill: '', iconName: '' })
 
-  let checkCondition =
+  const checkCondition =
     select.title.trim() !== '' && select.iconFill !== '' && select.iconName !== ''
 
-  let bg = checkCondition ? 'color-primary-500' : 'color-primary-200'
+  const bg = checkCondition ? 'color-primary-500' : 'color-primary-200'
 
   useEffect(() => {
     if (checkCondition) {

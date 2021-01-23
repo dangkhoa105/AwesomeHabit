@@ -8,6 +8,7 @@ import { deleteCategoryReducer } from './Category/DeleteCategoryReducer'
 import { getHabitsReducer } from './Habit/GetHabitsReducer'
 import { createHabitReducer } from './Habit/CreateHabitReducer'
 import { deleteHabitReducer } from './Habit/DeleteHabitReducer'
+import { updateHabitReducer } from './Habit/UpdateHabitReducer'
 import { updateCheckinsHabitReducer } from './Habit/UpdateCheckinsHabitReducer'
 
 export default combineReducers({
@@ -20,5 +21,6 @@ export default combineReducers({
   getHabitsReducer,
   createHabitReducer,
   deleteHabitReducer,
+  updateHabitReducer,
   updateCheckinsHabitReducer,
 })

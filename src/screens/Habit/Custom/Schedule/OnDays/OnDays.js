@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Icon } from 'react-native-eva-icons'
 import { FlatList } from 'react-native-gesture-handler'
 import { Box, Text, Button } from '../../../../../components'
+import { arrayIsEmpty } from '../../../../../components/Function'
 import { colors } from '../../../../../theme/color'
 import DayPicker from './DayPicker'
 
 const size = 20
 
-export default function OnDays({ habitType, getDays }) {
+export default function OnDays({ value, habitType, getDays }) {
   const [isShowPopup, setIsShowPopup] = useState(false)
   const [daysSelected, setDaysSelected] = useState([])
   const [indexDelete, setIndexDelete] = useState('')
@@ -15,6 +16,12 @@ export default function OnDays({ habitType, getDays }) {
   useEffect(() => {
     getDays(daysSelected)
   }, [daysSelected])
+
+  useEffect(() => {
+    if (!arrayIsEmpty(value)) {
+      setDaysSelected(value)
+    }
+  }, [value])
 
   const renderItem = ({ item, index }) => (
     <Box

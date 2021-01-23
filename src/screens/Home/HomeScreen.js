@@ -131,6 +131,7 @@ export default function HomeScreen(props) {
                 item.habitType,
                 item.days,
                 item.weeks,
+                item.months,
                 item.checkins,
                 item.startDate,
                 daySelect,
@@ -149,6 +150,12 @@ export default function HomeScreen(props) {
                     onChangeValue={(value, index) => onChangeValueItem(value, index)}
                     keys={keys}
                     onDelete={(id) => onDelete(id)}
+                    onGoToDetail={() =>
+                      props.navigation.navigate('DetailHabitContainer', {
+                        id: keys[index],
+                        habit: item,
+                      })
+                    }
                   />
                 </Swiper>
               )

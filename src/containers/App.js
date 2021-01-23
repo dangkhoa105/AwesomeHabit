@@ -25,6 +25,7 @@ import ChatBotContainer from './ChatBot/ChatBotContainer'
 import ProfileContainer from './About/ProfileContainer'
 import EditProfileContainer from './About/EditProfileContainer'
 import InstructionsScreen from '../screens/About/InstructionsScreen'
+import DetailHabitContainer from './Habit/DetailHabitContainer'
 
 const Tab = createBottomTabNavigator()
 
@@ -113,6 +114,7 @@ export default function App() {
           <Stack.Screen name="ProfileContainer" component={ProfileContainer} />
           <Stack.Screen name="EditProfileContainer" component={EditProfileContainer} />
           <Stack.Screen name="InstructionsScreen" component={InstructionsScreen} />
+          <Stack.Screen name="DetailHabitContainer" component={DetailHabitContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppThemeProvider>

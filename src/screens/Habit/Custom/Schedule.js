@@ -34,7 +34,7 @@ export default function Schedule({ type, getData }) {
       setMonths('')
     }
     const habitTypeTempt = type !== 'Once' ? habitType : 'Once'
-    let daysTempt = null
+    let daysTempt = []
 
     if (type !== 'Once') {
       if (habitType === 'Daily') {
@@ -42,16 +42,24 @@ export default function Schedule({ type, getData }) {
       } else if (habitType === 'Weekly') {
         daysTempt = daily
       } else {
-        const curMonth = moment().format('MM')
+        const month = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
         const curYear = moment().format('YYYY')
+        const tempt = []
         if (months === 'Begin') {
-          daysTempt = moment(`${curYear}-${curMonth}-01`).format('dddd')
+          month.map((v) => {
+            tempt.push(moment(`${curYear}-${v}`).startOf('month').format('dddd'))
+          })
         } else if (months === 'Middle') {
-          daysTempt = moment(`${curYear}-${curMonth}-15`).format('dddd')
+          month.map((v) => {
+            tempt.push(moment(`${curYear}-${v}-15`).format('dddd'))
+          })
         } else {
-          const lastDate = moment().endOf('month').format('DD')
-          daysTempt = moment(`${curYear}-${curMonth}-${lastDate}`).format('dddd')
+          month.map((v) => {
+            tempt.push(moment(`${curYear}-${v}`).endOf('month').format('dddd'))
+          })
         }
+
+        daysTempt = tempt.filter((v, i) => tempt.indexOf(v) === i)
       }
     } else {
       daysTempt = moment(new Date(times[0])).format('dddd')

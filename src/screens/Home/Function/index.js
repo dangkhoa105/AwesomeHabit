@@ -15,6 +15,10 @@ export const countDaysInYear = () => {
   return 365
 }
 
+export const formatDateMonth = (date) => {
+  return date < 10 ? '0' + date : date
+}
+
 export const handleAlertRatio = (ratio) => {
   let text = ''
   if (ratio === 0) {
@@ -91,13 +95,12 @@ export const getNotification = (curTime) => {
   }
 }
 
-export const checkTypeHabit = (habitType, days, weeks, checkins, startDate, daySelect) => {
+export const checkTypeHabit = (habitType, days, weeks, months, checkins, startDate, daySelect) => {
   if (habitType !== 'Once') {
     if (
       compareMoment(new Date(startDate).toJSON(), daySelect) === 0 ||
       compareMoment(new Date(startDate).toJSON(), daySelect) === -1
     ) {
-      console.log('habitType', habitType)
       if (habitType === 'Daily') {
         return days.includes(moment(daySelect).format('dddd'))
       } else if (habitType === 'Weekly') {
@@ -113,12 +116,17 @@ export const checkTypeHabit = (habitType, days, weeks, checkins, startDate, dayS
           return true
         }
       } else {
-        console.log(
-          moment(daySelect).endOf('month'),
-          daySelect,
-          compareMoment(moment(daySelect).endOf('month'), daySelect),
-        )
-        if (compareMoment(moment(daySelect).endOf('month'), daySelect) === 0) {
+        if (compareMoment(moment().endOf('month'), daySelect) === 0 && months === 'End') {
+          return true
+        } else if (
+          compareMoment(moment(daySelect).startOf('month'), daySelect) === 0 &&
+          months === 'Begin'
+        ) {
+          return true
+        } else if (
+          compareMoment(moment(daySelect).endOf('month') / 2, daySelect) === 0 &&
+          months === 'Middle'
+        ) {
           return true
         } else {
           return false
