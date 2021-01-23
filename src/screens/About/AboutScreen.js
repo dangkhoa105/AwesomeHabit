@@ -12,24 +12,24 @@ export default function AboutScreen({ navigation }) {
     <Box p={8}>
       <IconButton
         icon={{ name: 'info-outline', size: size, fill: colors['color-gray-700'] }}
-        text="Your profile"
+        text="Thông tin cá nhân"
         onPress={() => navigation.navigate('ProfileContainer')}
       />
 
       <IconButton
         icon={{ name: 'clipboard-outline', size: size, fill: colors['color-gray-700'] }}
-        text="Instructions"
+        text="Hướng dẫn"
         pt={4}
         onPress={() => navigation.navigate('InstructionsScreen')}
       />
 
       <IconButton
         icon={{ name: 'power-outline', size: size, fill: colors['color-danger-600'] }}
-        text="Log out"
+        text="Đăng xuất"
         textColor="color-danger-600"
         pt={4}
         onPress={() => {
-          alert('Are you sure you want to log out the app', () =>
+          alert('Bạn có chắc muốn thoát khỏi app', () =>
             auth()
               .signOut()
               .then(() => {

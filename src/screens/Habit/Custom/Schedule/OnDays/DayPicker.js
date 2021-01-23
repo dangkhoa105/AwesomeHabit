@@ -71,7 +71,7 @@ export default function DayPicker({ getDays }) {
       width="70%"
       position="absolute"
       top="80%"
-      left="32%"
+      left="33%"
       elevation={2}
       bg="white"
       borderRadius={1}

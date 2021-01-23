@@ -22,13 +22,13 @@ export const formatDateMonth = (date) => {
 export const handleAlertRatio = (ratio) => {
   let text = ''
   if (ratio === 0) {
-    text = 'You have not made any plans yet!'
+    text = 'Bạn chưa hoàn thành thói quen nào!'
   } else if (ratio > 0 && ratio <= 40) {
-    text = 'You have made a few plans already!'
+    text = 'Bạn hãy hoàn thành thêm một vài thói quen nữa!'
   } else if (ratio > 40 && ratio < 60) {
-    text = 'You have come half way, fighting!'
+    text = 'Bạn đã hoàn thành được 50% rồi đó!'
   } else if (ratio >= 60 && ratio < 100) {
-    text = "You're almost done, go ahead!"
+    text = 'Bạn gần hoàn thành hết rồi, hãy tiếp tục nào!'
   } else if (ratio === 100) {
     text = 'Amazing. Good job!'
   } else {
@@ -84,8 +84,8 @@ export const getNotification = (curTime) => {
           if (!arrayIsEmpty(listTime)) {
             showForeground({
               notification: {
-                title: 'Your habits for today',
-                message: `remaining ${listTime.length} habits: ${listTime.join(', ')}`,
+                title: 'Các thói quen của bạn hôm nay',
+                message: `Bao gồm ${listTime.length} thói quen: ${listTime.join(', ')}`,
                 date: new Date(),
               },
             })

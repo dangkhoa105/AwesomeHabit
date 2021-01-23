@@ -62,11 +62,11 @@ export const formatTime = (time) => {
 
 export const alert = (message, onPress) => {
   Alert.alert(
-    'Notification',
+    'Thông báo',
     message,
     [
       !objectIsNull(onPress) && {
-        text: 'Cancel',
+        text: 'Hủy',
         style: 'cancel',
       },
       { text: 'OK', onPress: onPress },

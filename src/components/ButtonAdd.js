@@ -18,7 +18,7 @@ export default function ButtonAdd({ onPressCreate }) {
         <Icon name="plus" width={24} height={24} fill="#fff" />
       </ActionButton.Item>
       <ActionButton.Item
-        title="Go to Messenger"
+        title="Đi đến Messenger"
         size={size}
         buttonColor={colors['color-info-500']}
         onPress={() => {}}

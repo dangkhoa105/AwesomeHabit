@@ -40,17 +40,17 @@ export default function HeaderChildren() {
       />
       <Box position="absolute" paddingHorizontal={4}>
         <Text color="white" variant="h3medium" fontFamily={fonts.regular}>
-          Hi,{' '}
+          Xin chào,{' '}
           <Text color="white" variant="h3bold">
             {name}
           </Text>
         </Text>
         <Text variant="p" color="white" pt={3}>
-          You have{' '}
+          Hôm nay bạn có{' '}
           <Text color="color-danger-300" variant="h3medium">
             {habits.length}
           </Text>{' '}
-          Journals today
+          thói quen cần làm
         </Text>
       </Box>
     </Box>

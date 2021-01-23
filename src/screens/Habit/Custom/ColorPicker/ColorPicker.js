@@ -47,7 +47,7 @@ export default function ColorPicker({ value, onSelectColor }) {
 
   return (
     <Box pt={6}>
-      <Text pb={4}>Color:</Text>
+      <Text pb={4}>Màu:</Text>
       <FlatList
         data={listColorPicker}
         horizontal={true}

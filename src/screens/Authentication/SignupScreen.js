@@ -52,10 +52,10 @@ export default function SignupScreen(props) {
         {fetching && <Loading />}
         <Box alignItems="center" paddingVertical={4}>
           <Text fontSize={24} variant="h3bold" color="color-gray-700">
-            Sign Up
+            Đăng ký
           </Text>
           <Text variant="label" color="color-gray-700" pt={2}>
-            Please signup before get started
+            Hãy đăng ký trước khi vào app nha
           </Text>
         </Box>
 
@@ -70,8 +70,8 @@ export default function SignupScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Name"
-            placeholder="Enter your name"
+            title="Họ và tên"
+            placeholder="Nhập tên của bạn"
             value={name.value}
             onChangeText={(value) => setName({ ...name, value })}
           />
@@ -94,7 +94,7 @@ export default function SignupScreen(props) {
               />
             }
             title="Email"
-            placeholder="Enter your email address"
+            placeholder="Nhập email của bạn"
             value={email.value}
             onChangeText={(value) => setEmail({ ...email, value })}
           />
@@ -127,9 +127,9 @@ export default function SignupScreen(props) {
                 }
               />
             }
-            title="Password"
+            title="Mật khẩu"
             secureTextEntry={secureTextEntry.password}
-            placeholder="Enter your password"
+            placeholder="Nhập mật khẩu của bạn"
             value={password.value}
             onChangeText={(value) => setPassword({ ...password, value })}
           />
@@ -165,9 +165,9 @@ export default function SignupScreen(props) {
                 }
               />
             }
-            title="Confirm password"
+            title="Xác nhận lại mật khẩu"
             secureTextEntry={secureTextEntry.confirmPassword}
-            placeholder="Enter your password"
+            placeholder="Nhập mật khẩu của bạn"
             value={confirmPassword.value}
             onChangeText={(value) => setConfirmPassword({ ...confirmPassword, value })}
           />
@@ -180,7 +180,7 @@ export default function SignupScreen(props) {
 
         {/* Button Sign Up */}
         <ButtonCustom
-          title="Sign up"
+          title="Đăng ký"
           bg="color-primary-500"
           textColor="white"
           containerStyles={styles.btn}

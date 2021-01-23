@@ -14,17 +14,17 @@ export const handleLogin = async (
 
   if (email.value === '' && password.value === '') {
     resultCode.email = false
-    message.email = 'Please enter your email!'
+    message.email = 'Xin vui lòng nhập email của bạn!'
     resultCode.password = false
-    message.password = 'Please enter your password!'
+    message.password = 'Xin vui lòng nhập mật khẩu của bạn!'
   } else if (email.value !== '' && password.value === '') {
     resultCode.email = true
     message.email = ''
     resultCode.password = false
-    message.password = 'Please enter your password!'
+    message.password = 'Xin vui lòng nhập mật khẩu của bạn!'
   } else if (email.value === '' && password.value !== '') {
     resultCode.email = false
-    message.email = 'Please enter your email!'
+    message.email = 'Xin vui lòng nhập email của bạn!'
     resultCode.password = true
     message.password = ''
   } else if (email.value !== '' && password.value !== '') {
@@ -37,13 +37,13 @@ export const handleLogin = async (
         switch (error.code) {
           case 'auth/invalid-email':
             resultCode.email = false
-            message.email = 'That email address is invalid!'
+            message.email = 'Email sai cú pháp!'
             resultCode.password = true
             message.password = ''
             break
           case 'auth/user-not-found':
             resultCode.email = false
-            message.email = 'There is no user record corresponding to this identifier'
+            message.email = 'Email không tồn tại!'
             resultCode.password = true
             message.password = ''
             break
@@ -51,7 +51,7 @@ export const handleLogin = async (
             resultCode.email = true
             message.email = ''
             resultCode.password = false
-            message.password = 'Your password is wrong'
+            message.password = 'Sai mật khẩu!'
             break
         }
 
@@ -93,22 +93,22 @@ export const handleSignup = async (
   ) {
     if (name.value === '') {
       resultCode.name = false
-      message.name = 'Please enter your name!'
+      message.name = 'Vui lòng nhập tên của bạn!'
     }
 
     if (email.value === '') {
       resultCode.email = false
-      message.email = 'Please enter your email!'
+      message.email = 'Vui lòng nhập email của bạn!'
     }
 
     if (password.value === '') {
       resultCode.password = false
-      message.password = 'Please enter your password!'
+      message.password = 'Vui lòng nhập mật khẩu của bạn!'
     }
 
     if (confirmPassword.value === '') {
       resultCode.confirmPassword = false
-      message.confirmPassword = 'Please enter your confirm password!'
+      message.confirmPassword = 'Vui lòng nhập xác nhận mật khẩu!'
     }
   } else if (
     name.value !== '' &&
@@ -131,7 +131,7 @@ export const handleSignup = async (
               resultCode.name = true
               message.name = ''
               resultCode.email = false
-              message.email = 'That email address is invalid!'
+              message.email = 'Email sai cú pháp!'
               resultCode.password = true
               message.password = ''
               resultCode.confirmPassword = true
@@ -141,7 +141,7 @@ export const handleSignup = async (
               resultCode.name = true
               message.name = ''
               resultCode.email = false
-              message.email = 'That email address is already in use!'
+              message.email = 'Email đã tồn tại!'
               resultCode.password = true
               message.password = ''
               resultCode.confirmPassword = true
@@ -153,7 +153,7 @@ export const handleSignup = async (
               resultCode.email = true
               message.email = ''
               resultCode.password = false
-              message.password = 'Your password is too weak!'
+              message.password = 'Mật khẩu của bạn quá yếu!'
               resultCode.confirmPassword = true
               message.confirmPassword = ''
               break
@@ -176,9 +176,9 @@ export const handleSignup = async (
       resultCode.email = true
       message.email = ''
       resultCode.password = false
-      message.password = 'Password are not matching'
+      message.password = 'Hai mật khẩu không giống nhau'
       resultCode.confirmPassword = false
-      message.confirmPassword = 'Password are not matching'
+      message.confirmPassword = 'Hai mật khẩu không giống nhau'
     }
   }
   setFetching(false)

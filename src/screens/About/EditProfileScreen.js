@@ -27,7 +27,7 @@ export default function EditProfileScreen(props) {
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-        <Header title={'Edit your profile'} navigation={props.navigation} />
+        <Header title={'Chỉnh sửa thông tin cá nhân'} navigation={props.navigation} />
 
         <Box width={width - 64} pt={4}>
           <IconTextInput
@@ -39,8 +39,8 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Your full name"
-            placeholder="Enter your name"
+            title="Họ và tên"
+            placeholder="Nhập tên của bạn"
             value={name.value}
             onChangeText={(value) => setName({ ...name, value })}
           />
@@ -56,8 +56,8 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Your email"
-            placeholder="Enter your email"
+            title="Email"
+            placeholder="Nhập email"
             value={email.value}
             onChangeText={(value) => setEmail({ ...email, value })}
           />
@@ -73,8 +73,8 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Your old password"
-            placeholder="Enter your old password"
+            title="Mật khẩu cũ"
+            placeholder="Nhập mật khẩu cũ"
             value={password.value}
             onChangeText={(value) => setPassword({ ...password, value })}
           />
@@ -90,8 +90,8 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Your new password"
-            placeholder="Enter your new password"
+            title="Mật khẩu mới"
+            placeholder="Nhập mật khẩu mới"
             value={phoneNumber.value}
             onChangeText={(value) => setPhoneNumber({ ...phoneNumber, value })}
           />
@@ -107,8 +107,8 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Your phone number"
-            placeholder="Enter your phone number"
+            title="Số điện thoại"
+            placeholder="Nhập số điện thoại"
             value={phoneNumber.value}
             onChangeText={(value) => setPhoneNumber({ ...phoneNumber, value })}
           />
@@ -123,7 +123,7 @@ export default function EditProfileScreen(props) {
         >
           <Button bg={bg} borderRadius={1}>
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={3}>
-              Done
+              Hoàn thành
             </Text>
           </Button>
         </Box>

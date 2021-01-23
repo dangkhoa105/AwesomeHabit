@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import { Box, Text } from '../../components'
 import { calRatio, checkTypeHabit, handleAlertRatio } from './Function'
-import { alert, arrayIsEmpty, compareMoment, objectIsNull } from '../../components/Function'
+import { alert, arrayIsEmpty, objectIsNull } from '../../components/Function'
 import moment from 'moment'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
@@ -58,7 +58,7 @@ export default function HomeScreen(props) {
       prevProps.dataDeleteHabit !== props.dataDeleteHabit
     ) {
       if (props.dataDeleteHabit.resultCode === 1) {
-        alert('You deleted this habit')
+        alert('Bạn đã xóa thói quen này!')
         props.getHabitsAction()
       }
     }
@@ -84,7 +84,7 @@ export default function HomeScreen(props) {
   }
 
   const onDelete = (id) => {
-    alert('Are you sure you want to delete?', () => props.deleteHabitAction(id))
+    alert('Bạn có chắc muốn xóa thói quen này không?', () => props.deleteHabitAction(id))
   }
 
   const showRatio = !isNaN(ratio) ? ratio + '%' : ''

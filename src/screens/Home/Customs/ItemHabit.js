@@ -59,14 +59,15 @@ export default function ItemHabit({
       const checkins = !objectIsNull(item.checkins) ? item.checkins : []
       return (
         <View>
-          <Text style={styles.habitType}>type: {item !== null && item.habitType}</Text>
+          <Text style={styles.habitType}>loại: {item !== null && item.habitType}</Text>
           <Text style={styles.habitType}>
-            You have <Text style={styles.expDate}>{item.weeks - checkins.length}</Text> in this week
+            Bạn có <Text style={styles.expDate}>{item.weeks - checkins.length}</Text> lần trong tuần
+            này
           </Text>
         </View>
       )
     } else {
-      return <Text style={styles.habitType}>type: {item !== null && item.habitType}</Text>
+      return <Text style={styles.habitType}>loại: {item !== null && item.habitType}</Text>
     }
   }
 
@@ -87,10 +88,10 @@ export default function ItemHabit({
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonDetail} onPress={() => onGoToDetail()}>
-        <Text style={styles.textButton}>Detail</Text>
+        <Text style={styles.textButton}>Chi tiết</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonDelete} onPress={() => onDelete(keys[index])}>
-        <Text style={styles.textButton}>Delete</Text>
+        <Text style={styles.textButton}>Xóa</Text>
       </TouchableOpacity>
     </View>
   )

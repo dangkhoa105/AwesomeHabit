@@ -46,12 +46,12 @@ export default function HabitsScreen(props) {
 
   const onDelete = () => {
     if (arrayIsEmpty(habits)) {
-      alert('Are you sure you want to delete?', () => {
+      alert('Bạn chắc có muốn xóa thể loại này?', () => {
         props.deleteCategoryAction(idCategory)
         props.navigation.navigate('CategoriesContainer')
       })
     } else {
-      alert('You can not delete this category')
+      Alert.alert('Thông báo', 'Bạn không thể xóa thể loại này!')
     }
   }
 
@@ -63,16 +63,16 @@ export default function HabitsScreen(props) {
       {/* CONTENT */}
       {/* TITLE */}
       <IconText
-        label="Create a custom habit"
+        label="Tạo mới một thói quen"
         iconName="edit-outline"
         iconFill={colors['color-primary-500']}
         onPress={() =>
           Alert.alert(
-            'Options',
-            'Choosing your type habit',
+            'Tùy chọn',
+            'Chọn loại thói quen',
             [
               {
-                text: 'Once a time',
+                text: 'Chỉ một lần',
                 onPress: () =>
                   props.navigation.navigate('CreateNewHabitContainer', {
                     title,
@@ -81,7 +81,7 @@ export default function HabitsScreen(props) {
                   }),
               },
               {
-                text: 'Repeat',
+                text: 'Lặp lại',
                 onPress: () =>
                   props.navigation.navigate('CreateNewHabitContainer', { title, idCategory }),
               },
@@ -91,7 +91,7 @@ export default function HabitsScreen(props) {
         }
       />
       <IconText
-        label="Delete this category"
+        label="Xóa thể loại này"
         iconName="trash-2-outline"
         iconFill={colors['color-danger-500']}
         onPress={onDelete}
@@ -100,7 +100,7 @@ export default function HabitsScreen(props) {
 
       {/* LIST CATEGORY */}
       {/* TITLE */}
-      <IconText label="Popular healthy habit:" color="color-gray-400" paddingTop={0} />
+      <IconText label="Danh sách thói quen:" color="color-gray-400" paddingTop={0} />
 
       {/* LIST */}
       {props.fetchingGetHabits ? (
@@ -118,7 +118,6 @@ export default function HabitsScreen(props) {
                   iconName={item.iconName}
                   iconFill={colors[item.iconFill]}
                   paddingTop={0}
-                  onPress={() => console.log('aa')}
                 />
               )
             }}

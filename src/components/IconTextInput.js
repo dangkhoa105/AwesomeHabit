@@ -47,10 +47,6 @@ export default function IconTextInput({
 }
 
 const styles = StyleSheet.create({
-  textInput: {
-    borderWidth: 1,
-    borderColor: colors['color-primary-500'],
-  },
   txtTextInput: {
     width: width - 128,
     fontSize: 14,

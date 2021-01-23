@@ -49,9 +49,11 @@ export default function HeaderChildren(props) {
         <Text color="white" variant="h2Medium">
           {showRatio}
         </Text>
-        <Text color="white" variant="h3">
-          Today Habit
-        </Text>
+        {!isNaN(ratio) && (
+          <Text color="white" variant="h3">
+            Thói quen hôm nay
+          </Text>
+        )}
       </Box>
     </Box>
   )

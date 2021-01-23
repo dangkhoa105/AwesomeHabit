@@ -24,7 +24,7 @@ export default function DetailScheduleScreen(props) {
       prevProps.dataCreateHabit !== props.dataCreateHabit
     ) {
       if (props.dataCreateHabit.resultCode === 1) {
-        Alert.alert('Notification', props.messageCreateHabit)
+        Alert.alert('Thông báo', 'Tạo thói quen thành công!')
         props.navigation.navigate('HabitsContainer', {
           title: title,
           idCategory: dataSelect.idCategory,
@@ -39,7 +39,7 @@ export default function DetailScheduleScreen(props) {
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Box flex={1} paddingHorizontal={8} pt={5} bg="white">
         {/* HEADER */}
-        <Header title={'Detail Schedule'} type="other" navigation={props.navigation} />
+        <Header title={'Chi tiết kế hoạch'} type="other" navigation={props.navigation} />
 
         {/* SELECTIONS */}
         <Schedule type={type} getData={(value) => setData(value)} />
@@ -63,7 +63,7 @@ export default function DetailScheduleScreen(props) {
             onPress={() => (checkConditionCreateHabit(data, type) ? handleOnPressDone() : {})}
           >
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
-              Done
+              Hoàn thành
             </Text>
           </Button>
         </Box>

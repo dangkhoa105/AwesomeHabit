@@ -31,10 +31,10 @@ export default function LoginScreen(props) {
       <ScrollView contentContainerStyle={styles.container}>
         <Box alignItems="center" paddingVertical={4}>
           <Text fontSize={24} variant="h3bold" color="color-gray-700">
-            Login
+            Đăng nhập
           </Text>
           <Text variant="label" color="color-gray-700" pt={2}>
-            Get started now!
+            Bắt đầu nào!
           </Text>
         </Box>
 
@@ -50,7 +50,7 @@ export default function LoginScreen(props) {
               />
             }
             title="Email"
-            placeholder="Enter your email address"
+            placeholder="Nhập email của bạn"
             value={email.value}
             onChangeText={(value) => setEmail({ ...email, value })}
           />
@@ -81,9 +81,9 @@ export default function LoginScreen(props) {
                 onPress={() => setSecureTextEntry(!secureTextEntry)}
               />
             }
-            title="Password"
+            title="Mật khẩu"
             secureTextEntry={secureTextEntry}
-            placeholder="Enter your password"
+            placeholder="Nhập mật khẩu của bạn"
             value={password.value}
             onChangeText={(value) => setPassword({ ...password, value })}
           />
@@ -96,7 +96,7 @@ export default function LoginScreen(props) {
 
         {/* Button Login */}
         <ButtonCustom
-          title="Log in"
+          title="Đăng nhập"
           bg="color-primary-500"
           textColor="white"
           containerStyles={styles.btn}
@@ -106,11 +106,11 @@ export default function LoginScreen(props) {
         {/* Sign up Text */}
         <Box flexDirection="row">
           <Text variant="s1" color="color-gray-500">
-            Don't have a account?{' '}
+            Bạn không có tài khoản?{' '}
           </Text>
           <Button onPress={() => props.navigation.navigate('SignupContainer')}>
             <Text variant="s1" fontWeight="bold" color="color-primary-500">
-              Sign up now
+              Đăng ký ngay
             </Text>
           </Button>
         </Box>

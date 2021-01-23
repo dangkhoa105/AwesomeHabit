@@ -70,7 +70,7 @@ export default function Schedule({ type, getData }) {
       days: daysTempt,
       weeks,
       months,
-      startDate: `${times[0]}`,
+      startDate: `${new Date()}`,
       times,
     })
   }, [habitType, days, weeks, months, times])
@@ -79,7 +79,7 @@ export default function Schedule({ type, getData }) {
     <Box contentContainerStyle={{ flexGrow: 1 }}>
       {type !== 'Once' && (
         <SelectionButton
-          title="Habit type"
+          title="Loại thói quen"
           data={habitTypes}
           getValue={(value) => setHabitType(value)}
         />
@@ -88,11 +88,19 @@ export default function Schedule({ type, getData }) {
       {habitType === 'Daily' && type !== 'Once' && <OnDays getDays={(value) => setDays(value)} />}
 
       {habitType === 'Weekly' && type !== 'Once' && (
-        <SelectionButton title="On weeks" data={onWeeks} getValue={(value) => setWeeks(value)} />
+        <SelectionButton
+          title="Số lần trong tuần"
+          data={onWeeks}
+          getValue={(value) => setWeeks(value)}
+        />
       )}
 
       {habitType === 'Monthly' && type !== 'Once' && (
-        <SelectionButton title="On months" data={onMonths} getValue={(value) => setMonths(value)} />
+        <SelectionButton
+          title="Vào ngày trong tháng"
+          data={onMonths}
+          getValue={(value) => setMonths(value)}
+        />
       )}
 
       <TimePicker getValue={(value) => setTimes(value)} />

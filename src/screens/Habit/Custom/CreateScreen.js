@@ -28,12 +28,12 @@ export default function CreateScreen({ type, navigation, getValue, onPressNext }
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <Box flex={1} paddingHorizontal={8} pt={5} bg="white">
         {/* HEADER */}
-        <Header title={'Create new ' + type} navigation={navigation} />
+        <Header title={'Tạo mới ' + type} navigation={navigation} />
 
         {/* SELECTIONS */}
         <Box pt={6}>
           <Box>
-            <Text pb={2}>{jsUcFirst(type)} name:</Text>
+            <Text pb={2}>Tên {type}:</Text>
             <TextInput
               style={styles.textInput}
               onChangeText={(value) => setSelect({ ...select, title: value })}
@@ -55,13 +55,13 @@ export default function CreateScreen({ type, navigation, getValue, onPressNext }
         >
           <Button bg="color-primary-500" borderRadius={1} onPress={() => navigation.goBack()}>
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
-              Back
+              Quay về
             </Text>
           </Button>
 
           <Button bg={bg} borderRadius={1} onPress={() => (checkCondition ? onPressNext() : {})}>
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
-              Next
+              Tiếp theo
             </Text>
           </Button>
         </Box>

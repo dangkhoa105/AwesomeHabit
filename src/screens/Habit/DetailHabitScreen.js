@@ -5,6 +5,7 @@ import { Box, Text, Button } from '../../components'
 import { colors } from '../../theme/color'
 import { alert, objectIsNull } from '../../components/Function'
 import { checkConditionUpdateHabit } from './Function'
+import moment from 'moment'
 import ColorPicker from './Custom/ColorPicker/ColorPicker'
 import Header from './Custom/Header/Header'
 import IconPicker from './Custom/IconPicker/IconPicker'
@@ -62,10 +63,21 @@ export default function DetailHabitScreen(props) {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
       <Box flex={1} paddingHorizontal={8} pt={5} bg="white">
-        <Header title={'Detail habit'} navigation={props.navigation} />
+        <Header title={'Chi tiết thói quen'} navigation={props.navigation} />
+
+        <Text pt={8}>
+          Ngày tạo:{' '}
+          <Text variant="p" fontWeight="bold" color="background-primary-1">
+            {`${moment(habit.startDate).format('DD')}/${moment(habit.startDate).format(
+              'MM',
+            )}/${moment(habit.startDate).format('YYYY')} ${moment(habit.startDate).format(
+              'HH',
+            )}:${moment(habit.startDate).format('mm')}:${moment(habit.startDate).format('ss')}`}
+          </Text>
+        </Text>
 
         <Box pt={8}>
-          <Text pb={2}>Habit name:</Text>
+          <Text pb={2}>Tên thói quen:</Text>
           <TextInput
             value={select.title}
             style={styles.textInput}
@@ -83,14 +95,12 @@ export default function DetailHabitScreen(props) {
           onSelectIcon={(value) => setSelect({ ...select, iconName: value })}
         />
 
-        {habit.habitType !== 'Once' && (
-          <Text>
-            Habit type:{' '}
-            <Text variant="p" fontWeight="bold" color="background-primary-1">
-              {habit.habitType}
-            </Text>
+        <Text pt={4}>
+          Loại thói quen:{' '}
+          <Text variant="p" fontWeight="bold" color="background-primary-1">
+            {habit.habitType}
           </Text>
-        )}
+        </Text>
 
         {habit.habitType === 'Daily' && <OnDays value={days} getDays={(value) => setDays(value)} />}
 
@@ -128,7 +138,7 @@ export default function DetailHabitScreen(props) {
             }
           >
             <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={2}>
-              Update
+              Cập nhật
             </Text>
           </Button>
         </Box>

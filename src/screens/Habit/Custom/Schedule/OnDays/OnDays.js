@@ -55,12 +55,10 @@ export default function OnDays({ value, habitType, getDays }) {
   return (
     <Box pt={11}>
       <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Text variant="p" color="color-gray-400">
-          On days:
-        </Text>
+        <Text variant="p">Vào các ngày:</Text>
 
         <Button
-          width="70%"
+          width="65%"
           bg="color-gray-100"
           borderWidth={0.25}
           borderColor="color-gray-200"
@@ -68,7 +66,7 @@ export default function OnDays({ value, habitType, getDays }) {
           onPress={() => setIsShowPopup(!isShowPopup)}
         >
           <Text variant="p" color="color-gray-300" paddingVertical={2} pr={2} pl={11}>
-            Choose date
+            Chọn ngày
           </Text>
         </Button>
 
@@ -80,7 +78,7 @@ export default function OnDays({ value, habitType, getDays }) {
       <FlatList
         data={daysSelected}
         contentContainerStyle={{ paddingBottom: 8 }}
-        numColumns={3}
+        numColumns={2}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
       />

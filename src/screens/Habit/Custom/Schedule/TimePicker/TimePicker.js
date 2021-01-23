@@ -39,9 +39,7 @@ export default function TimePicker({ value, getValue }) {
   return (
     <Box pt={11}>
       <Box flexDirection="row" justifyContent="space-between" alignItems="center">
-        <Text variant="p" color="color-gray-400">
-          Time:
-        </Text>
+        <Text variant="p">Thời gian:</Text>
 
         <Button
           width="70%"
@@ -52,7 +50,7 @@ export default function TimePicker({ value, getValue }) {
           onPress={() => setShowTimePicker(true)}
         >
           <Text variant="p" color="color-gray-300" paddingVertical={2} pr={2} pl={11}>
-            Choose time
+            Chọn thời gian
           </Text>
         </Button>
       </Box>
