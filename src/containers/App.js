@@ -69,6 +69,8 @@ const Stack = createStackNavigator()
 
 export default function App() {
   let curTime = ''
+  let curDay = ''
+
   let time = new Date().getTime()
 
   React.useEffect(() => {
@@ -86,7 +88,10 @@ export default function App() {
             formatTime(moment(time).minute()) +
             ':' +
             formatTime(moment(time).second())
-          getNotification(curTime)
+
+          curDay = moment(time).format('dddd')
+
+          getNotification(curTime, curDay)
         }, 1000)
         return () => clearInterval(interval)
       }

@@ -43,7 +43,18 @@ export default function HomeScreen(props) {
         const keys = []
         setHabits(
           props.dataGetHabits.data.filter((item, index) => {
-            if (item.days.includes(moment(daySelect).format('dddd'))) {
+            if (
+              item.days.includes(moment(daySelect).format('dddd')) &&
+              checkTypeHabit(
+                item.habitType,
+                item.days,
+                item.weeks,
+                item.months,
+                item.checkins,
+                item.startDate,
+                daySelect,
+              )
+            ) {
               keys.push(props.dataGetHabits.keys[index])
               return true
             }
@@ -74,7 +85,7 @@ export default function HomeScreen(props) {
         props.updateCheckinsHabitAction(keys[indexSelected], arrFilter)
       }
     }
-  }, [ratio, habits])
+  }, [habits])
 
   const onChangeValueItem = (value, index) => {
     const newArr = [...habits] // copying the old datas array
@@ -126,40 +137,28 @@ export default function HomeScreen(props) {
           keyExtractor={(_, index) => index.toString()}
           onScroll={() => setIndexScroll('')}
           renderItem={({ item, index }) => {
-            if (
-              checkTypeHabit(
-                item.habitType,
-                item.days,
-                item.weeks,
-                item.months,
-                item.checkins,
-                item.startDate,
-                daySelect,
-              )
-            ) {
-              return (
-                <Swiper
+            return (
+              <Swiper
+                index={index}
+                indexScroll={indexScroll}
+                setIndexScroll={(value) => setIndexScroll(value)}
+              >
+                <ItemHabit
+                  item={item}
                   index={index}
-                  indexScroll={indexScroll}
-                  setIndexScroll={(value) => setIndexScroll(value)}
-                >
-                  <ItemHabit
-                    item={item}
-                    index={index}
-                    daySelect={daySelect}
-                    onChangeValue={(value, index) => onChangeValueItem(value, index)}
-                    keys={keys}
-                    onDelete={(id) => onDelete(id)}
-                    onGoToDetail={() =>
-                      props.navigation.navigate('DetailHabitContainer', {
-                        id: keys[index],
-                        habit: item,
-                      })
-                    }
-                  />
-                </Swiper>
-              )
-            }
+                  daySelect={daySelect}
+                  onChangeValue={(value, index) => onChangeValueItem(value, index)}
+                  keys={keys}
+                  onDelete={(id) => onDelete(id)}
+                  onGoToDetail={() =>
+                    props.navigation.navigate('DetailHabitContainer', {
+                      id: keys[index],
+                      habit: item,
+                    })
+                  }
+                />
+              </Swiper>
+            )
           }}
         />
       )}

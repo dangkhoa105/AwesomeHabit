@@ -7,6 +7,7 @@ import { fonts } from '../../../theme/theme'
 import database from '@react-native-firebase/database'
 import auth from '@react-native-firebase/auth'
 import moment from 'moment'
+import { checkTypeHabit } from '../Function'
 
 export default function HeaderChildren() {
   const [habits, setHabits] = useState([])
@@ -22,7 +23,18 @@ export default function HeaderChildren() {
           const tempt = Object.values(snapshot.val())
           setHabits(
             tempt.filter((item) => {
-              return item.days.includes(moment().format('dddd'))
+              return (
+                item.days.includes(moment().format('dddd')) &&
+                checkTypeHabit(
+                  item.habitType,
+                  item.days,
+                  item.weeks,
+                  item.months,
+                  item.checkins,
+                  item.startDate,
+                  moment().format('YYYY-MM-DD'),
+                )
+              )
             }),
           )
         }

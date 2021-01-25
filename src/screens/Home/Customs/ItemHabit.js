@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
 import { Icon } from 'react-native-eva-icons'
 import { colors } from '../../../theme/color'
@@ -20,14 +20,18 @@ export default function ItemHabit({
   const [isSelected, setIsSelected] = useState(false)
 
   useEffect(() => {
-    if (!arrayIsEmpty(item.checkins)) {
-      item.checkins.map((v, i) => {
-        if (compareMoment(new Date(v), new Date(daySelect)) === 0) {
-          setIsSelected(true)
-        }
-      })
+    if (!objectIsNull(item.checkins)) {
+      if (!arrayIsEmpty(item.checkins)) {
+        item.checkins.map((v, i) => {
+          if (compareMoment(new Date(v), new Date(daySelect)) === 0) {
+            setIsSelected(true)
+          }
+        })
+      }
+    } else {
+      setIsSelected(false)
     }
-  }, [daySelect])
+  }, [item, daySelect, onChangeValue])
 
   useEffect(() => {
     let list = arrayIsEmpty(item.checkins) ? [] : item.checkins
@@ -57,17 +61,18 @@ export default function ItemHabit({
   const showViewType = () => {
     if (item.habitType === 'Weekly') {
       const checkins = !objectIsNull(item.checkins) ? item.checkins : []
+      const count = item.weeks - checkins.length <= 0 ? 0 : item.weeks - checkins.length
+
       return (
         <View>
-          <Text style={styles.habitType}>loại: {item !== null && item.habitType}</Text>
+          <Text style={styles.habitType}>loại thói quen: {item !== null && item.habitType}</Text>
           <Text style={styles.habitType}>
-            Bạn có <Text style={styles.expDate}>{item.weeks - checkins.length}</Text> lần trong tuần
-            này
+            Bạn có <Text style={styles.expDate}>{count}</Text> lần trong tuần này
           </Text>
         </View>
       )
     } else {
-      return <Text style={styles.habitType}>loại: {item !== null && item.habitType}</Text>
+      return <Text style={styles.habitType}>loại thói quen: {item !== null && item.habitType}</Text>
     }
   }
 

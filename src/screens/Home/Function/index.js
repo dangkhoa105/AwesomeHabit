@@ -15,6 +15,10 @@ export const countDaysInYear = () => {
   return 365
 }
 
+export const countDaysInMonth = (month, year) => {
+  return new Date(year, month, 0).getDate()
+}
+
 export const formatDateMonth = (date) => {
   return date < 10 ? '0' + date : date
 }
@@ -38,14 +42,15 @@ export const handleAlertRatio = (ratio) => {
 }
 
 export const calRatio = (habits, daySelect) => {
-  const listHabitInDay = habits.filter((val) => {
-    return val.days.includes(moment(daySelect).format('dddd'))
-  })
+  // const listHabitInDay = habits.filter((val) => {
+  //   return val.days.includes(moment(daySelect).format('dddd'))
+  // })
 
   const listHabitComplete = []
   listHabitInDay.map((v) => {
     if (!objectIsNull(v.checkins)) {
-      v.checkins.map((item) => {
+      const arrFilter = v.checkins.filter((item, i) => v.checkins.indexOf(item) === i)
+      arrFilter.map((item) => {
         if (compareMoment(new Date(item), daySelect) === 0) {
           listHabitComplete.push(item)
         }
@@ -53,10 +58,12 @@ export const calRatio = (habits, daySelect) => {
     }
   })
 
-  return Math.round((listHabitComplete.length / listHabitInDay.length) * 100)
+  // const arrFilter = listHabitComplete.filter((v, i) => listHabitComplete.indexOf(v) === i)
+
+  return Math.round((listHabitComplete.length / habits.length) * 100)
 }
 
-export const getNotification = (curTime) => {
+export const getNotification = (curTime, curDay) => {
   const user = auth().currentUser
 
   if (user) {
@@ -75,7 +82,7 @@ export const getNotification = (curTime) => {
               const tempt =
                 formatTime(new Date(i).getHours()) + ':' + formatTime(new Date(i).getMinutes())
 
-              if (curTime === tempt + ':00') {
+              if (curTime === tempt + ':00' && item.days.includes(curDay)) {
                 listTime.push(item.title)
               }
             })
