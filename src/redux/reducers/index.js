@@ -10,6 +10,7 @@ import { createHabitReducer } from './Habit/CreateHabitReducer'
 import { deleteHabitReducer } from './Habit/DeleteHabitReducer'
 import { updateHabitReducer } from './Habit/UpdateHabitReducer'
 import { updateCheckinsHabitReducer } from './Habit/UpdateCheckinsHabitReducer'
+import { getRecommendationsReducer } from './Habit/GetRecommendationsReducer'
 
 export default combineReducers({
   loginReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   deleteHabitReducer,
   updateHabitReducer,
   updateCheckinsHabitReducer,
+  getRecommendationsReducer,
 })

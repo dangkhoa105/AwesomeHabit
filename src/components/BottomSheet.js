@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-native'
-import { Box, Text } from '.'
+import { Box, Text, Button } from '.'
 
 export default function BottomSheet({ isShowModal, children }) {
-  const [visible, SetVisible] = useState(isShowModal)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    SetVisible(isShowModal)
+    setVisible(isShowModal)
   }, [isShowModal])
 
   return (
-    <Box flex={1} justifyContent="center" alignItems="center">
-      <Modal animationType="slide" transparent={true} visible={visible}>
+    <Modal animationType="slide" transparent={true} visible={visible}>
+      <Box flex={1} justifyContent="flex-end" bg="color-basic-transparent-600">
         {children}
-      </Modal>
-    </Box>
+      </Box>
+    </Modal>
   )
 }

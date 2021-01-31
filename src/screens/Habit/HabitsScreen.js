@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Alert, FlatList, Image, Dimensions, StyleSheet } from 'react-native'
-import { Box } from '../../components'
+import { Box, Text, Button } from '../../components'
 import { getImage } from '../../theme/images'
 import { colors } from '../../theme/color'
+import { fonts } from '../../theme/theme'
 import { alert, arrayIsEmpty, objectIsNull } from '../../components/Function'
 import IconText from './Custom/Header/IconText'
 import Header from './Custom/Header/Header'
 import Loading from '../../components/Loading'
+import RecommendList from './Custom/RecommendList/RecommendList'
+import BottomSheet from '../../components/BottomSheet'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import ItemBottomSheet from './Custom/ItemBottomSheet'
 
 const { width, height } = Dimensions.get('window')
 
@@ -20,16 +25,17 @@ function usePrevious(value) {
 
 export default function HabitsScreen(props) {
   const { title, idCategory } = props.route.params
-
+  const [isShowModal, setIsShowModal] = useState(false)
+  const [habits, setHabits] = useState([])
   const prevProps = {
     dataGetHabits: usePrevious(props.dataGetHabits),
+    dataCreateHabit: usePrevious(props.dataCreateHabit),
   }
-
-  const [habits, setHabits] = useState([])
 
   React.useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       props.getHabitsAction()
+      props.getRecommendationsAction()
     })
 
     return unsubscribe
@@ -42,7 +48,16 @@ export default function HabitsScreen(props) {
         setHabits(list)
       }
     }
-  }, [props.dataGetHabits, props.dataDeleteCategory])
+
+    if (
+      !objectIsNull(props.dataCreateHabit) &&
+      prevProps.dataCreateHabit !== props.dataCreateHabit
+    ) {
+      if (props.dataCreateHabit.resultCode === 1) {
+        props.getHabitsAction()
+      }
+    }
+  }, [props.dataGetHabits, props.dataCreateHabit])
 
   const onDelete = () => {
     if (arrayIsEmpty(habits)) {
@@ -53,6 +68,22 @@ export default function HabitsScreen(props) {
     } else {
       Alert.alert('Thông báo', 'Bạn không thể xóa thể loại này!')
     }
+  }
+
+  const onPressType = (type) => {
+    if (type) {
+      props.navigation.navigate('CreateNewHabitContainer', {
+        title,
+        idCategory,
+        type: 'Once',
+      })
+    } else {
+      props.navigation.navigate('CreateNewHabitContainer', {
+        title,
+        idCategory,
+      })
+    }
+    setIsShowModal(false)
   }
 
   return (
@@ -66,29 +97,7 @@ export default function HabitsScreen(props) {
         label="Tạo mới một thói quen"
         iconName="edit-outline"
         iconFill={colors['color-primary-500']}
-        onPress={() =>
-          Alert.alert(
-            'Tùy chọn',
-            'Chọn loại thói quen',
-            [
-              {
-                text: 'Chỉ một lần',
-                onPress: () =>
-                  props.navigation.navigate('CreateNewHabitContainer', {
-                    title,
-                    idCategory,
-                    type: 'Once',
-                  }),
-              },
-              {
-                text: 'Lặp lại',
-                onPress: () =>
-                  props.navigation.navigate('CreateNewHabitContainer', { title, idCategory }),
-              },
-            ],
-            { cancelable: false },
-          )
-        }
+        onPress={() => setIsShowModal(true)}
       />
       <IconText
         label="Xóa thể loại này"
@@ -106,7 +115,7 @@ export default function HabitsScreen(props) {
       {props.fetchingGetHabits ? (
         <Loading />
       ) : (
-        <Box height={height / 2}>
+        <Box height={height / 3}>
           <FlatList
             data={habits}
             keyExtractor={(item, index) => index.toString()}
@@ -125,8 +134,22 @@ export default function HabitsScreen(props) {
         </Box>
       )}
 
+      <RecommendList
+        dataGetRecommendations={props.dataGetRecommendations}
+        idCategory={idCategory}
+        createHabitAction={(data) => props.createHabitAction(data)}
+      />
+
+      <BottomSheet isShowModal={isShowModal}>
+        <Button flex={1} onPress={() => setIsShowModal(false)} />
+        <ItemBottomSheet
+          onPressType={(type) => onPressType(type)}
+          setIsShowModal={(value) => setIsShowModal(value)}
+        />
+      </BottomSheet>
+
       {/* IMAGE */}
-      <Box position="absolute" bottom={30} right={20}>
+      <Box position="absolute" bottom={30} right={-10} opacity={0.7} zIndex={-1}>
         <Image resizeMode="contain" style={styles.imgFooter} source={getImage.footer_category} />
       </Box>
     </Box>

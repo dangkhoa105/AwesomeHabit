@@ -10,6 +10,7 @@ import { watchCreateHabit } from './Habit/CreateHabitSaga'
 import { watchDeleteHabit } from './Habit/DeleteHabitSaga'
 import { watchUpdateHabit } from './Habit/UpdateHabitSaga'
 import { watchUpdateCheckinsHabit } from './Habit/UpdateCheckinsHabitSaga'
+import { watchGetRecommendations } from './Habit/GetRecommendationsSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -24,5 +25,6 @@ export default function* rootSaga() {
     watchDeleteHabit(),
     watchUpdateHabit(),
     watchUpdateCheckinsHabit(),
+    watchGetRecommendations(),
   ])
 }

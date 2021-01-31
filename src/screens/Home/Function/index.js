@@ -47,7 +47,7 @@ export const calRatio = (habits, daySelect) => {
   // })
 
   const listHabitComplete = []
-  listHabitInDay.map((v) => {
+  habits.map((v) => {
     if (!objectIsNull(v.checkins)) {
       const arrFilter = v.checkins.filter((item, i) => v.checkins.indexOf(item) === i)
       arrFilter.map((item) => {
