@@ -3,15 +3,15 @@ import { Alert, Image, Dimensions, ScrollView, StyleSheet } from 'react-native'
 import { Box, Text, Button } from '../../components'
 import { objectIsNull } from '../../components/Function'
 import { getImage } from '../../theme/images'
-import { checkConditionCreateHabit } from './Function'
+import { checkConditionCreateHabit, notificationHabit } from './Function'
 import Header from './Custom/Header/Header'
 import Schedule from './Custom/Schedule'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default function DetailScheduleScreen(props) {
   const [data, setData] = useState({})
-  const { dataSelect, title, type } = props.route.params
+  const { dataSelect, type } = props.route.params
   const prevProps = useRef({ dataCreateHabit: props.dataCreateHabit }).current
 
   const handleOnPressDone = () => {
@@ -23,12 +23,14 @@ export default function DetailScheduleScreen(props) {
       !objectIsNull(props.dataCreateHabit) &&
       prevProps.dataCreateHabit !== props.dataCreateHabit
     ) {
+      console.log(props.dataCreateHabit.resultCode)
       if (props.dataCreateHabit.resultCode === 1) {
+        const { times, title, habitType, days, startDate } = data
+
+        notificationHabit(times, days, title, habitType, startDate)
+
         Alert.alert('Thông báo', 'Tạo thói quen thành công!')
-        props.navigation.navigate('HabitsContainer', {
-          title: title,
-          idCategory: dataSelect.idCategory,
-        })
+        props.navigation.navigate('Tab')
       }
     }
   }, [props.dataCreateHabit])

@@ -3,13 +3,11 @@ import { FlatList, StyleSheet } from 'react-native'
 import { Box, Button, Text } from '../../components'
 import { calRatio, checkTypeHabit, handleAlertRatio } from './Function'
 import { alert, arrayIsEmpty, objectIsNull } from '../../components/Function'
-import { fonts } from '../../theme/theme'
 import moment from 'moment'
 import ItemHabit from './Customs/ItemHabit'
 import Loading from '../../components/Loading'
 import Swiper from '../../components/Swiper'
 import Calender from './Customs/Calender'
-import BottomSheet from '../../components/BottomSheet'
 
 function usePrevious(value) {
   const ref = useRef()
@@ -46,20 +44,22 @@ export default function HomeScreen(props) {
         const keys = []
         setHabits(
           props.dataGetHabits.data.filter((item, index) => {
-            if (
-              item.days.includes(moment(daySelect).format('dddd')) &&
-              checkTypeHabit(
-                item.habitType,
-                item.days,
-                item.weeks,
-                item.months,
-                item.checkins,
-                item.startDate,
-                daySelect,
-              )
-            ) {
-              keys.push(props.dataGetHabits.keys[index])
-              return true
+            if (!objectIsNull(item) && !arrayIsEmpty(item.days)) {
+              if (
+                item.days.includes(moment(daySelect).format('dddd')) &&
+                checkTypeHabit(
+                  item.habitType,
+                  item.days,
+                  item.weeks,
+                  item.months,
+                  item.checkins,
+                  item.startDate,
+                  daySelect,
+                )
+              ) {
+                keys.push(props.dataGetHabits.keys[index])
+                return true
+              }
             }
           }),
         )

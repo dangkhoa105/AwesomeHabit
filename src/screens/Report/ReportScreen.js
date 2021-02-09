@@ -63,29 +63,33 @@ export default function ReportScreen(props) {
     })
 
     for (let i = 1; i <= countDaysInMonth(moment().format('M'), moment().format('YYYY')); i++) {
-      const tempt = habits.filter(
-        (item) =>
-          item.days.includes(moment().date(i).format('dddd')) &&
-          checkTypeHabit(
-            item.habitType,
-            item.days,
-            item.weeks,
-            item.months,
-            item.checkins,
-            item.startDate,
-            moment().date(i).format('YYYY-MM-DD'),
-          ),
-      )
+      const tempt = habits.filter((item) => {
+        if (!objectIsNull(item) && !arrayIsEmpty(item.days)) {
+          return (
+            item.days.includes(moment().date(i).format('dddd')) &&
+            checkTypeHabit(
+              item.habitType,
+              item.days,
+              item.weeks,
+              item.months,
+              item.checkins,
+              item.startDate,
+              moment().date(i).format('YYYY-MM-DD'),
+            )
+          )
+        }
+      })
 
       if (
         counts[moment().date(i).format('YYYY-MM-DD')] === tempt.length &&
-        month === moment(i).format('MM')
+        month === moment().date(i).format('MM')
       ) {
         perfectDates.push(moment().date(i).format('YYYY-MM-DD'))
         countDonePerfect++
       }
     }
 
+    console.log(countDonePerfect)
     setHabitsDone(countDone)
     setPerfectDates(perfectDates)
     setHabitsDonePerfect(countDonePerfect)

@@ -84,23 +84,23 @@ const styles = StyleSheet.create({
 
   wrapItemSelect: {
     width: 48,
-    backgroundColor: '#E8F1F4',
+    backgroundColor: '#9F7EFF',
     paddingVertical: 16,
     marginHorizontal: 8,
     marginVertical: 24,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#999',
-    borderWidth: 1,
   },
   txtItemDaySelect: {
     fontSize: 16,
-    color: '#698790',
+    fontWeight: 'bold',
+    color: '#fff',
   },
   txtItemDateSelect: {
     fontSize: 16,
-    color: '#698790',
+    fontWeight: 'bold',
+    color: '#fff',
   },
 
   wrapItemCurDate: {

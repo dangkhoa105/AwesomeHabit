@@ -1,8 +1,8 @@
 import messaging from '@react-native-firebase/messaging'
 import firebase from '@react-native-firebase/app'
 import PushNotificationIOS from '@react-native-community/push-notification-ios'
-const PushNotification = require('react-native-push-notification')
 import { Platform } from 'react-native'
+const PushNotification = require('react-native-push-notification')
 
 const requestUserPermission = async () => {
   const authStatus = await messaging().requestPermission()
@@ -21,7 +21,7 @@ const getDeviceToken = async () => {
   return token
 }
 
-var callBack = () => {}
+let callBack = () => {}
 
 const handleNotify = async (navigation) => {
   const tokenIOS = await getDeviceToken()
@@ -84,7 +84,6 @@ const handleNotify = async (navigation) => {
 const handleTouch = (notification, navigation) => {
   // eslint-disable-next-line no-useless-return
   if (!notification.data) return
-  return
 }
 
 const showForeground = ({ notification }) => {
@@ -145,7 +144,8 @@ const showForeground = ({ notification }) => {
     userInfo: {}, // (optional) default: {} (using null throws a JSON value '<null>' error) notification.data ? notification.data :
     playSound: true, // (optional) default: true
     soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-    // repeatType: 'day',
+    repeatType: notification.repeat ? 'day' : null,
+    allowWhileIdle: true,
   })
 }
 

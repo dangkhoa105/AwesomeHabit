@@ -68,32 +68,10 @@ function TAB() {
 const Stack = createStackNavigator()
 
 export default function App() {
-  let curTime = ''
-  let curDay = ''
-
-  let time = new Date().getTime()
-
   React.useEffect(() => {
     AppState.addEventListener('change', (nextAppState) => {
-      if (
-        nextAppState === 'background' ||
-        nextAppState === 'active' ||
-        nextAppState === 'inactive'
-      ) {
-        const interval = setInterval(() => {
-          time += 1000
-          curTime =
-            formatTime(moment(time).hour()) +
-            ':' +
-            formatTime(moment(time).minute()) +
-            ':' +
-            formatTime(moment(time).second())
-
-          curDay = moment(time).format('dddd')
-
-          getNotification(curTime, curDay)
-        }, 1000)
-        return () => clearInterval(interval)
+      if (nextAppState === 'active') {
+        getNotification(new Date(Date.now() + 500))
       }
     })
   }, [])

@@ -14,7 +14,11 @@ export const getHabits = async () => {
           // const obj = Object.values(snapshot)[0]
           // console.log(obj)
           const keys = Object.keys(snapshot.val())
-          list = { data: Object.values(snapshot.val()), keys }
+          const data = []
+          Object.values(snapshot.val()).map((v, i) => {
+            data.push({ ...v, id: keys[i] })
+          })
+          list = { data: data, keys }
           // console.log('api', Object.values(obj.value))
         }
       })

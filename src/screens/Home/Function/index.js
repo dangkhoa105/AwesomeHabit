@@ -14,11 +14,9 @@ export const countDaysInYear = () => {
     return 366
   return 365
 }
-
 export const countDaysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate()
 }
-
 export const formatDateMonth = (date) => {
   return date < 10 ? '0' + date : date
 }
@@ -41,59 +39,91 @@ export const handleAlertRatio = (ratio) => {
   return text
 }
 
+export const getUnique = (arr, comp) => {
+  const unique = arr
+    .map((e) => e[comp])
+
+    // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+
+    // eliminate the dead keys & store unique objects
+    .filter((e) => arr[e])
+    .map((e) => arr[e])
+
+  return unique
+}
+
 export const calRatio = (habits, daySelect) => {
-  // const listHabitInDay = habits.filter((val) => {
-  //   return val.days.includes(moment(daySelect).format('dddd'))
-  // })
+  const listHabitInDay = habits.filter((val) => {
+    return val.days.includes(moment(daySelect).format('dddd'))
+  })
 
   const listHabitComplete = []
-  habits.map((v) => {
+  listHabitInDay.map((v) => {
     if (!objectIsNull(v.checkins)) {
-      const arrFilter = v.checkins.filter((item, i) => v.checkins.indexOf(item) === i)
-      arrFilter.map((item) => {
-        if (compareMoment(new Date(item), daySelect) === 0) {
-          listHabitComplete.push(item)
+      v.checkins.map((checkin) => {
+        if (compareMoment(new Date(checkin), daySelect) === 0) {
+          listHabitComplete.push(v)
         }
       })
     }
   })
 
-  // const arrFilter = listHabitComplete.filter((v, i) => listHabitComplete.indexOf(v) === i)
-
-  return Math.round((listHabitComplete.length / habits.length) * 100)
+  return Math.round((getUnique(listHabitComplete, 'id').length / listHabitInDay.length) * 100)
 }
 
-export const getNotification = (curTime, curDay) => {
-  const user = auth().currentUser
+const datesAreOnSameDay = (first, second) =>
+  first.getFullYear() === second.getFullYear() &&
+  first.getMonth() === second.getMonth() &&
+  first.getDate() === second.getDate()
 
+export const getNotification = (curTime) => {
+  const user = auth().currentUser
   if (user) {
-    let habits = []
-    const listTime = []
     database()
       .ref(`/users/${user.uid}/habits`)
       .once('value')
       .then((snapshot) => {
         if (!objectIsNull(snapshot.val())) {
-          habits = Object.values(snapshot.val())
-          const listHabit = habits.filter((item) => !item.check)
-
-          listHabit.map((item) => {
-            item.times.map((i) => {
-              const tempt =
-                formatTime(new Date(i).getHours()) + ':' + formatTime(new Date(i).getMinutes())
-
-              if (curTime === tempt + ':00' && item.days.includes(curDay)) {
-                listTime.push(item.title)
+          const listHabit = Object.values(snapshot.val()).filter((item, index) => {
+            if (!objectIsNull(item) && !arrayIsEmpty(item.days)) {
+              if (
+                item.days.includes(moment().format('dddd')) &&
+                checkTypeHabit(
+                  item.habitType,
+                  item.days,
+                  item.weeks,
+                  item.months,
+                  item.checkins,
+                  item.startDate,
+                  moment().format('YYYY-MM-DD'),
+                )
+              ) {
+                return true
               }
-            })
+            }
           })
+          const listTime = []
+
+          for (item of listHabit) {
+            if (objectIsNull(item.checkins)) {
+              listTime.push(item.title)
+            } else if (!objectIsNull(item.checkins)) {
+              for (val of item.checkins) {
+                if (compareMoment(val, moment()) !== 0) {
+                  listTime.push(item.title)
+                  break
+                }
+              }
+            }
+          }
 
           if (!arrayIsEmpty(listTime)) {
             showForeground({
               notification: {
-                title: 'Các thói quen của bạn hôm nay',
+                title: 'Các thói quen chưa làm của bạn hôm nay',
                 message: `Bao gồm ${listTime.length} thói quen: ${listTime.join(', ')}`,
-                date: new Date(),
+                date: new Date(curTime),
               },
             })
           }

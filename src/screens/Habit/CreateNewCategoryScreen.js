@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Alert } from 'react-native'
 import { objectIsNull } from '../../components/Function'
 import CreateScreen from './Custom/CreateScreen'
 
@@ -27,7 +28,7 @@ export default function CreateNewCategoryScreen(props) {
       getValue={(value) => setValue(value)}
       onPressNext={() => {
         props.createCategoryAction(value)
-        alert('Tạo thể loại thành công')
+        Alert.alert('Thông báo', 'Tạo thể loại thành công')
       }}
     />
   )

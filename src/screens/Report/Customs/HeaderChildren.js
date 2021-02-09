@@ -31,19 +31,22 @@ export default function HeaderChildren(props) {
     if (!objectIsNull(props.dataGetHabits) && prevProps.dataGetHabits !== props.dataGetHabits) {
       if (!arrayIsEmpty(props.dataGetHabits.data)) {
         setHabits(
-          props.dataGetHabits.data.filter(
-            (item) =>
-              item.days.includes(moment().format('dddd')) &&
-              checkTypeHabit(
-                item.habitType,
-                item.days,
-                item.weeks,
-                item.months,
-                item.checkins,
-                item.startDate,
-                moment().format('YYYY-MM-DD'),
-              ),
-          ),
+          props.dataGetHabits.data.filter((item) => {
+            if (!objectIsNull(item) && !arrayIsEmpty(item.days)) {
+              return (
+                item.days.includes(moment().format('dddd')) &&
+                checkTypeHabit(
+                  item.habitType,
+                  item.days,
+                  item.weeks,
+                  item.months,
+                  item.checkins,
+                  item.startDate,
+                  moment().format('YYYY-MM-DD'),
+                )
+              )
+            }
+          }),
         )
       }
     }

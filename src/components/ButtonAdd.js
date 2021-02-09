@@ -8,7 +8,12 @@ const size = 40
 
 export default function ButtonAdd({ onPressCreate }) {
   return (
-    <ActionButton shadowStyle={{ elevation: 0 }} buttonColor={colors['color-primary-500']}>
+    <ActionButton
+      shadowStyle={{ elevation: 0 }}
+      offsetX={15}
+      offsetY={15}
+      buttonColor={colors['color-primary-500']}
+    >
       <ActionButton.Item
         size={size}
         buttonColor={colors['color-success-300']}

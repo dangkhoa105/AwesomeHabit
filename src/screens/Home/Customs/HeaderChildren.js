@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Image } from 'react-native'
 import { Box, Text } from '../../../components'
-import { objectIsNull } from '../../../components/Function'
+import { objectIsNull, arrayIsEmpty } from '../../../components/Function'
 import { getImage } from '../../../theme/images'
 import { fonts } from '../../../theme/theme'
 import database from '@react-native-firebase/database'
@@ -23,18 +23,20 @@ export default function HeaderChildren() {
           const tempt = Object.values(snapshot.val())
           setHabits(
             tempt.filter((item) => {
-              return (
-                item.days.includes(moment().format('dddd')) &&
-                checkTypeHabit(
-                  item.habitType,
-                  item.days,
-                  item.weeks,
-                  item.months,
-                  item.checkins,
-                  item.startDate,
-                  moment().format('YYYY-MM-DD'),
+              if (!objectIsNull(item) && !arrayIsEmpty(item.days)) {
+                return (
+                  item.days.includes(moment().format('dddd')) &&
+                  checkTypeHabit(
+                    item.habitType,
+                    item.days,
+                    item.weeks,
+                    item.months,
+                    item.checkins,
+                    item.startDate,
+                    moment().format('YYYY-MM-DD'),
+                  )
                 )
-              )
+              }
             }),
           )
         }

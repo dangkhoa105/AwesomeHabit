@@ -61,7 +61,9 @@ export default function ItemHabit({
   const showViewType = () => {
     if (item.habitType === 'Weekly') {
       const checkins = !objectIsNull(item.checkins) ? item.checkins : []
-      const count = item.weeks - checkins.length <= 0 ? 0 : item.weeks - checkins.length
+      const unique = checkins.filter((v, i) => checkins.indexOf(v) === i)
+
+      const count = item.weeks - unique.length <= 0 ? 0 : item.weeks - unique.length
 
       return (
         <View>
