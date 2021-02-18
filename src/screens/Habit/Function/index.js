@@ -88,6 +88,7 @@ export const notificationHabit = (times, days, title, habitType, startDate) => {
   } else if (habitType === 'Weekly') {
     times.forEach((time) => {
       const timeDif = new Date(time).getTime() - new Date(Date.now()).getTime()
+      console.log('vo dayyyyyyyy')
       showForeground({
         notification: {
           title,
@@ -104,17 +105,22 @@ export const notificationHabit = (times, days, title, habitType, startDate) => {
           moment().dayOfYear(i).set('hour', new Date(time).getHours())
           moment().dayOfYear(i).set('minute', new Date(time).getMinutes())
           moment().dayOfYear(i).set('second', new Date(time).getSeconds())
-          const timeDif =
-            new Date(moment().dayOfYear(i).format()).getTime() - new Date(Date.now()).getTime()
+          if (
+            new Date(moment().dayOfYear(i).format()).getTime() >= new Date(Date.now()).getTime()
+          ) {
+            const timeDif =
+              new Date(moment().dayOfYear(i).format()).getTime() - new Date(Date.now()).getTime()
 
-          showForeground({
-            notification: {
-              title,
-              message: `Đã tới giờ "${title}" rồi`,
-              date: new Date(Date.now() + Math.abs(timeDif)),
-              repeat: null,
-            },
-          })
+            console.log(timeDif)
+            showForeground({
+              notification: {
+                title,
+                message: `Đã tới giờ "${title}" rồi`,
+                date: new Date(Date.now() + Math.abs(timeDif)),
+                repeat: null,
+              },
+            })
+          }
         })
       }
     }

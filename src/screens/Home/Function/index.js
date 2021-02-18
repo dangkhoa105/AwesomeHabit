@@ -109,11 +109,8 @@ export const getNotification = (curTime) => {
             if (objectIsNull(item.checkins)) {
               listTime.push(item.title)
             } else if (!objectIsNull(item.checkins)) {
-              for (val of item.checkins) {
-                if (compareMoment(val, moment()) !== 0) {
-                  listTime.push(item.title)
-                  break
-                }
+              if (arrayIsEmpty(item.checkins.filter((val) => compareMoment(val, moment()) === 0))) {
+                listTime.push(item.title)
               }
             }
           }

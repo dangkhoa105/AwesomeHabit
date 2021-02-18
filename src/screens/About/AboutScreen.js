@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import auth from '@react-native-firebase/auth'
 import IconButton from './Custom/IconButton'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Box } from '../../components'
 import { colors } from '../../theme/color'
 import { alert } from '../../components/Function'
@@ -33,6 +34,7 @@ export default function AboutScreen({ navigation }) {
             auth()
               .signOut()
               .then(() => {
+                AsyncStorage.removeItem('@password_key')
                 navigation.navigate('WelcomeContainer')
               }),
           )

@@ -32,6 +32,7 @@ export default function HomeScreen(props) {
 
   React.useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
+      setHabits([])
       props.getHabitsAction()
     })
 
@@ -71,6 +72,7 @@ export default function HomeScreen(props) {
       !objectIsNull(props.dataDeleteHabit) &&
       prevProps.dataDeleteHabit !== props.dataDeleteHabit
     ) {
+      console.log(prevProps.dataDeleteHabit, props.dataDeleteHabit)
       if (props.dataDeleteHabit.resultCode === 1) {
         alert('Bạn đã xóa thói quen này!')
         props.getHabitsAction()
@@ -80,12 +82,14 @@ export default function HomeScreen(props) {
 
   useEffect(() => {
     setRatio(calRatio(habits, daySelect))
-    if (!objectIsNull(habits[indexSelected])) {
-      if (!objectIsNull(habits[indexSelected].checkins)) {
-        const arrFilter = habits[indexSelected].checkins.filter(
-          (v, i) => habits[indexSelected].checkins.indexOf(v) === i,
-        )
-        props.updateCheckinsHabitAction(keys[indexSelected], arrFilter)
+    if (!arrayIsEmpty(habits)) {
+      if (!objectIsNull(habits[indexSelected])) {
+        if (!objectIsNull(habits[indexSelected].checkins)) {
+          const arrFilter = habits[indexSelected].checkins.filter(
+            (v, i) => habits[indexSelected].checkins.indexOf(v) === i,
+          )
+          props.updateCheckinsHabitAction(keys[indexSelected], arrFilter)
+        }
       }
     }
   }, [habits])

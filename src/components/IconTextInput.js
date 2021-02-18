@@ -14,6 +14,8 @@ export default function IconTextInput({
   placeholder,
   value,
   onChangeText,
+  editable,
+  keyboardType,
 }) {
   return (
     <Box pt={2}>
@@ -33,6 +35,8 @@ export default function IconTextInput({
           {iconLeft}
           <TextInput
             value={value}
+            editable={editable}
+            keyboardType={keyboardType}
             secureTextEntry={secureTextEntry}
             placeholder={placeholder}
             placeholderTextColor={colors['color-gray-300']}
@@ -60,4 +64,6 @@ IconTextInput.defaultProps = {
   iconRight: null,
   title: '',
   secureTextEntry: false,
+  editable: true,
+  keyboardType: 'default',
 }

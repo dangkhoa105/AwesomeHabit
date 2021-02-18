@@ -41,8 +41,8 @@ export default function SignupScreen(props) {
     )
   }
 
-  let nameIconRightPassword = !secureTextEntry.password ? 'eye-off-outline' : 'eye-outline'
-  let nameIconRightConfirmPassword = !secureTextEntry.confirmPassword
+  const nameIconRightPassword = !secureTextEntry.password ? 'eye-off-outline' : 'eye-outline'
+  const nameIconRightConfirmPassword = !secureTextEntry.confirmPassword
     ? 'eye-off-outline'
     : 'eye-outline'
 

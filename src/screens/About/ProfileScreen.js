@@ -6,7 +6,7 @@ import IconText from '../Habit/Custom/Header/IconText'
 import Header from '../Habit/Custom/Header/Header'
 
 export default function ProfileScreen(props) {
-  const { displayName, uid, email, phoneNumber } = auth().currentUser
+  const { displayName, uid, email } = auth().currentUser
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       <Header title={'Thông tin cá nhân'} navigation={props.navigation} />
@@ -31,11 +31,6 @@ export default function ProfileScreen(props) {
       <Box borderBottomWidth={0.25}>
         <IconText label="Email:" color="color-gray-400" />
         <Text pb={2}>{email}</Text>
-      </Box>
-
-      <Box borderBottomWidth={0.25}>
-        <IconText label="Số điện thoại:" color="color-gray-400" />
-        <Text pb={2}>{phoneNumber}</Text>
       </Box>
     </Box>
   )

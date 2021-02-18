@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Text, Button } from '../../components'
 import { ScrollView, Dimensions } from 'react-native'
 import { colors } from '../../theme/color'
 import { Icon } from 'react-native-eva-icons'
+import { handleUpdate } from './Function'
 import auth from '@react-native-firebase/auth'
-import IconText from '../Habit/Custom/Header/IconText'
 import Header from '../Habit/Custom/Header/Header'
 import IconTextInput from '../../components/IconTextInput'
 
@@ -14,22 +14,41 @@ const size = 20
 export default function EditProfileScreen(props) {
   const user = auth().currentUser
   const [name, setName] = useState({ value: user.displayName, resultCode: true, message: '' })
-  const [email, setEmail] = useState({ value: user.email, resultCode: true, message: '' })
   const [password, setPassword] = useState({ value: '', resultCode: true, message: '' })
-  const [phoneNumber, setPhoneNumber] = useState({
-    value: user.phoneNumber,
-    resultCode: true,
-    message: '',
-  })
+  const [newPassword, setNewPassword] = useState({ value: '', resultCode: true, message: '' })
 
-  const bg = true ? 'color-primary-500' : 'color-primary-200'
+  const [secureTextEntry, setSecureTextEntry] = useState({ password: true, confirmPassword: true })
+  const [checkChangeValue, setCheckChangeValue] = useState(false)
+
+  const nameIconRightPassword = !secureTextEntry.password ? 'eye-off-outline' : 'eye-outline'
+  const nameIconRightConfirmPassword = !secureTextEntry.confirmPassword
+    ? 'eye-off-outline'
+    : 'eye-outline'
+
+  const bg = checkChangeValue ? 'color-primary-500' : 'color-primary-400'
+
+  const onPress = () => {
+    if (checkChangeValue) {
+      handleUpdate(
+        name,
+        setName,
+        password,
+        setPassword,
+        newPassword,
+        setNewPassword,
+        props.navigation,
+      )
+    }
+  }
 
   return (
-    <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
+    <Box flex={1} paddingTop={5} backgroundColor="white">
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} showsVerticalScrollIndicator={false}>
-        <Header title={'Chỉnh sửa thông tin cá nhân'} navigation={props.navigation} />
+        <Box paddingHorizontal={8}>
+          <Header title={'Chỉnh sửa thông tin cá nhân'} navigation={props.navigation} />
+        </Box>
 
-        <Box width={width - 64} pt={4}>
+        <Box width={width} paddingHorizontal={4} pt={4}>
           <IconTextInput
             iconLeft={
               <Icon
@@ -42,11 +61,19 @@ export default function EditProfileScreen(props) {
             title="Họ và tên"
             placeholder="Nhập tên của bạn"
             value={name.value}
-            onChangeText={(value) => setName({ ...name, value })}
+            onChangeText={(value) => {
+              setName({ ...name, value })
+              setCheckChangeValue(true)
+            }}
           />
+          {!name.resultCode && (
+            <Text variant="s1" color="color-danger-500">
+              {name.message}
+            </Text>
+          )}
         </Box>
 
-        <Box width={width - 64}>
+        <Box width={width} paddingHorizontal={4}>
           <IconTextInput
             iconLeft={
               <Icon
@@ -56,14 +83,13 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
+            editable={false}
             title="Email"
-            placeholder="Nhập email"
-            value={email.value}
-            onChangeText={(value) => setEmail({ ...email, value })}
+            value={user.email}
           />
         </Box>
 
-        <Box width={width - 64}>
+        <Box width={width} paddingHorizontal={4}>
           <IconTextInput
             iconLeft={
               <Icon
@@ -73,14 +99,31 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
+            iconRight={
+              <Icon
+                name={nameIconRightPassword}
+                width={size}
+                height={size}
+                fill={colors['color-gray-500']}
+                onPress={() =>
+                  setSecureTextEntry({ ...secureTextEntry, password: !secureTextEntry.password })
+                }
+              />
+            }
+            secureTextEntry={secureTextEntry.password}
             title="Mật khẩu cũ"
             placeholder="Nhập mật khẩu cũ"
             value={password.value}
             onChangeText={(value) => setPassword({ ...password, value })}
           />
+          {!password.resultCode && (
+            <Text variant="s1" color="color-danger-500">
+              {password.message}
+            </Text>
+          )}
         </Box>
 
-        <Box width={width - 64}>
+        <Box width={width} paddingHorizontal={4}>
           <IconTextInput
             iconLeft={
               <Icon
@@ -90,39 +133,39 @@ export default function EditProfileScreen(props) {
                 fill={colors['color-gray-500']}
               />
             }
-            title="Mật khẩu mới"
-            placeholder="Nhập mật khẩu mới"
-            value={phoneNumber.value}
-            onChangeText={(value) => setPhoneNumber({ ...phoneNumber, value })}
-          />
-        </Box>
-
-        <Box width={width - 64}>
-          <IconTextInput
-            iconLeft={
+            iconRight={
               <Icon
-                name="phone-outline"
+                name={nameIconRightConfirmPassword}
                 width={size}
                 height={size}
                 fill={colors['color-gray-500']}
+                onPress={() =>
+                  setSecureTextEntry({
+                    ...secureTextEntry,
+                    confirmPassword: !secureTextEntry.confirmPassword,
+                  })
+                }
               />
             }
-            title="Số điện thoại"
-            placeholder="Nhập số điện thoại"
-            value={phoneNumber.value}
-            onChangeText={(value) => setPhoneNumber({ ...phoneNumber, value })}
+            secureTextEntry={secureTextEntry.confirmPassword}
+            title="Mật khẩu mới"
+            placeholder="Nhập mật khẩu mới"
+            value={newPassword.value}
+            onChangeText={(value) => {
+              setNewPassword({ ...newPassword, value })
+              setCheckChangeValue(true)
+            }}
           />
+          {!newPassword.resultCode && (
+            <Text variant="s1" color="color-danger-500">
+              {newPassword.message}
+            </Text>
+          )}
         </Box>
 
-        <Box
-          flex={1}
-          flexDirection="row"
-          paddingVertical={11}
-          justifyContent="center"
-          alignItems="flex-end"
-        >
-          <Button bg={bg} borderRadius={1}>
-            <Text color="white" variant="p" paddingHorizontal={6} paddingVertical={3}>
+        <Box flex={1} flexDirection="row" justifyContent="center" alignItems="center">
+          <Button bg={bg} borderRadius={1} onPress={onPress}>
+            <Text color="white" variant="p" paddingHorizontal={9} paddingVertical={3}>
               Hoàn thành
             </Text>
           </Button>

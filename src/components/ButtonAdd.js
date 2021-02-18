@@ -28,7 +28,7 @@ export default function ButtonAdd({ onPressCreate }) {
         buttonColor={colors['color-info-500']}
         onPress={() => {}}
       >
-        <OpenURLButton url={`http://x.me/100004167723749/`}>
+        <OpenURLButton url={`fb-messenger://user-thread/${103622931234433}`}>
           <Icon name="message-circle-outline" width={24} height={24} fill="#fff" />
         </OpenURLButton>
       </ActionButton.Item>

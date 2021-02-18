@@ -18,7 +18,7 @@ export default function LoginScreen(props) {
   const [fetching, setFetching] = useState(false)
   const [secureTextEntry, setSecureTextEntry] = useState(true)
 
-  let nameIconRight = !secureTextEntry ? 'eye-off-outline' : 'eye-outline'
+  const nameIconRight = !secureTextEntry ? 'eye-off-outline' : 'eye-outline'
 
   const onPress = () => {
     setFetching(true)

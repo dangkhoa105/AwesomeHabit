@@ -4,7 +4,7 @@ import { TextInput } from 'react-native-gesture-handler'
 import { Box, Text, Button } from '../../components'
 import { colors } from '../../theme/color'
 import { alert, objectIsNull } from '../../components/Function'
-import { checkConditionUpdateHabit } from './Function'
+import { checkConditionUpdateHabit, notificationHabit } from './Function'
 import moment from 'moment'
 import ColorPicker from './Custom/ColorPicker/ColorPicker'
 import Header from './Custom/Header/Header'
@@ -51,6 +51,8 @@ export default function DetailHabitScreen(props) {
       months,
       times,
     })
+
+    notificationHabit(times, days, select.title, habit.habitType, habit.startDate)
   }
 
   const bg = checkConditionUpdateHabit(

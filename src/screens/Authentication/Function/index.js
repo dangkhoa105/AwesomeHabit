@@ -1,5 +1,53 @@
 import auth from '@react-native-firebase/auth'
+import database from '@react-native-firebase/database'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const recommendations = {
+  '-MRk01rc-44LiJdftyQm': {
+    days: 'Saturday',
+    habitType: 'Once',
+    iconFill: 'color-info-700',
+    iconName: 'checkmark-square-outline',
+    months: '',
+    startDate: 'Sat Jan 23 2021 23:12:53 GMT+0700 (+07)',
+    times: ['Sun Jan 24 2021 00:02:02 GMT+0700 (+07)'],
+    title: 'Bơi lội',
+    weeks: '',
+  },
+  '-MRk5-qYtYESdcAINl97': {
+    days: ['Monday', 'Tuesday', 'Wednesday'],
+    habitType: 'Daily',
+    iconFill: 'color-danger-600',
+    iconName: 'award-outline',
+    months: '',
+    startDate: 'Sat Jan 23 2021 09:56:36 GMT+0700 (+07)',
+    times: ['Sat Jan 23 2021 09:59:36 GMT+0700 (+07)'],
+    title: 'Eat clean',
+    weeks: '',
+  },
+  '-MRkZ2SrUmSDsyI9p57j': {
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    habitType: 'Weekly',
+    iconFill: 'color-danger-600',
+    iconName: 'alert-circle-outline',
+    months: '',
+    startDate: 'Sun Jan 24 2021 23:44:51 GMT+0700 (+07)',
+    times: ['Sun Jan 24 2021 01:45:49 GMT+0700 (+07)'],
+    title: 'Thanh nhạc',
+    weeks: 2,
+  },
+  '-MRuBfKc8I9o13qXv34A': {
+    days: 'Monday',
+    habitType: 'Once',
+    iconFill: 'color-danger-200',
+    iconName: 'arrow-circle-up-outline',
+    months: '',
+    startDate: 'Mon Jan 25 2021 22:38:56 GMT+0700 (+07)',
+    times: ['Mon Jan 25 2021 22:39:48 GMT+0700 (+07)'],
+    title: 'Chơi game',
+    weeks: '',
+  },
+}
 // Login
 export const handleLogin = async (
   email,
@@ -31,6 +79,7 @@ export const handleLogin = async (
     await auth()
       .signInWithEmailAndPassword(email.value, password.value)
       .then(() => {
+        AsyncStorage.setItem('@password_key', password.value)
         navigation.navigate('Tab')
       })
       .catch((error) => {
@@ -123,6 +172,11 @@ export const handleSignup = async (
           userCredentials.user.updateProfile({
             displayName: name.value,
           })
+          setName({ ...name, value: '' })
+          setEmail({ ...email, value: '' })
+          setPassword({ ...password, value: '' })
+          setConfirmPassword({ ...confirmPassword, value: '' })
+          database().ref(`/users/${userCredentials.user.uid}/recommendations`).set(recommendations)
           navigation.navigate('LoginContainer')
         })
         .catch((error) => {

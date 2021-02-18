@@ -52,30 +52,15 @@ export default function WelcomeScreen({ navigation }) {
         </Box>
 
         <Box flex={2} justifyContent="center" alignItems="center">
-          <Box>
-            <ButtonCustom
-              iconLeft={
-                <Icon name="facebook" width={size} height={size} fill={colors['color-gray-700']} />
-              }
-              title="Đăng nhập bằng Facebook"
-              textColor="color-gray-700"
-              onPress={() => Alert.alert('Thông báo', 'Chức năng đang được phát triển')}
-            />
-
-            <ButtonCustom
-              iconLeft={
-                <Icon name="google" width={size} height={size} fill={colors['color-gray-700']} />
-              }
-              title="Đăng nhập bằng Google"
-              textColor="color-gray-700"
-              containerStyles={styles.btn}
-              onPress={() => Alert.alert('Thông báo', 'Chức năng đang được phát triển')}
-            />
-          </Box>
+          <ButtonCustom
+            title="Đăng nhập bằng tài khoản Email"
+            textColor="color-gray-700"
+            onPress={handleUserUsedToLogin}
+          />
 
           {/* Sign Up Button */}
           <ButtonCustom
-            title="Đăng kí tài khoản Email"
+            title="Đăng ký tài khoản Email"
             bg="color-primary-500"
             textColor="white"
             containerStyles={styles.btnSignUp}
@@ -85,13 +70,11 @@ export default function WelcomeScreen({ navigation }) {
           {/* Login Text */}
           <Box flexDirection="row">
             <Text variant="s1" color="color-gray-500">
-              Bạn đã có tài khoản?{' '}
+              Phát triển bởi{' '}
             </Text>
-            <Button onPress={handleUserUsedToLogin}>
-              <Text variant="s1" fontWeight="bold" color="color-primary-500">
-                Đăng nhập ngay
-              </Text>
-            </Button>
+            <Text variant="s1" fontWeight="bold" color="color-primary-500">
+              @awesomehabit
+            </Text>
           </Box>
         </Box>
       </Box>
@@ -111,6 +94,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   btnSignUp: {
-    marginVertical: 32,
+    marginTop: 16,
+    marginBottom: 32,
   },
 })

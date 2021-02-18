@@ -39,6 +39,7 @@ export default function RecommendList(props) {
         index={index}
         idCategory={props.idCategory}
         createHabitAction={(data) => props.createHabitAction(data)}
+        dataCreateHabit={props.dataCreateHabit}
       />
     </Swiper>
   )
