@@ -9,6 +9,7 @@ export default function DateButton({
   indexSelect,
   setIndexSelected,
   getDaySelect,
+  getIndexToday,
 }) {
   const curDate = moment().utc().format('DD')
   const curMonth = moment().utc().format('MM')
@@ -19,6 +20,7 @@ export default function DateButton({
     let stylesItemDay = ''
 
     if (curDate === date && curMonth === month) {
+      getIndexToday(index)
       stylesWrap = styles.wrapItemCurDate
       stylesItemDate = styles.txtItemDateCurDate
       stylesItemDay = styles.txtItemDayCurDate
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8F1F4',
     paddingVertical: 16,
     marginHorizontal: 8,
-    marginVertical: 24,
+    marginVertical: 16,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#9F7EFF',
     paddingVertical: 16,
     marginHorizontal: 8,
-    marginVertical: 24,
+    marginVertical: 16,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F1ECFF',
     paddingVertical: 16,
     marginHorizontal: 8,
-    marginVertical: 24,
+    marginVertical: 16,
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
