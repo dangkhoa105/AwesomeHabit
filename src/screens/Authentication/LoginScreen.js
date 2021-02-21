@@ -106,11 +106,11 @@ export default function LoginScreen(props) {
         {/* Sign up Text */}
         <Box flexDirection="row">
           <Text variant="s1" color="color-gray-500">
-            Bạn không có tài khoản?{' '}
+            Bạn đã quên mật khẩu?{' '}
           </Text>
-          <Button onPress={() => props.navigation.navigate('SignupContainer')}>
+          <Button onPress={() => props.navigation.navigate('ForgetPasswordContainer')}>
             <Text variant="s1" fontWeight="bold" color="color-primary-500">
-              Đăng ký ngay
+              Quên mật khẩu
             </Text>
           </Button>
         </Box>

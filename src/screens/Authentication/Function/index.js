@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth'
 import database from '@react-native-firebase/database'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { alert } from '../../../components/Function'
 
 const recommendations = {
   '-MRk01rc-44LiJdftyQm': {
@@ -244,4 +245,31 @@ export const handleSignup = async (
     resultCode: resultCode.confirmPassword,
     message: message.confirmPassword,
   })
+}
+
+// Reset password
+export const handleResetPassword = async (email, setEmail, navigation) => {
+  const resultCode = { email: true }
+  const message = { email: '' }
+
+  auth()
+    .sendPasswordResetEmail(email.value)
+    .then(function (user) {
+      alert('Vui lòng check email của bạn!', navigation.navigate('LoginContainer'))
+    })
+    .catch(function (e) {
+      switch (e.code) {
+        case 'auth/invalid-email':
+          resultCode.email = false
+          message.email = 'Email sai cú pháp!'
+          break
+        case 'auth/user-not-found':
+          resultCode.email = false
+          message.email = 'Không tìm thấy email!'
+          break
+      }
+      setEmail({ ...email, resultCode: resultCode.email, message: message.email })
+    })
+
+  setEmail({ ...email, resultCode: resultCode.email, message: message.email })
 }

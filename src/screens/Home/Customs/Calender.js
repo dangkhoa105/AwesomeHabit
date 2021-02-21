@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { countDaysInYear } from '../Function'
 import { objectIsNull } from '../../../components/Function'
@@ -34,6 +34,7 @@ export default function Calender({ getHabitsAction, getDaySelect }) {
       })
     }
   }
+
   return (
     <View>
       <TouchableOpacity style={styles.buttonToday} onPress={onPress}>

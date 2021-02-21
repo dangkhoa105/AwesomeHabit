@@ -16,6 +16,7 @@ import AboutContainer from './About/AboutContainer'
 import WelcomeScreen from '../screens/Authentication/WelcomeScreen'
 import LoginContainer from './Authentication/LoginContainer'
 import SignupContainer from './Authentication/SignupContainer'
+import ForgetPasswordContainer from './Authentication/ForgetPasswordContainer'
 import CategoriesContainer from './Habit/CategoriesContainer'
 import HabitsContainer from './Habit/HabitsContainer'
 import CreateNewHabitContainer from './Habit/CreateNewHabitContainer'
@@ -71,7 +72,7 @@ export default function App() {
   React.useEffect(() => {
     AppState.addEventListener('change', (nextAppState) => {
       if (nextAppState === 'active') {
-        getNotification(new Date(Date.now() + 500))
+        getNotification(new Date(Date.now() + 1000))
       }
     })
   }, [])
@@ -88,6 +89,7 @@ export default function App() {
           <Stack.Screen name="WelcomeContainer" component={WelcomeScreen} />
           <Stack.Screen name="LoginContainer" component={LoginContainer} />
           <Stack.Screen name="SignupContainer" component={SignupContainer} />
+          <Stack.Screen name="ForgetPasswordContainer" component={ForgetPasswordContainer} />
           <Stack.Screen name="CategoriesContainer" component={CategoriesContainer} />
           <Stack.Screen name="HabitsContainer" component={HabitsContainer} />
           <Stack.Screen name="CreateNewHabitContainer" component={CreateNewHabitContainer} />

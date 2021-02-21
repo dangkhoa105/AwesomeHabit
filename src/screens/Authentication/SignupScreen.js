@@ -3,10 +3,10 @@ import { SafeAreaView, ScrollView, Dimensions, StyleSheet } from 'react-native'
 import { colors } from '../../theme/color'
 import { Box, Text, Button } from '../../components'
 import { Icon } from 'react-native-eva-icons'
+import { handleSignup } from './Function'
 import ButtonCustom from './Custom/ButtonCustom'
 import IconTextInput from '../../components/IconTextInput'
 import Loading from '../../components/Loading'
-import { handleSignup } from './Function'
 
 const { width } = Dimensions.get('window')
 
