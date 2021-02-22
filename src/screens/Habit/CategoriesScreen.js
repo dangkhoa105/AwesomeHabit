@@ -35,12 +35,12 @@ export default function CategoriesScreen(props) {
   return (
     <Box flex={1} paddingLeft={8} paddingRight={8} paddingTop={5} backgroundColor="white">
       {/* HEADER */}
-      <Header title="Chọn thể loại" navigation={props.navigation} />
+      <Header title="Chọn danh mục" navigation={props.navigation} />
 
       {/* CONTENT */}
       {/* TITLE */}
       <IconText
-        label="Tạo một thể loại mới"
+        label="Tạo một danh mục mới"
         iconName="edit-outline"
         iconFill={colors['color-primary-500']}
         onPress={() => props.navigation.navigate('CreateNewCategoryContainer')}
@@ -48,7 +48,7 @@ export default function CategoriesScreen(props) {
 
       {/* LIST CATEGORY */}
       {/* TITLE */}
-      <IconText label="Danh sách thể loại:" color="color-gray-400" paddingTop={0} />
+      <IconText label="Danh sách danh mục:" color="color-gray-400" paddingTop={0} />
 
       {/* LIST */}
       {props.fetchingGetCategories ? (

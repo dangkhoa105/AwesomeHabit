@@ -23,12 +23,12 @@ export default function CreateNewCategoryScreen(props) {
 
   return (
     <CreateScreen
-      type="thể loại"
+      type="danh mục"
       navigation={props.navigation}
       getValue={(value) => setValue(value)}
       onPressNext={() => {
         props.createCategoryAction(value)
-        Alert.alert('Thông báo', 'Tạo thể loại thành công')
+        Alert.alert('Thông báo', 'Tạo danh mục thành công')
       }}
     />
   )
